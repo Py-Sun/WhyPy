@@ -49,6 +49,6 @@ public class PostController {
         Post postEntity = postService.savePostData(post);
         System.out.println(postEntity);
         System.setProperty("server.servlet.context-path", "/postList");
-        return "post-list-page";
+        return "redirect:/postList";
     }
 }
