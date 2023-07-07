@@ -1,17 +1,41 @@
 package com.example.whypyprojdect.dto;
 
-import com.example.whypyprojdect.entity.Lecture;
 import lombok.Getter;
-import lombok.Setter;
+
+import java.util.Date;
 
 @Getter
-@Setter
 public class LectureDto {
-    //private String lecture_URL;
-    //private String lecture_photoURL;
+    private int lectureId;
+    private Date viewDate;
+    private String url;
+    private String title;
+    private String thumbnail;
+    private String uploader;
 
-    /*public Lecture toEntity(LectureDto lectureDto) {
-        Lecture lecture = new Lecture(lectureDto.getLecture_URL(), lectureDto.getLecture_photoURL());
-        return lecture;
-    }*/
+    // 생성자, getter, setter 등 필요한 메서드 추가
+
+    public void setLectureId(int lectureId) {
+        this.lectureId = lectureId;
+    }
+
+    public void setViewDate(Date viewDate) {
+        this.viewDate = viewDate != null ? new Date(viewDate.getTime()) : null;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
 }

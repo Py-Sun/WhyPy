@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
+    /*
     @GetMapping("/{str}")
     public String User(@PathVariable String str) {
         UserDto res = userService.UserServiceMethod(str);
 
         return "hello "+res.getUserStr() ;
     }
+     */
 }

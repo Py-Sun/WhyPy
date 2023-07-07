@@ -1,38 +1,46 @@
 package com.example.whypyprojdect.entity;
 
-
-import com.example.whypyprojdect.dto.LectureDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Getter
-@Table(name = "lecture")
+@Table(name = "Lecture")
 public class Lecture {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lecture_id")
-    private Integer id;
-
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    private int lectureId;
 
     @Column(name = "lecture_viewDate")
-    private LocalDate lectureViewDate;
+    private Date viewDate;
 
     @Column(name = "lecture_URL")
-    private String lectureUrl;
+    private String url;
 
-    @Column(name = "lecture_photoURL")
-    private String lecturePhotoUrl;
+    @Column(name = "lecture_Title")
+    private String title;
 
-    @ElementCollection
-    @CollectionTable(name = "Lecture_URL", joinColumns = @JoinColumn(name = "lecture_id"))
-    @Column(name = "lecture_URL")
-    private List<String> lectureUrlList;
+    @Column(name = "lecture_Thumbnail")
+    private String thumbnail;
+
+    @Column(name = "lecture_Uploader")
+    private String uploader;
+
+    // 생성자, getter, setter 등 필요한 메서드 추가
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
 }

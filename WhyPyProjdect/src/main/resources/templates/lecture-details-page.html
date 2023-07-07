@@ -5,8 +5,31 @@
 </head>
 <body>
 <h1>Lecture Details</h1>
-<h3 th:text="${lecture.lecturePhotoUrl}"></h3>
-<p th:text="${lecture.lectureUrl}"></p>
-<a href="/lecture-list">Go Back to Lecture List</a>
+<table>
+    <tr>
+        <th>Lecture ID</th>
+        <td th:text="${lecture.lectureId}"></td>
+    </tr>
+    <tr>
+        <th>View Date</th>
+        <td th:text="${lecture.viewDate}"></td>
+    </tr>
+    <tr>
+        <th>URL</th>
+        <td th:text="${lecture.url}"></td>
+    </tr>
+    <tr>
+        <th>Title</th>
+        <td th:text="${lecture.title}"></td>
+    </tr>
+    <tr>
+        <th>Thumbnail</th>
+        <td th:text="${lecture.thumbnail}"></td>
+    </tr>
+    <tr>
+        <th>Uploader</th>
+        <td th:text="${lecture.uploader}"></td>
+    </tr>
+</table>
 </body>
 </html>

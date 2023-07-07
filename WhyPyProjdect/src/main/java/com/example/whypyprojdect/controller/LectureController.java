@@ -1,13 +1,13 @@
 package com.example.whypyprojdect.controller;
 
-import com.example.whypyprojdect.entity.Lecture;
+import com.example.whypyprojdect.dto.LectureDto;
 import com.example.whypyprojdect.service.LectureService;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -15,21 +15,22 @@ import java.util.List;
 public class LectureController {
     private final LectureService lectureService;
 
+    @Autowired
     public LectureController(LectureService lectureService) {
         this.lectureService = lectureService;
     }
 
-    @GetMapping("/lecture-list")
-    public String lectureListPage(Model model) {
-        List<Lecture> lectures = lectureService.getAllLectures();
-        model.addAttribute("lectures", lectures);
+    @GetMapping("/lectures")
+    public String getAllLectures(Model model) {
+        List<LectureDto> lectureDtos = lectureService.getAllLectures();
+        model.addAttribute("lectures", lectureDtos);
         return "lecture-list-page";
     }
 
-    @GetMapping("/lectureDetails/{lectureId}")
-    public String lectureDetailsPage(@PathVariable Integer lectureId, Model model) {
-        Lecture lecture = lectureService.getLectureById(lectureId);
-        model.addAttribute("lecture", lecture);
+    @GetMapping("/lectures/{lectureId}")
+    public String getLectureById(@PathVariable int lectureId, Model model) {
+        LectureDto lectureDto = lectureService.getLectureById(lectureId);
+        model.addAttribute("lecture", lectureDto);
         return "lecture-details-page";
     }
 }

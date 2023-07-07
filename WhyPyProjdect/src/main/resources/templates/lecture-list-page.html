@@ -5,12 +5,29 @@
 </head>
 <body>
 <h1>Lecture List</h1>
-<ul>
-    <li th:each="lecture : ${lectures}">
-        <a th:href="@{/lectureDetails/{lectureId}(lectureId=${lecture.id})}">
-            <span th:text="${lecture.lectureUrl}"></span>
-        </a>
-    </li>
-</ul>
+<table>
+    <thead>
+    <tr>
+        <th>Lecture ID</th>
+        <th>View Date</th>
+        <th>URL</th>
+        <th>Title</th>
+        <th>Thumbnail</th>
+        <th>Uploader</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="lecture : ${lectures}">
+        <tr>
+            <td th:text="${lecture.lectureId}"></td>
+            <td th:text="${lecture.viewDate}"></td>
+            <td th:text="${lecture.url}"></td>
+            <td th:text="${lecture.title}"></td>
+            <td th:text="${lecture.thumbnail}"></td>
+            <td th:text="${lecture.uploader}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
 </body>
 </html>
