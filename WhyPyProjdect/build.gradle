@@ -52,3 +52,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+defendencies {
+	compile('javax.servlet:jstl')
+	compile("")
+}
