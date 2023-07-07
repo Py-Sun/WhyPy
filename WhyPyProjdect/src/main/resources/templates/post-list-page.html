@@ -17,11 +17,12 @@
 <body>
 <h1>Post List</h1>
 <div class="post-list">
+    <button onclick="location.href='/createPost'">글 작성하기!</button>
     <th:block th:each="post : ${posts}">
         <div class="post-list-item">
             <div>
-                <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
-                <p th:text="${post.contents}"></p>
+                <p th:text="${post.postId}"></p>
+                <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
             </div>
         </div>
     </th:block>

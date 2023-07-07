@@ -1,9 +1,11 @@
 package com.example.whypyprojdect.entity;
 
+import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Builder
@@ -19,7 +21,7 @@ public class Post {
     private int postId;
 
     @Column(name = "post_date")
-    private Date date;
+    private String date;
 
     @Column(name = "post_title")
     private String title;
@@ -29,6 +31,6 @@ public class Post {
 
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
-        this.date = new Date();
+        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss"));
     }
 }

@@ -1,10 +1,10 @@
 package com.example.whypyprojdect.controller;
 
+import com.example.whypyprojdect.dto.LectureDto;
 import com.example.whypyprojdect.dto.PostDto;
 import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.repository.PostRepository;
+import com.example.whypyprojdect.service.LectureService;
 import com.example.whypyprojdect.service.PostService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,21 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
+    @GetMapping("/postList")
+    public String getAllPosts(Model model) {
+        List<Post> postDtos = postService.getAllPosts();
+        model.addAttribute("posts", postDtos);
+        return "post-list-page";
+    }
+
+    @GetMapping("/post/{postId}")
+    public String getPostById(@PathVariable int postId, Model model) {
+        // 클릭한 날짜로 업데이트
+        Post postDto = postService.getPostById(postId);
+        model.addAttribute("post", postDto);
+        return "post-details-page";
+    }
+
     @GetMapping("/createPost")
     public String posting() {
         return "create-post";
@@ -33,6 +48,7 @@ public class PostController {
         Post post = postDto.toEntity();
         Post postEntity = postService.savePostData(post);
         System.out.println(postEntity);
-        return "home";
+        System.setProperty("server.servlet.context-path", "/postList");
+        return "post-list-page";
     }
 }

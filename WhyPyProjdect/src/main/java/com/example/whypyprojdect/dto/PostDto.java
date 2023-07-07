@@ -3,12 +3,10 @@ package com.example.whypyprojdect.dto;
 import com.example.whypyprojdect.entity.Post;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class PostDto {
     private int postId;
-    private Date date;
+    private String date;
     private String title;
     private String contents;
 
@@ -16,8 +14,8 @@ public class PostDto {
 
     public void setPostId(int postId) {this.postId = postId;}
 
-    public void setDate(Date date) {
-        this.date = date != null ? new Date(date.getTime()) : null;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public void setTitle(String title) {
@@ -26,7 +24,7 @@ public class PostDto {
 
     public void setContents(String contents) {this.contents = contents;}
 
-    public PostDto(String title, String contents, Date date) {
+    public PostDto(String title, String contents, String date) {
         this.title = title;
         this.contents = contents;
         this.date = date;

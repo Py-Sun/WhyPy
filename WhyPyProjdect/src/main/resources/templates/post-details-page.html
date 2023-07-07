@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Post Details</title>
+  <style>
+    table {
+      margin-top: 20px;
+    }
+
+    table th {
+      text-align: right;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<h1>Post Details</h1>
+
+<table>
+  <tr>
+    <th>Post ID</th>
+    <td th:text="${post.postId}"></td>
+  </tr>
+  <tr>
+    <th>Create Date</th>
+    <td th:text="${post.date}"></td>
+  </tr>
+  <tr>
+    <th>Title</th>
+    <td th:text="${post.title}"></td>
+  </tr>
+  <tr>
+    <th>Contents</th>
+    <td th:text="${post.contents}"></td>
+  </tr>
+</table>
+
+</body>
+</html>
