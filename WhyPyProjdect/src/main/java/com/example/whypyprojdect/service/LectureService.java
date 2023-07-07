@@ -9,10 +9,10 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 
-import com.google.api.client.util.Value;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ import com.example.whypyprojdect.exception.NotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,7 +77,7 @@ public class LectureService {
     private void fetchYouTubeData(Lecture lecture) {
         String url = lecture.getUrl();
 
-        // 유튜브 API 호출 및 데이터를 가져오는 로직을 구현합니다.
+        // 유튜브 API 호출 및 데이터 가져오기
         try {
             String videoId = extractVideoId(url);
 
@@ -96,7 +97,7 @@ public class LectureService {
             SearchListResponse searchResponse = searchList.execute();
             List<SearchResult> searchResults = searchResponse.getItems();
 
-            // 검색 결과에서 제목, 썸네일, 업로더 정보 가져오기
+            // 제목, 썸네일, 업로더 정보 가져오기
             if (searchResults != null && searchResults.size() > 0) {
                 SearchResult searchResult = searchResults.get(0);
                 String title = searchResult.getSnippet().getTitle();
@@ -117,7 +118,7 @@ public class LectureService {
         }
     }
 
-    private String extractVideoId(String videoUrl) {
+    public String extractVideoId(String videoUrl) {
         String videoId = "";
 
         if (videoUrl != null && !videoUrl.isEmpty()) {
@@ -134,4 +135,11 @@ public class LectureService {
         return videoId;
     }
 
+    public void updateViewDate(int lectureId, Date viewDate) {
+        Optional<Lecture> lectureOptional = lectureRepository.findById(lectureId);
+        Lecture lecture = lectureOptional.orElseThrow(() -> new NotFoundException("Lecture not found"));
+
+        lecture.setViewDate(viewDate);
+        lectureRepository.save(lecture);
+    }
 }

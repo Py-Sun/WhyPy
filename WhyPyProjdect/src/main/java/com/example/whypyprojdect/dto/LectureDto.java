@@ -12,6 +12,7 @@ public class LectureDto {
     private String title;
     private String thumbnail;
     private String uploader;
+    private String videoId;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -37,5 +38,9 @@ public class LectureDto {
 
     public void setUploader(String uploader) {
         this.uploader = uploader;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 }

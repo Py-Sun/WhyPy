@@ -2,32 +2,32 @@
 <html>
 <head>
     <title>Lecture List</title>
+    <style>
+        .lecture-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+        .lecture-list-item img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
 <h1>Lecture List</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Lecture ID</th>
-        <th>View Date</th>
-        <th>URL</th>
-        <th>Title</th>
-        <th>Thumbnail</th>
-        <th>Uploader</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="lecture-list">
     <th:block th:each="lecture : ${lectures}">
-        <tr>
-            <td th:text="${lecture.lectureId}"></td>
-            <td th:text="${lecture.viewDate}"></td>
-            <td th:text="${lecture.url}"></td>
-            <td th:text="${lecture.title}"></td>
-            <td th:text="${lecture.thumbnail}"></td>
-            <td th:text="${lecture.uploader}"></td>
-        </tr>
+        <div class="lecture-list-item">
+            <div>
+                <img th:src="${lecture.thumbnail}" alt="Thumbnail">
+            </div>
+            <div>
+                <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+                <p th:text="${lecture.uploader}"></p>
+            </div>
+        </div>
     </th:block>
-    </tbody>
-</table>
+</div>
 </body>
 </html>

@@ -43,4 +43,7 @@ public class Lecture {
         this.uploader = uploader;
     }
 
+    public void setViewDate(Date viewDate) {
+        this.viewDate = viewDate;
+    }
 }
