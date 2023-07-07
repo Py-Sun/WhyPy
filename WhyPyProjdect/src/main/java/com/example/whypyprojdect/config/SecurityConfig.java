@@ -1,4 +1,10 @@
 package com.example.whypyprojdect.config;
 
-public class SecurityConfig {
+import lombok.extern.java.Log;
+
+@Log
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
 }
