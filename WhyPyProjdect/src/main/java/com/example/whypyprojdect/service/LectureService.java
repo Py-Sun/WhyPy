@@ -28,9 +28,6 @@ import java.util.Optional;
 public class LectureService {
     private final LectureRepository lectureRepository;
 
-    @Value("${myapp.youtube.apikey}")
-    private String youtubeApiKey;
-
     @Autowired
     public LectureService(LectureRepository lectureRepository) {
         this.lectureRepository = lectureRepository;
@@ -92,7 +89,7 @@ public class LectureService {
 
             // 동영상 검색
             YouTube.Search.List searchList = youtube.search().list("snippet");
-            searchList.setKey(youtubeApiKey);
+            searchList.setKey("AIzaSyCapIbMXCT6-UUnwBA3Zjm2_poxrCaQ1yU"); // YouTube API 키
             searchList.setQ(videoId);
             searchList.setType("video");
             searchList.setMaxResults(1L);
