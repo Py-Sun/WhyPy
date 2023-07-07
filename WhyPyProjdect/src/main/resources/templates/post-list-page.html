@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post List</title>
+    <style>
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+        }
+        .post-list-item img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Post List</h1>
+<div class="post-list">
+    <th:block th:each="post : ${posts}">
+        <div class="post-list-item">
+            <div>
+                <a th:href="@{/posts/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
+                <p th:text="${post.contents}"></p>
+            </div>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>
