@@ -16,6 +16,11 @@
 <body>
 <h1>Post Details</h1>
 
+<button onclick="location.href='/updatePost'">글 수정하기!</button>
+<button onclick="deletePost()">글 삭제하기!
+  <input type=hidden id="postId" th:value="${post.postId}">
+</button>
+
 <table>
   <tr>
     <th>Post ID</th>
@@ -37,3 +42,13 @@
 
 </body>
 </html>
+
+<script>
+  function deletePost(){
+    let id=document.getElementById('postId').value;
+    let isDelete=confirm("정말 삭제하시겠습니까?");
+    if(isDelete){
+      window.location.href="/post/"+id+"/deletePost";
+    }
+  }
+</script>

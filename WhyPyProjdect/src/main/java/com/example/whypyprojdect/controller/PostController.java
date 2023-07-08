@@ -32,7 +32,6 @@ public class PostController {
 
     @GetMapping("/post/{postId}")
     public String getPostById(@PathVariable int postId, Model model) {
-        // 클릭한 날짜로 업데이트
         Post postDto = postService.getPostById(postId);
         model.addAttribute("post", postDto);
         return "post-details-page";
@@ -49,6 +48,14 @@ public class PostController {
         Post postEntity = postService.savePostData(post);
         System.out.println(postEntity);
         System.setProperty("server.servlet.context-path", "/postList");
+        return "redirect:/postList";
+    }
+
+    @GetMapping("/post/{postId}/deletePost")
+    public String deletePostById(@PathVariable int postId) {
+        //Post postDto = postService.getPostById(postId);
+        System.out.println(postId);
+        postService.deletePostData(postId);
         return "redirect:/postList";
     }
 }

@@ -27,4 +27,7 @@ public class PostService {
         return postEntity;
     }
 
+    public void deletePostData(Integer postId) {
+        postRepository.deleteById(postId);
+    }
 }
