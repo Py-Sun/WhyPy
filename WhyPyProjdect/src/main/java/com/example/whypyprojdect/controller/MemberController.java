@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
-    //생성자 주입. 자동적으로 서비스 클래스의 객체를 주입을 받는다. 메소드등을 사용할 수 있게 됨
+    //@@@--생성자 주입. 자동적으로 서비스 클래스의 객체를 주입을 받는다. 메소드등을 사용할 수 있게 됨
     private final MemberService memberService;
-    //회원가입 페이지 출력 요청
 
+    //회원가입 페이지 출력 요청
     @GetMapping("/member/save")
     public String saveForm() {
         return "Save";
@@ -29,7 +29,7 @@ public class MemberController {
 
         /* MemberService memberService=new MemberService(); //memberservice 객체 생성
         memberService.save(); //memberservice가 가진 메소드 호출
-        >> 생성자 주입 방식으로 변경하여 이 코드 삭제*/
+        >> @@@--생성자 주입 방식으로 변경하여 이 코드 삭제*/
 
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
 
