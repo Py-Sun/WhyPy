@@ -15,11 +15,12 @@ public class MemberController {
         return "Save";
     }
 
-    @PostMapping("/member/save")  //이메일 입력받은 값 저장
-    public String save(@RequestParam("memberEmail") String memberEmail) {
-        System.out.println("MemberController.save");
-        System.out.println("memberEmail = " + memberEmail); //매개변수 생성
-        return "index";
-    }
-
+    @PostMapping("/member/save")  //입력받은 값 저장
+    public String save(@RequestParam("memberEmail") String memberEmail,
+                       @RequestParam("memberPassword") String memberPassword,
+                       @RequestParam("memberName") String memberName) {
+            System.out.println("MemberController.save");
+            System.out.println("memberEmail = " + memberEmail); //매개변수 생성
+            return "home";
+        }
 }
