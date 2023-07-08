@@ -66,9 +66,7 @@ public class PostController {
 
     @PostMapping("/post/{postId}/updatePost")
     public String updatePostById(@PathVariable int postId, @RequestParam String title, @RequestParam String contents) {
-        Post postDto = postService.getPostById(postId);
         postService.updatePostData(postId, title, contents);
-        //수정일시 update 필요
         return "redirect:/postList";
     }
 }
