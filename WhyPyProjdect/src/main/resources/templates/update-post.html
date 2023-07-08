@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Posting</title>
+</head>
+<body>
+<form input type = "submit" method="POST">
+  <div>
+    제목 : <input name = "title" type = "text" th:value ="${post.title}">
+  </div>
+  <div>
+    내용 : <input name = "contents" type="text" th:value ="${post.contents}">
+  </div>
+  <button>수정하기</button>
+</form>
+</body>
+</html>

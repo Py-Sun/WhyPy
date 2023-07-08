@@ -6,7 +6,8 @@ import lombok.Data;
 @Data
 public class PostDto {
     private int postId;
-    private String date;
+    private String createDate;
+    private String updateDate;
     private String title;
     private String contents;
 
@@ -14,9 +15,11 @@ public class PostDto {
 
     public void setPostId(int postId) {this.postId = postId;}
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
+
+    public void setUpdateDate(String updateDate) {this.updateDate = updateDate; }
 
     public void setTitle(String title) {
         this.title = title;
@@ -24,10 +27,11 @@ public class PostDto {
 
     public void setContents(String contents) {this.contents = contents;}
 
-    public PostDto(String title, String contents, String date) {
+    public PostDto(String title, String contents, String createDate, String updateDate) {
         this.title = title;
         this.contents = contents;
-        this.date = date;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
     }
 
     public Post toEntity() {
@@ -35,7 +39,8 @@ public class PostDto {
                 .postId(postId)
                 .title(title)
                 .contents(contents)
-                .date(date)
+                .createDate(createDate)
+                .updateDate(updateDate)
                 .build();
     }
 }

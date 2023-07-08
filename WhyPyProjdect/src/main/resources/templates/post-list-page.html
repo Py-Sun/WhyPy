@@ -21,7 +21,7 @@
     <th:block th:each="post : ${posts}">
         <div class="post-list-item">
             <div>
-                <p th:text="${post.postId}"></p>
+                <p th:text="'# '+${post.postId}"></p>
                 <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
             </div>
         </div>
