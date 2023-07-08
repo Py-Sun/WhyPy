@@ -31,6 +31,6 @@ public class Post {
 
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
-        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss"));
+        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }
