@@ -2,6 +2,7 @@ package com.example.whypyprojdect.entity;
 
 //해당 파일은 데이터베이스의 테이블을 자바 객체처럼 활용할 수 있게 해줌
 
+import com.example.whypyprojdect.dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,13 @@ public class MemberEntity {
 
     @Column
     private String memberName;
+
+    public static MemberEntity toMemberEntity(MemberDto memberDto) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setMemberEmail(memberDto.getMemberEmail());
+        memberEntity.setMemberPassword(memberDto.getMemberPassword());
+        memberEntity.setMemberName(memberDto.getMemberName());
+        //dto에 담긴 것을 entity로 넘김(변환)
+        return memberEntity;
+    }
 }
