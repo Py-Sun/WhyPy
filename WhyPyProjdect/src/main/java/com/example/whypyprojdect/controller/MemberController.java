@@ -20,7 +20,7 @@ public class MemberController {
     //회원가입 페이지 출력 요청
     @GetMapping("/member/save")
     public String saveForm() {
-        return "Save";
+        return "save";
     }
 
     @PostMapping("/member/save")  //입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
@@ -28,7 +28,7 @@ public class MemberController {
         System.out.println("MemberController.save");
         System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
-        return "login";
+        return "home";
     }
 
     @GetMapping("/member/login")
