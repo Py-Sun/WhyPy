@@ -21,8 +21,9 @@ public class MemberService {
     }
 
     public MemberDto login(MemberDto memberDto) {
-        /*회원이 입력한 아이디로 db에서 조회를 함
-        db에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
+        /*
+          1.회원이 입력한 아이디로 db에서 조회를 함
+          2.db에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
          */
         Optional<MemberEntity> byMemberName = memberRepository.findByMemberName(memberDto.getMemberName());
         if (byMemberName.isPresent()) {
@@ -40,8 +41,6 @@ public class MemberService {
         } else {
             //조회 결과가 없다(해당 이메일을 가진 회원이 없다)
             return null;
-
         }
-
     }
 }
