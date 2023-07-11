@@ -35,7 +35,7 @@ public class MemberController {
         return "login";
     }
 
-    @PostMapping("member/login")
+    @PostMapping("/member/login")
     public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
         MemberDto loginResult = memberService.login(memberDto);
         if (loginResult != null) {
@@ -48,11 +48,22 @@ public class MemberController {
         }
     }
 
-    @RequestMapping("/member/MyPage")
+    @RequestMapping("member/member.MyPage")
     public String showMyPage() {
         return "MyPage";
     }
+
+    @GetMapping("member/member.LikeIt")
+    public String showLikeIt() {
+        return "LikeIt";
+    }
+
+    @GetMapping("/member/member.memberModify")
+    public String showmemberModify() {
+        return "memberModify";
+    }
 }
+
 
     /* (정리 전 코드_의미 파악 위해 놔둠)
     public String save(@RequestParam("memberEmail") String memberEmail,
