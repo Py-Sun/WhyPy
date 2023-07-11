@@ -16,7 +16,7 @@ public class MemberEntity {
 
     @Id //pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment 지정
-    @Column(name="idx")
+    @Column(name="id")
     private Long id;
 
     @Column(unique = true) // unique 제약 조건 추가

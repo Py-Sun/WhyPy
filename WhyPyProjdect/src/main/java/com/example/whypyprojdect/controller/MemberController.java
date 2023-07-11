@@ -2,6 +2,7 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.stereotype.Controller;
@@ -25,16 +26,30 @@ public class MemberController {
     @PostMapping("/member/save")  //입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
     public String save(@ModelAttribute MemberDto memberDto) {
         System.out.println("MemberController.save");
-        System.out.println("memberDto = " +memberDto);
-
-        /* MemberService memberService=new MemberService(); //memberservice 객체 생성
-        memberService.save(); //memberservice가 가진 메소드 호출
-        >> @@@--생성자 주입 방식으로 변경하여 이 코드 삭제*/
-
+        System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
-
-        return "home";
+        return "login";
     }
+
+    @GetMapping("/member/login")
+    public String loginForm() {
+        return "login";
+    }
+
+    @PostMapping("member/login")
+    public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
+        MemberDto loginResult = memberService.login(memberDto);
+        if (loginResult != null) {
+            //login 성공
+            session.setAttribute("loginName", loginResult.getMemberName());
+            return "main";
+        } else {
+            //login 실패
+            return "login";
+        }
+    }
+}
+
     /* (정리 전 코드_의미 파악 위해 놔둠)
     public String save(@RequestParam("memberEmail") String memberEmail,
                        @RequestParam("memberPassword") String memberPassword,
@@ -44,5 +59,3 @@ public class MemberController {
             return "home";
         }
         */
-
-}
