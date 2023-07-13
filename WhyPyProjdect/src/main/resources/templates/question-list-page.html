@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <script>
+        function filterQuestions() {
+            // 체크박스와 선택된 값 가져오기
+            var isSolvedCheckbox = document.getElementById("isSolvedCheckbox");
+            var categorySelect = document.getElementById("categorySelect");
+            var levelSelect = document.getElementById("levelSelect");
+
+            var isSolved = "isSolved=" + isSolvedCheckbox.checked;
+            var category =  "&category=" + categorySelect.value;
+            var level = "&level=" + levelSelect.value;
+
+            // 값이 -1인 경우 모든 값을 선택하도록 처리
+            if (category === "-1") {
+                category = "";
+            }
+            if (level === "-1") {
+                level = "";
+            }
+
+            // URL 생성
+            var url = "/questionList/filtered?" + isSolved + category + level;
+
+            // 페이지 이동
+            window.location.href = url;
+        }
+    </script>
+</head>
+<body>
+<h1>Question List</h1>
+
+<p>Solved Count: <span th:text="${solvedCount}"></span></p>
+
+<form>
+    <label for="isSolvedCheckbox">
+        <input type="checkbox" id="isSolvedCheckbox" name="isSolved" value="true"/> Is Solved
+    </label>
+    <br>
+    <label for="categorySelect">
+        Category:
+        <select id="categorySelect" name="category">
+            <option value="">All</option>
+            <option value="1">Category 1</option>
+            <option value="2">Category 2</option>
+        </select>
+    </label>
+    <br>
+    <label for="levelSelect">
+        Level:
+        <select id="levelSelect" name="level">
+            <option value="">All</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+        </select>
+    </label>
+    <br>
+    <input type="button" value="Filter" onclick="filterQuestions()">
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Title</th>
+        <th>Level</th>
+        <th>Is Solved</th>
+        <th>User ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.category}"></td>
+        <td th:text="${question.title}"></td>
+        <td th:text="${question.level}"></td>
+        <td th:text="${question.solved}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
