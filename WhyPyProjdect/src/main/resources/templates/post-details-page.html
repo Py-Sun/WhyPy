@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" type="text/css" href="/css/prism.css">
   <title>Post Details</title>
-  <style>
-    table {
-      margin-top: 20px;
-    }
-
-    table th {
-      text-align: right;
-      padding-right: 10px;
-    }
-  </style>
 </head>
 <body>
 <h1>Post Details</h1>
@@ -45,9 +36,28 @@
     <td th:text="${post.contents}" id="contents"></td>
   </tr>
 </table>
+<pre><code class="language-python">
+function sum(a, b):
+    return a + b
+</code></pre>
 
+<pre>
+<code class="language-css">body{background-color:#95afc9;}</code>
+</pre>
+<script type="text/javascript" src="/js/prism.js"></script>
 </body>
 </html>
+
+<style>
+  table {
+    margin-top: 20px;
+  }
+
+  table th {
+    text-align: right;
+    padding-right: 10px;
+  }
+</style>
 
 <script>
   // window.onload = function() {
@@ -57,7 +67,7 @@
   //     //console.log(content.textContent);
   //     //content.textContent="onload";
   // };
-
+  Prism.highlightAll();
   document.addEventListener("DOMContentLoaded", function() {
     let contentsElement = document.getElementById("contents");
     let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
