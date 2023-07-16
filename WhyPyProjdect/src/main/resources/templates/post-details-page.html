@@ -36,14 +36,6 @@
     <td th:text="${post.contents}" id="contents"></td>
   </tr>
 </table>
-<pre><code class="language-python">
-function sum(a, b):
-    return a + b
-</code></pre>
-
-<pre>
-<code class="language-css">body{background-color:#95afc9;}</code>
-</pre>
 <script type="text/javascript" src="/js/prism.js"></script>
 </body>
 </html>
@@ -67,11 +59,12 @@ function sum(a, b):
   //     //console.log(content.textContent);
   //     //content.textContent="onload";
   // };
-  Prism.highlightAll();
   document.addEventListener("DOMContentLoaded", function() {
     let contentsElement = document.getElementById("contents");
     let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    contentsElement.innerHTML = boldText;
+    let codeText = boldText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
+    contentsElement.innerHTML = codeText;
+    Prism.highlightAll();
   });
 
   function deletePost(){
