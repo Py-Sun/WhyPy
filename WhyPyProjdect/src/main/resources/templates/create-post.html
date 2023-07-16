@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="/js/create-post.js"></script>
     <title>Posting</title>
 </head>
 <body>
+<button type="button" onclick="bold()" id="boldBtn" style="background-color: lightgrey;">Bold</button>
 <form input type = "submit" method="POST">
   <div>
     제목 : <input name = "title" type = "text">
   </div>
   <div>
-    내용 : <input name = "contents" type="text">
+    내용 : <input name = "contents" id = "contents" type="text" style="height:300px;">
   </div>
   <button>업로드</button>
 </form>
