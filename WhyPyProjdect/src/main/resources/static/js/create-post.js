@@ -1,6 +1,15 @@
 boldCnt = 0;
 codeCnt = 0;
 
+document.addEventListener("DOMContentLoaded", function() {
+    const contentsElement = document.getElementById("contents");
+    contentsElement.addEventListener("input", function() {
+        const boldText = this.value.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold;">$1</span>');
+        this.innerHTML = boldText;
+        console.log(contentsElement.innerHTML);
+    });
+});
+
 function bold() {
     boldCnt++;
     let button = document.getElementById('boldBtn');
@@ -26,7 +35,7 @@ function code() {
     let button2 = document.getElementById('codeBtn');
     let contentElement = document.getElementById('contents');
     let contents = document.getElementById('contents').value;
-    if(boldCnt % 2 == 1) {
+    if(codeCnt % 2 == 1) {
         button2.style.backgroundColor = "blue";
         //element.style.fontWeight = "bold";
     }
