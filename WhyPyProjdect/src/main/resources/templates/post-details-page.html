@@ -62,12 +62,14 @@
   document.addEventListener("DOMContentLoaded", function() {
     let contentsElement = document.getElementById("contents");
     let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-    let codeText = boldText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
-    // const replacedText = boldText.replace(/'''(.*?)'''/g, (match, codeBlock) => {
-    //   return "<pre><code class=\"language-css\">${codeBlock.trim()}</code></pre>";
-    // });
-    // contentsElement.innerHTML = replacedText;
-    // console.log(replacedText);
+    let trimText = boldText.replace(/\n/g, "<br>");
+    //let codeText = trimText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
+    let codeText = trimText.replace(/'''(.*?)'''/g, function(match, p1) {
+      p1 = p1.replace(/<br\s*>/g, "\n");
+      return "<pre><code class=\"language-css\">" + p1 + "</code></pre>";
+    });
+
+    console.log(codeText);
     contentsElement.innerHTML = codeText;
     Prism.highlightAll();
   });
