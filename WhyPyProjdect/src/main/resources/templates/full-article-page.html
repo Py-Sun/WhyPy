@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>full article page</title>
+    <link rel="stylesheet" type="text/css" href="/css/full-article-page.css">
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <a href="/" class="logo">logo</a>
+            <div class="tagline">Why?py!</div>
+            <div class="right-area">
+                <a href="#" class="button plus-one">+1</a>
+                <a href="#" class="button my">my</a>
+                <a href="#" class="button list">목록</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <div class="main-menu">
+            <li><a href="#">전체글</a></li>
+            <label class="job" for="job">직종별</label>
+            <input id="job" type="checkbox">
+            <nav id="job_nav">
+                <ul>
+                    <li><a href="#">직종1</a></li>
+                    <li><a href="#">직종2</a></li>
+                    <li><a href="#">직종3</a></li>
+                </ul>
+            </nav>
+            <label class="lan" for="lan">언어별</label>
+            <input id="lan" type="checkbox">
+            <nav id="lan_nav">
+                <ul>
+                    <li><a href="#">언어1</a></li>
+                    <li><a href="#">언어2</a></li>
+                    <li><a href="#">언어3</a></li>
+                </ul>
+            </nav>
+            <li><a href="#">자유게시판</a></li>
+        </div>
+        <div class="main-content">
+            <div class="best-box">
+                <div class="best-title">Best 게시글</div>
+                <div class="box">
+                    <div class="box-left">
+                        <div class="box-item">1. 제목 1</div>
+                        <div class="box-item">2. 제목 2</div>
+                        <div class="box-item">3. 제목 3</div>
+                        <div class="box-item">4. 제목 4</div>
+                        <div class="box-item">5. 제목 5</div>
+                    </div>
+                    <div class="box-right">
+                        <div class="box-item">6. 제목 6</div>
+                        <div class="box-item">7. 제목 7</div>
+                        <div class="box-item">8. 제목 8</div>
+                        <div class="box-item">9. 제목 9</div>
+                        <div class="box-item">10. 제목 10</div>
+                    </div>
+                </div>
+            </div>
+            <div class="al">전체글</div>
+            <div class="write-button">
+                <a href="/createPost">작성하기</a>
+            </div>
+            <div class="all">
+                <table>
+                    <thead>
+                        <th>번호</th>
+                        <th>게시판</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>등록일</th>
+                        <th>추천수</th>
+                    </thead>
+                    <tbody align="center">
+                        <tr th:each="post : ${posts}">
+                            <td th:text="${post.postId}"></td>
+                            <td>직종1</td>
+                            <td>
+                                <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
+                            </td>
+                            <td>닉네임1</td>
+                            <td th:text="${post.createDate}"></td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="search-container">
+        <input type="text" id="search-input">
+        <button type="submit" id="search-button">?</button>
+    </div>
+</body>
+
+</html>

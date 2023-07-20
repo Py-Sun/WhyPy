@@ -27,7 +27,7 @@ public class PostController {
     public String getAllPosts(Model model) {
         List<Post> postDtos = postService.getAllPosts();
         model.addAttribute("posts", postDtos);
-        return "post-list-page";
+        return "full-article-page";
     }
 
     @GetMapping("/post/{postId}")

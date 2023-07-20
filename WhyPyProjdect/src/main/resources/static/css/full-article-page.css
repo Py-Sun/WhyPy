@@ -1,0 +1,250 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    background-color: #E6E6E6;
+    font-family: Arial, sans-serif;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+/* 로고 스타일 */
+.logo {
+    display: inline-block;
+    background-color: #4a88e5;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
+    padding: 20px;
+    margin: 20px;
+}
+
+/* 문구 스타일 */
+.tagline {
+    display: inline-block;
+    color: #000;
+    text-align: center;
+    font-size: 17px;
+}
+
+/* 버튼 스타일 */
+.button {
+    padding: 10px;
+    margin: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button.plus-one {
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    color: #8f53b2;
+    font-size: 30px;
+}
+
+.button.my {
+    background-color: #757575;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.button.list {
+    background-color: #757575;
+    color: #fff;
+}
+
+.left-area {
+    position: relative;
+    float: left;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 오른쪽 영역 스타일 */
+.right-area {
+    float: right;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+/* 토글버튼 */
+
+input#job {
+    display: none;
+}
+
+nav#job_nav {
+    display: none;
+}
+
+input#job:checked+nav#job_nav {
+    display: block;
+}
+
+label.lan {
+    padding: 4px;
+}
+
+input#lan {
+    display: none;
+}
+
+nav#lan_nav {
+    display: none;
+}
+
+input#lan:checked+nav#lan_nav {
+    display: block;
+}
+
+
+
+.main-menu li {
+    list-style-type: none;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+/* 메인 구역 */
+.content-area {
+    display: flex;
+    gap: 32px;
+    padding: 40px 0;
+    padding-bottom: 70px;
+}
+
+/* 사이드바 */
+.main-menu {
+    padding-left: 20px;
+    flex: 1;
+}
+
+/* 메인 */
+.main-content {
+    flex: 8;
+    padding: 0px;
+}
+
+.be {
+    font-size: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.best {
+    flex: 8;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+
+}
+
+.al {
+    font-size: 20px;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+}
+
+.all {
+    flex: 4;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    height: 300px;
+    margin-top: 25px;
+}
+
+/* 박스 스타일 */
+.box {
+    border: 1px solid #a8a7a7;
+    background-color: #a8a7a7;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.box li {
+    background-color: #a8a7a7;
+    padding: 5px;
+}
+
+/* Best 게시글 박스 스타일 */
+.best-box {
+    width: 90%;
+}
+
+/* Best 게시글 제목 스타일 */
+.best-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* 왼쪽 정렬 */
+.box-left {
+    flex: 1;
+}
+
+/* 오른쪽 정렬 */
+.box-right {
+    flex: 1;
+}
+
+/* 각 아이템 스타일 */
+.box-item {
+    background-color: #a8a7a7;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* 작성하기 버튼 스타일 */
+.write-button {
+    text-align: right;
+    margin-top: -50px;
+    margin-right: 180px;
+}
+
+.write-button a {
+    background-color: #9b47a5;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+/* 검색창 스타일 */
+.search-container {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#search-input {
+    padding: 10px;
+    width: 500px;
+    font-size: 13px;
+    border-radius: 30px;
+}
+
+#search-button {
+    position: relative;
+    border-radius: 10px;
+    left: -30px;
+    padding: 10px 15px;
+    font-size: 13px;
+}
