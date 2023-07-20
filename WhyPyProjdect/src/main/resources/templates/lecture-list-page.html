@@ -1,24 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Lecture List</title>
-    <style>
-        .lecture-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-gap: 20px;
-        }
-        .lecture-list-item img {
-            width: 100%;
-            height: auto;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video List</title>
+    <link rel="stylesheet" type="text/css" href="/css/lecture-list.css">
 </head>
+
 <body>
-<h1>Lecture List</h1>
-<div class="lecture-list">
-    <th:block th:each="lecture : ${lectures}">
-        <div class="lecture-list-item">
+<div class="header">
+    <div>
+        <a href="/" class="logo">logo</a>
+        <div class="tagline">Why? py!</div>
+        <div class="right-area">
+            <a href="#" class="button plus-one">+1</a>
+            <a href="#" class="button my">my</a>
+            <a href="#" class="button list">목록</a>
+        </div>
+        <div class="center">
+            <div class="search-container">
+                <input type="text" id="search-input">
+                <button type="submit" id="search-button">?</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-area">
+    <div class="main-menu">
+        <li><a href="#">카테고리 1</a></li>
+        <li><a href="#">카테고리 2</a></li>
+        <li><a href="#">카테고리 3</a></li>
+        <li><a href="#">카테고리 4</a></li>
+    </div>
+    <div class="main-content">
+        <div class="item" th:each="lecture : ${lectures}">
             <div>
                 <img th:src="${lecture.thumbnail}" alt="Thumbnail">
             </div>
@@ -27,7 +44,12 @@
                 <p th:text="${lecture.uploader}"></p>
             </div>
         </div>
-    </th:block>
+
+    </div>
 </div>
+
+
+
 </body>
+
 </html>
