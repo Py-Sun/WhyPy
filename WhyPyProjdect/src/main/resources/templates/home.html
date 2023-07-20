@@ -1,10 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <script src="/js/home.js" defer></script>
     <meta charset="UTF-8">
-    <title>home</title>
+    <title>Main Website</title>
 </head>
 <body>
+    <div class="up">
+        <div>
+            <div class="logo">logo</div>
+            <div class="tagline">Why? py!</div>
+            <div class="right-area">
+                <a href="#" class="button plus-one">+1</a>
+                <a href="#" class="button my">my</a>
+                <a href="#" class="button list">목록</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input">
+        <button type="submit" id="search-button">?</button>
+    </div>
+
+    <div class="main">
+        <div class="left-area">
+            <div class="box" onclick="redirectToLectures()">오늘의 추천 동영상</div>
+            <div class="box" onclick="redirectToQuestionList()">랜덤 문제 풀어보기</div>
+        </div>
+        <div class="right-area">
+            <div class="ranking">금주 소스코드 랭킹</div>
+            <div class="source-code">
+                <div class="source-code-title">소스코드 제목</div>
+                <br>
+                <br>
+                <div class="source-code-text">소스코드</div>
+            </div>
+        </div>
+    </div>
+
+
+
 <h2>Why?PY!</h2>
 <a href="/member/save">회원가입</a>
 <a href="/member/login">로그인</a>

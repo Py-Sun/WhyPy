@@ -1,0 +1,153 @@
+/* 공통 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E6E6E6;
+}
+
+/* 로고 스타일 */
+.logo {
+    display: inline-block;
+    background-color: #4a88e5;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* 문구 스타일 */
+.tagline {
+    display: inline-block;
+    color: #000;
+    text-align: center;
+    font-size: 25px;
+}
+
+/* 버튼 스타일 */
+.button {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.button.plus-one {
+    display: inline-block;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #8f53b2;
+    font-size: 30px;
+    font-size: 35px;
+}
+
+.button.my {
+    background-color: #757575;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.button.list {
+    background-color: #757575;
+    color: #fff;
+}
+
+/* 검색창 스타일 */
+.search-container {
+    text-align: center;
+    margin-top: 10px;
+
+}
+
+#search-input {
+    padding: 15px;
+    width: 1200px;
+    font-size: 16px;
+    border-radius: 30px;
+    background-color: #757575;
+
+}
+
+#search-button {
+    position: relative;
+    border-radius: 10px;
+    left: -30px;
+    padding: 15px 25px;
+    font-size: 16px;
+}
+
+/* 왼쪽 영역 스타일 */
+.left-area {
+    position: relative;
+    float: left;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 추천 동영상 및 랜덤 문제 스타일 */
+.box {
+    position: relative;
+    margin: 50px;
+    margin-bottom: 20px;
+    padding: 120px;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #000;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* 오른쪽 영역 스타일 */
+.right-area {
+    float: right;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: right;
+
+}
+
+/* 소스 코드 제목 스타일 */
+.source-code {
+    margin: 50px;
+    margin-bottom: 20px;
+    padding: 260px;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #000;
+    font-size: 32px;
+    font-weight: 700;
+    width: 400;
+    text-align: center;
+    position: relative;
+}
+
+/* 소스 코드 제목 스타일 */
+.source-code-title {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 소스 코드 텍스트 스타일 */
+.source-code-text {
+    font-size: 16px;
+    text-align: center;
+}
+
+/* 금주 소스코드 랭킹 스타일 */
+.ranking {
+    position: absolute;
+    top: 220px;
+    right: 620px;
+    font-size: 20px;
+    color: #1E1E1E;
+}
