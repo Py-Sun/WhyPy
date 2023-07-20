@@ -28,7 +28,7 @@ public class QuestionController {
         model.addAttribute("questions", questionDtos);
         model.addAttribute("solvedCount", solvedCount);
 
-        return "question-list-page";
+        return "problem_list";
     }
 
     @GetMapping("/questionList/filtered")
@@ -48,7 +48,7 @@ public class QuestionController {
         model.addAttribute("questions", filteredQuestions);
         model.addAttribute("solvedCount", solvedCount);
 
-        return "question-list-page";
+        return "problem_list";
     }
 
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question List</title>
+    <link rel="stylesheet" type="text/css" href="/css/problem_list.css">
+</head>
+
+<body>
+<div class="header">
+    <div>
+        <a href="main.html" class="logo">logo</a>
+        <div class="tagline">Why?py!</div>
+        <div class="right-area">
+            <a href="#" class="button plus-one">+1</a>
+            <a href="#" class="button my">my</a>
+            <a href="#" class="button list">목록</a>
+        </div>
+    </div>
+</div>
+<div class="all">
+    <div class="problem">
+        <div class="title">
+            <h2>전체 문제</h2>
+        </div>
+        <div class="list">
+            <table>
+                <tr>
+                    <th>종류</th>
+                    <th>제목</th>
+                    <th>난이도</th>
+                    <th>상태</th>
+                </tr>
+                <tr th:each="question : ${questions}">
+                    <td th:text="${question.category}"></td>
+                    <td th:text="${question.title}"></td>
+                    <td th:text="${question.level}"></td>
+                    <td th:text="${question.solved}"></td>
+                    <!--<td><input type="checkbox" class="checkbox"></td>-->
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="box">
+        <div class="id">아이디</div>
+        <br>
+        <br>
+        <div class="pro">해결한 문제</div>
+        <div class="num" th:text="${solvedCount}"></div>
+    </div>
+    <div class="fil">
+        <h3>필터</h3>
+        <hr>
+        <div class="type">문제 종류</div>
+        <div class="status">상태</div>
+        <div class="level">레벨</div>
+    </div>
+</div>
+<div class="search-container">
+    <input type="text" id="search-input">
+    <button type="submit" id="search-button">?</button>
+</div>
+</body>
+
+</html>
