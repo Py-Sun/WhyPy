@@ -32,6 +32,12 @@ public class Post {
     @Column(name = "post_contents")
     private String contents;
 
+    @Column(name = "post_image_name")
+    private String imageName;
+
+    @Column(name = "post_image_path")
+    private String imagePath;
+
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
         this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

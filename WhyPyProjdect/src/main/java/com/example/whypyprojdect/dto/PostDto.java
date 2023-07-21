@@ -10,6 +10,8 @@ public class PostDto {
     private String updateDate;
     private String title;
     private String contents;
+    private String imageName;
+    private String imagePath;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -27,11 +29,15 @@ public class PostDto {
 
     public void setContents(String contents) {this.contents = contents;}
 
-    public PostDto(String title, String contents, String createDate, String updateDate) {
+    public void setImageName(String imageName) {this.imageName = imageName;}
+
+    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
         this.title = title;
         this.contents = contents;
         this.createDate = createDate;
         this.updateDate = updateDate;
+        this.imageName = imageName;
+        this.imagePath = imagePath;
     }
 
     public Post toEntity() {
@@ -41,6 +47,8 @@ public class PostDto {
                 .contents(contents)
                 .createDate(createDate)
                 .updateDate(updateDate)
+                .imageName(imageName)
+                .imagePath(imagePath)
                 .build();
     }
 }

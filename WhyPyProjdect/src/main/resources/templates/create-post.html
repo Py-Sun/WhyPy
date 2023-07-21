@@ -8,14 +8,16 @@
 <body>
 <button type="button" onclick="bold()" id="boldBtn" style="background-color: lightgrey;">Bold</button>
 <button type="button" onclick="code()" id="codeBtn" style="background-color: lightgrey;">code</button>
-<form input type = "submit" method="POST">
-  <div>
+<form input type = "submit" method="POST" enctype="multipart/form-data">
+    <div>
       제목 : <input name = "title" type = "text">
-  </div>
-  <div>
+    </div>
+    <div>
       내용 : <textarea name = "contents" id = "contents" type="text" style="height:300px;"> </textarea>
-  </div>
-  <button>업로드</button>
+    </div>
+    <br>
+    <input type="file" name="image">
+    <button>업로드</button>
 </form>
 </body>
 </html>
