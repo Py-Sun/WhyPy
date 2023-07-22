@@ -35,7 +35,7 @@
     <th>Contents</th>
     <td th:text="${post.contents}" id="contents"></td>
   </tr>
-  <tr>
+  <tr th:if="${post.imagePath}">
     <th>Image</th>
     <td>
       <img th:src="@{${post.imagePath}}" width="200" height="200" alt="Image">
