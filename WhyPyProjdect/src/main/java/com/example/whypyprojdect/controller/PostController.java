@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,10 +44,10 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public String createPostData(PostDto postDto) {
+    public String createPostData(PostDto postDto, MultipartFile image) throws Exception {
         Post post = postDto.toEntity();
-        Post postEntity = postService.savePostData(post);
-        System.out.println(postEntity);
+        //postService.savePostData(post);
+        postService.createPostData(post, image);
         System.setProperty("server.servlet.context-path", "/postList");
         return "redirect:/postList";
     }
