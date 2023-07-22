@@ -47,7 +47,8 @@ public class MemberController {
             return "login";
         }
     }
-
+}
+/*
     @RequestMapping("member/member.MyPage")
     public String showMyPage() {
         return "MyPage";
@@ -63,6 +64,7 @@ public class MemberController {
         return "memberModify";
     }
 }
+*/
 
 
     /* (정리 전 코드_의미 파악 위해 놔둠)
