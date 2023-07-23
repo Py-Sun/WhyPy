@@ -28,6 +28,9 @@ public class MemberEntity {
     @Column
     private String memberName;
 
+    @Column
+    private String memberProfile;
+
     public static MemberEntity toMemberEntity(MemberDto memberDto) {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setMemberEmail(memberDto.getMemberEmail());
