@@ -8,10 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
-@Entity
+@Entity //엔티티 정의
 @Setter
 @Getter
-@Table(name="member_table") //실제 생성됐을 때 테이블 이름 정함
+@Table(name="member_table") //실제 생성됐을 때 테이블 이름 정의
 public class MemberEntity {
 
     @Id //pk 지정

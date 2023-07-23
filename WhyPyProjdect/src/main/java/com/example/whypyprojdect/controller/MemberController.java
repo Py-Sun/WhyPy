@@ -5,26 +5,29 @@ import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
+@RequiredArgsConstructor ///생성자 주입을 위해 선언
+//링크를 클릭하는 건 다 get
 public class MemberController {
-    //@@@--생성자 주입. 자동적으로 서비스 클래스의 객체를 주입을 받는다. 메소드등을 사용할 수 있게 됨
+    //@@@--생성자 주입. memberService 필드를 매개변수로 하는 컨트롤 생성자를 만들어 줌.
+    //MemberController클래스에 대한 객체를 스프링 빈에 등록할 때 자동적으로 서비스 클래스의 객체를 주입을 받는다.
+    //주입 받는다=컨트롤러가 서비스 클래스의 자원(메소드, 필드 등)을 사용할 수 있게 됨
     private final MemberService memberService;
 
-    //회원가입 페이지 출력 요청
+    //회원가입 페이지 출력 요청. 화면을 요청하는 방식으로 컨트롤러 작성
+    //회원가입 페이지만 띄워주는 거. 회원가입 정보 입력받은 주소를 받는 것은 다른 코드
+    //받아주는 주소 자체가 없으면 404에러가 뜸
     @GetMapping("/member/save")
     public String saveForm() {
-        return "save";
+        return "save";  // /member/save/ 주소가 요청되면 save.html로 보내주겠다
     }
 
-    @PostMapping("/member/save")  //입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
+    //cf. @RequestParam("memberEmail") String memberEmail) >a에 입력받은 값을 a에 저장해달라
+    @PostMapping("/member/save")  //save에서 입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
     public String save(@ModelAttribute MemberDto memberDto) {
-        System.out.println("MemberController.save");
+        System.out.println("MemberController.save"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
         System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
         return "home";

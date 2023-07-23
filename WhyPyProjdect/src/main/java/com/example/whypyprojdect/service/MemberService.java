@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service
+@Service //스프링이 관리하는 스프링 빈으로 등록
 @RequiredArgsConstructor
 public class MemberService {
+    //생성자 주입
     private final MemberRepository memberRepository;
+
     public void save(MemberDto memberDto) {
         //1. dto > entity 변환
         //2. repository의 save 메서드 호출
