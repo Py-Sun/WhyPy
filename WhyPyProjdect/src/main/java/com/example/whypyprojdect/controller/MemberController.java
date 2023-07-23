@@ -50,24 +50,25 @@ public class MemberController {
             return "login";
         }
     }
-}
-/*
-    @RequestMapping("member/member.MyPage")
-    public String showMyPage() {
-        return "MyPage";
+
+    @GetMapping("/member/mypage")
+    public String mypageForm() {
+        return "mypage";
     }
 
-    @GetMapping("member/member.LikeIt")
-    public String showLikeIt() {
-        return "LikeIt";
+    @GetMapping("/member/editInform")
+    public String editForm() {
+        return "editInform";
     }
 
-    @GetMapping("/member/member.memberModify")
-    public String showmemberModify() {
-        return "memberModify";
+    @PostMapping("/member/editInform")
+    public String modify(@ModelAttribute MemberDto memberDto) {
+        System.out.println("MemberController.modify"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
+        memberService.modify(memberDto); //memberService의 modify메소드를 미리 정해봄 어떻게 호출할지
+        return "mypage";
     }
 }
-*/
+
 
 
     /* (정리 전 코드_의미 파악 위해 놔둠)
