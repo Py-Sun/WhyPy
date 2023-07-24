@@ -44,7 +44,7 @@ public class MemberController {
         if (loginResult != null) {
             //login 성공
             session.setAttribute("loginName", loginResult.getMemberName());
-            return "main";
+            return "home";
         } else {
             //login 실패
             return "login";
@@ -68,15 +68,3 @@ public class MemberController {
         return "mypage";
     }
 }
-
-
-
-    /* (정리 전 코드_의미 파악 위해 놔둠)
-    public String save(@RequestParam("memberEmail") String memberEmail,
-                       @RequestParam("memberPassword") String memberPassword,
-                       @RequestParam("memberName") String memberName) {
-            System.out.println("MemberController.save");
-            System.out.println("memberEmail = " + memberEmail); //매개변수 생성
-            return "home";
-        }
-        */
