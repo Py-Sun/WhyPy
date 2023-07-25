@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
@@ -65,18 +66,18 @@ public class MemberController {
         return "editInform";
     }
 
-    @PostMapping("/member/update")
+    @PostMapping("/member/editInform")
     public String update(@ModelAttribute MemberDto memberDto) {
         memberService.update(memberDto);
-        return "redirect:/member/mypage/" +memberDto.getId();
+        return "redirect:mypage"; //+memberDto.getId();
     }
 
+    //로그아웃
     @GetMapping("/member/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "home";
     }
 
-
-
+    //프로필 정보 보여주기
 }
