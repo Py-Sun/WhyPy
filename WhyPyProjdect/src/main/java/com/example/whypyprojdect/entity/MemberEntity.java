@@ -31,6 +31,10 @@ public class MemberEntity {
     @Column
     private String memberProfile;
 
+    //썸네일이 들어갈 파일명
+    @Column
+    private String profileThumbnail;
+
 
     //엔티티 객체를 객체로 만들어서 호출하는 게 아닌 그냥 클래스 메소드로 정의
     public static MemberEntity toMemberEntity(MemberDto memberDto) {

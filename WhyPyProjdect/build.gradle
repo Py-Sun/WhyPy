@@ -27,6 +27,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	//apache
+	implementation 'commons-io:commons-io:2.11.0' /*Apache commoms-io */
+	implementation group: 'commons-fileupload', name:'commons-fileupload', version: '1.4'/*Apache Commons FileUpload*/
+
+
 	// mariadb
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'

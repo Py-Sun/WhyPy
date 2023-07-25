@@ -80,4 +80,5 @@ public class MemberController {
     }
 
     //프로필 정보 보여주기
+
 }
