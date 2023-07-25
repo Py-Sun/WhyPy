@@ -68,7 +68,13 @@ public class MemberController {
     @PostMapping("/member/update")
     public String update(@ModelAttribute MemberDto memberDto) {
         memberService.update(memberDto);
-        return "redirect:/member/" +memberDto.getId();
+        return "redirect:/member/mypage/" +memberDto.getId();
+    }
+
+    @GetMapping("/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "home";
     }
 
 

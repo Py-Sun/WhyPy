@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>mypage</title>
 </head>
-<p th:text="${session.loginName}">님 안녕하세요</p>
+    <p th:text="${session.loginName}"><h2>님 안녕하세요</h2></p>
 <body>
 <a href="/member/editInform">회원정보수정</a>
 <a href="/member/editProfile">프로필 수정</a>
+<a href="/member/logout">로그아웃</a>
 </body>
 </html>
