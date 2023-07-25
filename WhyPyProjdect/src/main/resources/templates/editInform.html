@@ -7,7 +7,7 @@
 <body>
 <form action="/member/editInform" method="post">
   <input type="hidden" th:value="${updateMember.id}" name="id"><br>
-  아이디: <input type="text" th:value="${updateMember.memberName}" name="memberName"> readonly <br>
+  아이디: <input type="text" th:value="${updateMember.memberName}" name="memberName" readonly> <br>
   이메일: <input type="text" th:value="${updateMember.memberEmail}" name="memberEmail"><br>
   비밀번호: <input type="text" th:value="${updateMember.memberPassword}" name="memberPassword"><br>
   <input type="submit" value="수정">

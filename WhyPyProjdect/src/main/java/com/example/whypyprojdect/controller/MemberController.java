@@ -5,6 +5,7 @@ import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -57,14 +58,19 @@ public class MemberController {
     }
 
     @GetMapping("/member/editInform")
-    public String editForm() {
+    public String updateForm(HttpSession session, Model model) {
+        String myName = (String) session.getAttribute("loginName");
+        MemberDto memberDto = memberService.updateForm(myName);
+        model.addAttribute("updateMember",memberDto);
         return "editInform";
     }
 
-    @PostMapping("/member/editInform")
-    public String modify(@ModelAttribute MemberDto memberDto) {
-        System.out.println("MemberController.modify"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
-        memberService.modify(memberDto); //memberService의 modify메소드를 미리 정해봄 어떻게 호출할지
-        return "mypage";
+    @PostMapping("/member/update")
+    public String update(@ModelAttribute MemberDto memberDto) {
+        memberService.update(memberDto);
+        return "redirect:/member/" +memberDto.getId();
     }
+
+
+
 }

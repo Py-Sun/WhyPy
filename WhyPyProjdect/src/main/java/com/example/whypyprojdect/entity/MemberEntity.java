@@ -42,4 +42,14 @@ public class MemberEntity {
         //에러가 나거나 값이 생각한 값이 아니면 이 부분에서 문제가 있을 가능성 큼
         return memberEntity;
     }
+
+    public static MemberEntity toUpateMemberEntity(MemberDto memberDto) {
+        MemberEntity memberEntity = new MemberEntity();
+        memberEntity.setId(memberDto.getId());
+        memberEntity.setMemberEmail(memberDto.getMemberEmail());
+        memberEntity.setMemberPassword(memberDto.getMemberPassword());
+        memberEntity.setMemberName(memberDto.getMemberName());
+        memberEntity.setMemberProfile(memberDto.getMemberProfile());
+        return memberEntity;
+    }
 }
