@@ -1,7 +1,11 @@
 package com.example.whypyprojdect.controller;
 
+import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.PostDto;
+import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.entity.Post;
+import com.example.whypyprojdect.repository.MemberRepository;
+import com.example.whypyprojdect.service.MemberService;
 import com.example.whypyprojdect.service.PostService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -13,13 +17,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Slf4j
 @Controller
 public class PostController {
     private final PostService postService;
+    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
@@ -29,9 +37,13 @@ public class PostController {
     }
 
     @GetMapping("/post/{postId}")
-    public String getPostById(@PathVariable int postId, Model model) {
+    public String getPostById(@PathVariable int postId, Model model, HttpSession session) {
         Post postDto = postService.getPostById(postId);
+        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDto = MemberDto.toMemberDto((optionalMemberEntity.get()));
+        //MemberDto memberDto = memberService.updateForm((String) session.getAttribute("loginName"));
         model.addAttribute("post", postDto);
+        model.addAttribute("member", memberDto);
         return "post-details-page";
     }
 
