@@ -20,6 +20,9 @@ public class Post {
     @Column(name = "post_id")
     private int postId;
 
+    @Column(name = "post_writerID")
+    private long writerID;
+
     @Column(name = "post_createDate")
     private String createDate;
 

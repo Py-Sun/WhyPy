@@ -1,13 +1,11 @@
 package com.example.whypyprojdect.controller;
 
-import com.example.whypyprojdect.dto.LectureDto;
 import com.example.whypyprojdect.dto.PostDto;
 import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.service.LectureService;
 import com.example.whypyprojdect.service.PostService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -44,10 +41,12 @@ public class PostController {
     }
 
     @PostMapping("/createPost")
-    public String createPostData(PostDto postDto, MultipartFile image) throws Exception {
+    public String createPostData(PostDto postDto, MultipartFile image, HttpSession session) throws Exception {
         Post post = postDto.toEntity();
-        //postService.savePostData(post);
-        postService.createPostData(post, image);
+        Object writer = session.getAttribute("loginName");
+        postService.setWriterID(post, writer);
+        if(!image.isEmpty()) postService.createPostData(post, image);
+        else postService.savePostData(post);
         System.setProperty("server.servlet.context-path", "/postList");
         return "redirect:/postList";
     }

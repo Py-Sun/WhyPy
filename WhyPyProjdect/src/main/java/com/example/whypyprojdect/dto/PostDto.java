@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class PostDto {
     private int postId;
+    private long writerID;
     private String createDate;
     private String updateDate;
     private String title;
@@ -16,6 +17,8 @@ public class PostDto {
     // 생성자, getter, setter 등 필요한 메서드 추가
 
     public void setPostId(int postId) {this.postId = postId;}
+
+    public void setWriterID(long writerID) {this.writerID = writerID;}
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
@@ -43,6 +46,7 @@ public class PostDto {
     public Post toEntity() {
         return Post.builder()
                 .postId(postId)
+                .writerID(writerID)
                 .title(title)
                 .contents(contents)
                 .createDate(createDate)
