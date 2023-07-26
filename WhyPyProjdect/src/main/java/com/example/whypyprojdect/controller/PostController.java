@@ -39,8 +39,9 @@ public class PostController {
     @GetMapping("/post/{postId}")
     public String getPostById(@PathVariable int postId, Model model, HttpSession session) {
         Post postDto = postService.getPostById(postId);
-        Optional<MemberEntity> optionalMemberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
-        MemberDto memberDto = MemberDto.toMemberDto((optionalMemberEntity.get()));
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDto = new MemberDto();
+        if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
         //MemberDto memberDto = memberService.updateForm((String) session.getAttribute("loginName"));
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);

@@ -10,8 +10,8 @@
 <input type=hidden id="postId" th:value="${post.postId}">
 <input type=hidden id="postWriter" th:value="${post.writerID}">
 <input type=hidden id="currentUser" th:value="${member.id}">
-<button onclick="updatePost()">글 수정하기!</button>
-<button onclick="deletePost()">글 삭제하기!</button>
+<button id="updateBtn" onclick="updatePost()">글 수정하기!</button>
+<button id="deleteBtn" onclick="deletePost()">글 삭제하기!</button>
 
 <table>
   <tr>
@@ -57,14 +57,23 @@
 </style>
 
 <script>
-  // window.onload = function() {
-  //     let content = document.getElementById('contents');
-  //     var boldText = content.textContent.replace(/<b>(.*?)<\/b>/g, "<b><strong>$1</strong></b>");
-  //     content.textContent = boldText;
-  //     //console.log(content.textContent);
-  //     //content.textContent="onload";
-  // };
-  document.addEventListener("DOMContentLoaded", function() {
+  function chkWriter() {
+    let writer=document.getElementById('postWriter').value;
+    let user=document.getElementById('currentUser').value;
+    let deleteBtn = document.getElementById('deleteBtn');
+    let updateBtn = document.getElementById('updateBtn');
+
+    if(writer===user) {
+      deleteBtn.style.display = 'block';
+      updateBtn.style.display = 'block';
+    }
+    else {
+      deleteBtn.style.display = 'none';
+      updateBtn.style.display = 'none';
+    }
+  }
+
+  function makeContents() {
     let contentsElement = document.getElementById("contents");
     let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
     let trimText = boldText.replace(/\n/g, "<br>");
@@ -79,18 +88,16 @@
     console.log(codeText);
     contentsElement.innerHTML = codeText;
     Prism.highlightAll();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    makeContents();
+    chkWriter();
   });
 
   function deletePost(){
     let id=document.getElementById('postId').value;
-    let writer=document.getElementById('postWriter').value;
-    let user=document.getElementById('currentUser').value;
-    let isDelete = false;
-
-    if(writer === user)
-      isDelete=confirm("정말 삭제하시겠습니까?");
-    else
-      alert("작성자만 삭제할 수 있습니다.");
+    let isDelete =confirm("정말 삭제하시겠습니까?");
     if(isDelete){
       window.location.href="/post/"+id+"/deletePost";
     }
@@ -98,14 +105,7 @@
 
   function updatePost(){
     let id=document.getElementById('postId').value;
-    let writer=document.getElementById('postWriter').value;
-    let user=document.getElementById('currentUser').value;
-    let isUpdate = false;
-
-    if(writer === user)
-      isUpdate=confirm("게시글을 수정하시겠습니까?");
-    else
-      alert("작성자만 수정할 수 있습니다.");
+    let isUpdate=confirm("게시글을 수정하시겠습니까?");
     if(isUpdate){
       window.location.href="/post/"+id+"/updatePost";
     }
