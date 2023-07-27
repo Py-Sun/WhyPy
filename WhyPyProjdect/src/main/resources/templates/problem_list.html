@@ -36,7 +36,9 @@
                 </tr>
                 <tr th:each="question : ${questions}">
                     <td th:text="${question.category}"></td>
-                    <td th:text="${question.title}"></td>
+                    <td>
+                    <a th:href="@{/questions/{questionId}(questionId=${question.id})}" th:text="${question.title}"></a>
+                    </td>
                     <td th:text="${question.level}"></td>
                     <td th:text="${question.solved}"></td>
                     <!--<td><input type="checkbox" class="checkbox"></td>-->

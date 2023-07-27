@@ -29,4 +29,7 @@ public class Question {
     @Column(name = "q_solved")
     private Boolean solved;
 
+    @Column(name = "q_example")
+    private String example;
+
 }

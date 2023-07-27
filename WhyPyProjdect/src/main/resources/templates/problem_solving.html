@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/problem_solving.css">
+  <title>problem solving</title>
+</head>
+
+<body>
+<div class="header">
+  <div>
+    <a href="/" class="logo">logo</a>
+    <a href="/questions" class="practice">연습문제 ></a>
+    <div class="title" th:text="${question.title}"> 문제 제목</div>
+  </div>
+</div>
+<div class="main">
+  <div class="up">
+    <div class="left">
+      <div class="text" th:text="${question.title}"></div>
+      <div class="explanation" th:text="${question.contents}"></div>
+    </div>
+    <div class="rigth">
+      <div class="answer">답안</div>
+      <div class="box"></div>
+    </div>
+  </div>
+  <div class="un">
+    <div class="under">
+      <div class="ex">결과 예시</div>
+      <div class="example" th:text="${question.example}"></div>
+    </div>
+    <div class="write-button">
+      <a href="#">초기화</a>
+      <a href="problem_answer.html">정답보기</a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

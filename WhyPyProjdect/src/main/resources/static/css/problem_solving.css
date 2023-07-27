@@ -1,0 +1,118 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    background-color: #E6E6E6;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+/* 로고 스타일 */
+.logo {
+    display: inline-block;
+    background-color: #4a88e5;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 15px;
+}
+
+/* 문구 스타일 */
+.practice {
+    display: inline-block;
+    color: #909090;
+    text-align: center;
+    font-size: 23px;
+}
+
+.title {
+    display: inline-block;
+    color: #000;
+    text-align: center;
+    font-size: 23px;
+}
+
+.up {
+    display: flex;
+}
+
+.left {
+    margin: 40px;
+    flex: 5;
+}
+
+.text {
+    font-size: 23px;
+}
+
+.explanation {
+    margin-top: 20px;
+    padding: 10px;
+    padding-bottom: 250px;
+    border: 1px solid #c2c2c2;
+    background-color: #c2c2c2;
+}
+
+.rigth {
+    margin: 40px;
+    flex: 5;
+}
+
+.answer {
+    font-size: 23px;
+}
+
+.box {
+    margin-top: 20px;
+    padding: 10px;
+    padding-bottom: 270px;
+    border: 1px solid #c2c2c2;
+    background-color: #c2c2c2;
+    text-align: start;
+}
+
+.un {
+    display: flex;
+}
+
+.under {
+    margin: 40px;
+    margin-top: -10px;
+}
+
+.ex {
+    font-size: 23px;
+}
+
+.example {
+    margin-top: 10px;
+    padding: 70px;
+    border: 1px solid #c2c2c2;
+    background-color: #c2c2c2;
+    width: 620px;
+}
+
+/* 정답 버튼 스타일 */
+
+.write-button {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: 30px;
+    margin-top: 200px;
+}
+
+.write-button a {
+    background-color: #c2c2c2;
+    border: 1px solid #000000;
+    color: #000000;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 13px;
+    margin-left: 20px;
+}
