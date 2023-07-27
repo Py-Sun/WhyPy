@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question List</title>
     <link rel="stylesheet" type="text/css" href="/css/problem_list.css">
+    <script type="text/javascript" src="/js/problem_list.js"></script>
 </head>
 
 <body>
@@ -35,11 +36,11 @@
                     <th>상태</th>
                 </tr>
                 <tr th:each="question : ${questions}">
-                    <td th:text="${question.category}"></td>
+                    <td class="q_category" th:text="${question.category}"></td>
                     <td>
                     <a th:href="@{/questions/{questionId}(questionId=${question.id})}" th:text="${question.title}"></a>
                     </td>
-                    <td th:text="${question.level}"></td>
+                    <td th:text="'LV.' + ${question.level}"></td>
                     <td th:text="${question.solved}"></td>
                     <!--<td><input type="checkbox" class="checkbox"></td>-->
                 </tr>
@@ -65,6 +66,8 @@
     <input type="text" id="search-input">
     <button type="submit" id="search-button">?</button>
 </div>
+
+
 </body>
 
 </html>
