@@ -38,6 +38,10 @@ public class LectureController {
         String videoUrl = lectureDto.getUrl();
         String videoId = lectureService.extractVideoId(videoUrl);
         lectureDto.setVideoId(videoId);
+
+        List<LectureDto> lectureDtos = lectureService.getAllLectures();
+        model.addAttribute("lectures", lectureDtos);
+
         model.addAttribute("lecture", lectureDto);
 
         return "lecture-details-page";

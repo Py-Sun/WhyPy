@@ -1,66 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Lecture Details</title>
-    <style>
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            overflow: hidden;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        table {
-            margin-top: 20px;
-        }
-
-        table th {
-            text-align: right;
-            padding-right: 10px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/lecture-details.css">
+    <title>play page</title>
 </head>
+
 <body>
-<h1>Lecture Details</h1>
-
-<div class="video-container">
-    <iframe th:src="${'https://www.youtube.com/embed/' + lecture.videoId}"></iframe>
+<div class="header">
+    <div>
+        <a href="/" class="logo">logo</a>
+        <div class="tagline">Why?py!</div>
+        <div class="right-area">
+            <a href="#" class="button my">my</a>
+            <a href="#" class="button list">목록</a>
+        </div>
+        <div class="center">
+            <div class="search-container">
+                <input type="text" id="search-input">
+                <button type="submit" id="search-button">?</button>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="main">
+    <div class="left">
+        <div >
+            <iframe class="video" th:src="${'https://www.youtube.com/embed/' + lecture.videoId}"></iframe>
+        </div>
+        <div class="hr">
+            <hr>
+        </div>
+        <div class="title" th:text="${lecture.title}">
+        </div>
+        <div class="day">2023.07.20</div>
+        <div class="explanation" th:text="${lecture.uploader}"></div>
+    </div>
 
-<table>
-    <tr>
-        <th>Lecture ID</th>
-        <td th:text="${lecture.lectureId}"></td>
-    </tr>
-    <tr>
-        <th>View Date</th>
-        <td th:text="${lecture.viewDate}"></td>
-    </tr>
-    <tr>
-        <th>URL</th>
-        <td th:text="${lecture.url}"></td>
-    </tr>
-    <tr>
-        <th>Title</th>
-        <td th:text="${lecture.title}"></td>
-    </tr>
-    <tr>
-        <th>Thumbnail</th>
-        <td th:text="${lecture.thumbnail}"></td>
-    </tr>
-    <tr>
-        <th>Uploader</th>
-        <td th:text="${lecture.uploader}"></td>
-    </tr>
-</table>
-
+    <div class="right">
+        <div class='v-line'></div>
+        <div th:each="lecture, stat : ${lectures}" th:limit="5">
+            <div class="lien1" th:if="${stat.index &lt; 5}">
+            <div class="video1">
+                <img th:src="${lecture.thumbnail}" alt="Thumbnail">
+            </div>
+            <div class="title1">
+                <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+            </div>
+        </div>
+        <!--
+        <div class="lien1">
+            <div class="video1">영상1</div>
+            <div class="title1">동영상제목</div>
+        </div>
+        <div class="lien2">
+            <div class="video1">영상2</div>
+            <div class="title1">동영상제목</div>
+        </div>
+        <div class="lien3">
+            <div class="video1">영상3</div>
+            <div class="title1">동영상제목</div>
+        </div>
+        <div class="lien4">
+            <div class="video1">영상4</div>
+            <div class="title1">동영상제목</div>
+        </div>
+        <div class="lien5">
+            <div class="video1">영상5</div>
+            <div class="title1">동영상제목</div>
+        </div>
+        -->
+    </div>
+    </div>
+</div>
 </body>
+
 </html>
