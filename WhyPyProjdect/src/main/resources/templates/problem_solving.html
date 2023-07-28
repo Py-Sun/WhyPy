@@ -6,6 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/problem_solving.css">
+  <!-- CodeMirror 스타일시트 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css">
+  <!-- CodeMirror 스크립트 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
+  <!-- CodeMirror 파이썬 모드 스크립트 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
+
   <title>problem solving</title>
 </head>
 
@@ -25,7 +32,9 @@
     </div>
     <div class="rigth">
       <div class="answer">답안</div>
-      <div class="box"></div>
+      <div class="box">
+        <textarea id = "code" oninput="updateCodeMirror(this.value)"> 답안을 작성하세요. </textarea>
+      </div>
     </div>
   </div>
   <div class="un">
@@ -34,11 +43,15 @@
       <div class="example" th:text="${question.example}"></div>
     </div>
     <div class="write-button">
-      <a href="#">초기화</a>
+      <button id="reset-button" onclick="resetCodeMirror()"> 초기화</button>
       <a href="problem_answer.html">정답보기</a>
       </div>
     </div>
   </div>
+
+<script type="text/javascript" src="/js/problem-solving.js"></script>
+
+
 </body>
 
 </html>
