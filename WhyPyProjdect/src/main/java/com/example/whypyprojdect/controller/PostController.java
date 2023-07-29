@@ -4,12 +4,15 @@ import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.PostDto;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.entity.Post;
+import com.example.whypyprojdect.entity.Recmd;
 import com.example.whypyprojdect.repository.MemberRepository;
 import com.example.whypyprojdect.service.MemberService;
 import com.example.whypyprojdect.service.PostService;
+import com.example.whypyprojdect.service.RecmdService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +30,7 @@ import java.util.Optional;
 public class PostController {
     private final PostService postService;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
+    private final RecmdService recmdService;
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
@@ -81,5 +84,23 @@ public class PostController {
     public String updatePostById(@PathVariable int postId, @RequestParam String title, @RequestParam String contents) {
         postService.updatePostData(postId, title, contents);
         return "redirect:/postList";
+    }
+
+    @PostMapping("/post/{postId}/recmdPost")
+    public ResponseEntity<?> recmdPost(@PathVariable int postId, HttpSession session) {
+        Post post = postService.getPostById(postId);
+        if (post != null) {
+            int recmdNum = post.getRecmdNum();
+            post.setRecmdNum(recmdNum + 1);
+            postService.savePostData(post);
+            Recmd recmd = new Recmd();
+            Object member = session.getAttribute("loginName");
+            recmdService.setPostID(recmd, postId);
+            recmdService.setMemberID(recmd, member);
+            recmdService.saveRecmdData(recmd);
+            return ResponseEntity.ok("Recmd added successfully");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

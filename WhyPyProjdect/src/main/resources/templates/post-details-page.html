@@ -12,6 +12,7 @@
 <input type=hidden id="currentUser" th:value="${member.id}">
 <button id="updateBtn" onclick="updatePost()">글 수정하기!</button>
 <button id="deleteBtn" onclick="deletePost()">글 삭제하기!</button>
+<button id="recmdBtn" onclick="recmdPost()">글 추천하기!</button>
 
 <table>
   <tr>
@@ -103,11 +104,25 @@
     }
   }
 
-  function updatePost(){
-    let id=document.getElementById('postId').value;
-    let isUpdate=confirm("게시글을 수정하시겠습니까?");
-    if(isUpdate){
-      window.location.href="/post/"+id+"/updatePost";
+  function updatePost() {
+    let id = document.getElementById('postId').value;
+    let isUpdate = confirm("게시글을 수정하시겠습니까?");
+    if (isUpdate) {
+      window.location.href = "/post/" + id + "/updatePost";
     }
+  }
+
+  function recmdPost(){
+    let id = document.getElementById('postId').value;
+    let Url = '/post/'+id+'/recmdPost';
+    let otherPram = {
+      method: 'POST',
+    };
+    fetch(Url, otherPram)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => console.log(error));
   }
 </script>

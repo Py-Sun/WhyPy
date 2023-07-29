@@ -86,9 +86,9 @@
                             <td>
                                 <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
                             </td>
-                            <td>닉네임1</td>
+                            <td th:text="${post.writerID}"></td>
                             <td th:text="${post.createDate}"></td>
-                            <td>1</td>
+                            <td th:text="${post.recmdNum}"></td>
                         </tr>
                     </tbody>
                 </table>
