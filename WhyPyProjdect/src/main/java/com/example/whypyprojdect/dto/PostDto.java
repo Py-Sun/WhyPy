@@ -13,6 +13,7 @@ public class PostDto {
     private String contents;
     private String imageName;
     private String imagePath;
+    private int recmdNum;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -34,13 +35,16 @@ public class PostDto {
 
     public void setImageName(String imageName) {this.imageName = imageName;}
 
-    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
+    public void setRecmdNum(int recmdNum) {this.recmdNum = recmdNum; }
+
+    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath, int recmdNum) {
         this.title = title;
         this.contents = contents;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.imageName = imageName;
         this.imagePath = imagePath;
+        this.recmdNum = recmdNum;
     }
 
     public Post toEntity() {
@@ -53,6 +57,7 @@ public class PostDto {
                 .updateDate(updateDate)
                 .imageName(imageName)
                 .imagePath(imagePath)
+                .recmdNum(recmdNum)
                 .build();
     }
 }
