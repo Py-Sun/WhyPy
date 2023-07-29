@@ -17,6 +17,10 @@ public class RecmdDto {
 
     public void setMemberId(long memberId) {this.memberId = memberId;}
 
+    public RecmdDto() {
+
+    }
+
     public RecmdDto(int postId, long memberId) {
         this.postId = postId;
         this.memberId = memberId;

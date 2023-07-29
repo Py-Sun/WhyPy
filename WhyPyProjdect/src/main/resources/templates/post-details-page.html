@@ -10,6 +10,7 @@
 <input type=hidden id="postId" th:value="${post.postId}">
 <input type=hidden id="postWriter" th:value="${post.writerID}">
 <input type=hidden id="currentUser" th:value="${member.id}">
+<input type=hidden id="recmdData" th:value="${recmd != null ? recmd.recmdId : ''}">
 <button id="updateBtn" onclick="updatePost()">글 수정하기!</button>
 <button id="deleteBtn" onclick="deletePost()">글 삭제하기!</button>
 <button id="recmdBtn" onclick="recmdPost()">글 추천하기!</button>
@@ -58,6 +59,12 @@
 </style>
 
 <script>
+  function chkRecmd() {
+    let val = document.getElementById('recmdData').value;
+    let recmdBtn = document.getElementById('recmdBtn');
+    if(val != 0) recmdBtn.style.color = "yellow"
+  }
+
   function chkWriter() {
     let writer=document.getElementById('postWriter').value;
     let user=document.getElementById('currentUser').value;
@@ -94,6 +101,7 @@
   document.addEventListener("DOMContentLoaded", function() {
     makeContents();
     chkWriter();
+    chkRecmd();
   });
 
   function deletePost(){
@@ -113,16 +121,21 @@
   }
 
   function recmdPost(){
-    let id = document.getElementById('postId').value;
-    let Url = '/post/'+id+'/recmdPost';
-    let otherPram = {
-      method: 'POST',
-    };
-    fetch(Url, otherPram)
-            .then((response) => response.json())
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => console.log(error));
+    let writer=document.getElementById('postWriter').value;
+    let user=document.getElementById('currentUser').value;
+    if(writer === user) alert('작성자는 좋아요를 누를 수 없습니다!');
+    else {
+      let id = document.getElementById('postId').value;
+      let Url = '/post/' + id + '/recmdPost';
+      let otherPram = {
+        method: 'POST',
+      };
+      fetch(Url, otherPram)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+              })
+              .catch((error) => console.log(error));
+    }
   }
 </script>

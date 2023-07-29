@@ -2,7 +2,6 @@ package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.entity.Recmd;
 import com.example.whypyprojdect.repository.MemberRepository;
 import com.example.whypyprojdect.repository.PostRepository;
@@ -29,13 +28,21 @@ public class RecmdService {
                 .orElseThrow(() -> new NoSuchElementException("Recmd not found with id: " + recmdId));
     }
 
+    public Optional<Recmd> getRecmdByPostIdAndMemberId(Integer postId, Long memberId) {
+        Optional<Recmd> recmd = recmdRepository.findByPostIdAndMemberId(postId, memberId);
+        if(recmd.isPresent()) {
+            return recmd;
+        }
+        return null;
+    }
+
     public Recmd saveRecmdData(Recmd recmd) {
         Recmd recmdEntity = recmdRepository.save(recmd);
         return recmdEntity;
     }
 
-    public void setMemberID(Recmd recmd, Object writerName) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) writerName);
+    public void setMemberID(Recmd recmd, Object memberName) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) memberName);
         if(memberEntity.isPresent()) {
             MemberDto member = MemberDto.toMemberDto(memberEntity.get());
             recmd.setMemberId(member.getId());

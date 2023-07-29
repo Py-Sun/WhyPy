@@ -2,6 +2,7 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.PostDto;
+import com.example.whypyprojdect.dto.RecmdDto;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.entity.Recmd;
@@ -45,9 +46,12 @@ public class PostController {
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
         MemberDto memberDto = new MemberDto();
         if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+        Optional<Recmd> recmdDto = recmdService.getRecmdByPostIdAndMemberId(postId, memberDto.getId());
         //MemberDto memberDto = memberService.updateForm((String) session.getAttribute("loginName"));
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
+        if(recmdDto != null) model.addAttribute("recmd", recmdDto.get());
+        else model.addAttribute("recmd", new RecmdDto());
         return "post-details-page";
     }
 
