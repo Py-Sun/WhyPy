@@ -123,7 +123,9 @@
   function recmdPost(){
     let writer=document.getElementById('postWriter').value;
     let user=document.getElementById('currentUser').value;
-    if(writer === user) alert('작성자는 좋아요를 누를 수 없습니다!');
+    let recmdBtn = document.getElementById('recmdBtn');
+    if(writer === user) alert('작성자는 추천을 누를 수 없습니다!');
+    else if(recmdBtn.style.color == "yellow") alert('이미 추천한 게시물입니다!')
     else {
       let id = document.getElementById('postId').value;
       let Url = '/post/' + id + '/recmdPost';
@@ -135,7 +137,8 @@
               .then((data) => {
                 console.log(data);
               })
-              .catch((error) => console.log(error));
+              .catch();
+      recmdBtn.style.color = "yellow";
     }
   }
 </script>
