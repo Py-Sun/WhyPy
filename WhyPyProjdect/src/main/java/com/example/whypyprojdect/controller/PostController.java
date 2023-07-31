@@ -57,7 +57,8 @@ public class PostController {
 
     @GetMapping("/createPost")
     public String posting() {
-        return "create-post";
+        //return "writing_page";
+        return "temp/create-post";
     }
 
     @PostMapping("/createPost")
