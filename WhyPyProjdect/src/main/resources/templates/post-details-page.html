@@ -14,6 +14,7 @@
 <button id="updateBtn" onclick="updatePost()">글 수정하기!</button>
 <button id="deleteBtn" onclick="deletePost()">글 삭제하기!</button>
 <button id="recmdBtn" onclick="recmdPost()">글 추천하기!</button>
+<button id="shareBtn" onclick="sharePost()">글 공유하기!</button>
 
 <table>
   <tr>
@@ -139,6 +140,28 @@
               })
               .catch();
       recmdBtn.style.color = "yellow";
+    }
+  }
+
+  function sharePost() {
+    const currentUrl = window.location.href;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(currentUrl)
+              .then(() => {
+                alert("URL이 클립보드에 복사되었습니다!");
+              })
+              .catch((error) => {
+                console.error("클립보드 복사 실패:", error);
+              });
+    } else {
+      const tempTextArea = document.createElement("textarea");
+      tempTextArea.value = currentUrl;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextArea);
+      alert("URL이 클립보드에 복사되었습니다!");
     }
   }
 </script>
