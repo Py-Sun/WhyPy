@@ -1,7 +1,7 @@
 // CodeMirror 초기화
 function initCodeMirror() {
     const editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true,
+        lineNumbers: true, // 라인 번호 표시 여부
         mode: "python",
         theme: "default",
     });
