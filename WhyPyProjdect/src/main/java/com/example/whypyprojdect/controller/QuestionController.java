@@ -2,7 +2,6 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.QuestionDto;
-import com.example.whypyprojdect.dto.QuestionSolveDto;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.entity.QuestionSolve;
 import com.example.whypyprojdect.repository.MemberRepository;
@@ -16,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,7 +60,7 @@ public class QuestionController {
             }
         }
 
-        return "problem_list";
+        return "Problem/problem_list";
     }
 
     @GetMapping("/questions/{questionId}")
@@ -76,7 +74,7 @@ public class QuestionController {
 
         model.addAttribute("question", questionDto);
 
-        return "problem_solving";
+        return "Problem/problem_solving";
     }
 /*``````
     @GetMapping("/questionList/filtered")
