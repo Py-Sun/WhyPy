@@ -29,6 +29,9 @@ public class MemberEntity {
     private String memberName;
 
     @Column
+    private String nickName;
+
+    @Column
     private String memberProfile;
 
     //썸네일이 들어갈 파일명
@@ -42,6 +45,7 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberDto.getMemberEmail());
         memberEntity.setMemberPassword(memberDto.getMemberPassword());
         memberEntity.setMemberName(memberDto.getMemberName());
+        memberEntity.setNickName(memberDto.getNickName());
         memberEntity.setMemberProfile(memberDto.getMemberProfile());
         //dto에 담긴 것을 entity로 넘김(변환)
         //에러가 나거나 값이 생각한 값이 아니면 이 부분에서 문제가 있을 가능성 큼
@@ -54,6 +58,7 @@ public class MemberEntity {
         memberEntity.setMemberEmail(memberDto.getMemberEmail());
         memberEntity.setMemberPassword(memberDto.getMemberPassword());
         memberEntity.setMemberName(memberDto.getMemberName());
+        memberEntity.setNickName(memberDto.getNickName());
         memberEntity.setMemberProfile(memberDto.getMemberProfile());
         return memberEntity;
     }

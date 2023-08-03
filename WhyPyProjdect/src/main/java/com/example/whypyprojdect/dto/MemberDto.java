@@ -13,6 +13,7 @@ public class MemberDto {
     private String memberEmail;
     private String memberPassword;
     private String memberName;
+    private String nickName;
     private String memberProfile;
     //save에 있는 name 속성들과 dto 필드들(위의 코드)이 동일하다면 스프링이 알아서 dto 객체를 만들어서
     //그 객체의 setter메소드를 호출해서 save에 작성한 값을 알아서 담아줌
@@ -23,6 +24,7 @@ public class MemberDto {
         memberDto.setMemberEmail(memberEntity.getMemberEmail());
         memberDto.setMemberPassword(memberEntity.getMemberPassword());
         memberDto.setMemberName(memberEntity.getMemberName());
+        memberDto.setNickName(memberEntity.getNickName());
         return memberDto;
     }
 
