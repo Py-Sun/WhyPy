@@ -2,6 +2,7 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -54,8 +55,14 @@ public class MemberController {
     }
 
     @GetMapping("/member/mypage")
-    public String mypageForm() {
-        return "mypage";
+    public String mypageForm(HttpServletRequest request, Model model) {
+        HttpSession session= request.getSession();
+        if (!session.isNew() && session.getAttribute("loginName") !=null) {
+            //새로운 세션이 없고(세션이 유지되어있고) && loginName이라는 setAttribute가 있다면
+            return "mypage";
+        } else {
+            return "login";
+        }
     }
 
     @GetMapping("/member/editInform")
