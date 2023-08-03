@@ -1,0 +1,26 @@
+package com.example.whypyprojdect.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Data
+@Table(name = "Qsolve")
+public class QuestionSolve {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "solve_id")
+    private int solveId;
+
+    @Column(name = "question_id")
+    private int questionId;
+
+    @Column(name = "member_id")
+    private long memberId;
+}
