@@ -76,6 +76,15 @@ public class QuestionController {
 
         return "Problem/problem_solving";
     }
+
+    @GetMapping("/questions/{questionId}/answer")
+    public String getQuestionAnswer(@PathVariable int questionId, Model model) {
+        QuestionDto questionDto = questionService.getQuestionById(questionId);
+        model.addAttribute("question", questionDto);
+
+        return "Problem/problem_answer";
+    }
+
 /*``````
     @GetMapping("/questionList/filtered")
     public String getFilteredQuestions(

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/problem_solving.css">
+  <link rel="stylesheet" type="text/css" href="/css/problem_answer.css">
   <!-- CodeMirror 스타일시트 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.css">
   <!-- CodeMirror 스크립트 -->
@@ -13,8 +13,7 @@
   <!-- CodeMirror 파이썬 모드 스크립트 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
 
-  <title>problem solving</title>
-  <script src="../../static/js/problem-solving.js"></script>
+  <title>problem answer</title>
 </head>
 
 <body>
@@ -28,31 +27,26 @@
 <div class="main">
   <div class="up">
     <div class="left">
-      <div class="text" th:text="${question.title}"></div>
-      <div class="explanation" th:text="${question.contents}"></div>
+      <div class="text">답안</div>
+      <div class="explanation">
+      </div>
     </div>
     <div class="rigth">
-      <div class="answer">답안</div>
+      <div class="answer">정답</div>
       <div class="box">
-        <textarea id = "code" oninput="updateCodeMirror(this.value)"> 답안을 작성하세요. </textarea>
+        <pre th:text="${question.answer}"></pre>
       </div>
+
     </div>
   </div>
   <div class="un">
-    <div class="under">
-      <div class="ex">결과 예시</div>
-      <div class="example" th:text="${question.example}"></div>
-    </div>
     <div class="write-button">
-      <button id="reset-button" onclick="resetCodeMirror()"> 초기화</button>
-      <a th:href="@{/questions/{questionId}/answer(questionId=${question.id})}">정답 보기</a>
-      </div>
+      <a th:href="@{/questions/{questionId}(questionId=${question.id})}">뒤로가기</a>
+      <a href="/questions">목록으로</a>
     </div>
   </div>
-
+</div>
 <script type="text/javascript" src="/js/problem-solving.js"></script>
-
-
 </body>
 
 </html>

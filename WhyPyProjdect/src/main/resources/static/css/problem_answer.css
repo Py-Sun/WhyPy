@@ -54,7 +54,7 @@ a {
 .explanation {
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 250px;
+    padding-bottom: 300px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
 }
@@ -64,14 +64,14 @@ a {
     flex: 5;
 }
 
-.answer_name {
+.answer {
     font-size: 23px;
 }
 
 .box {
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 270px;
+    padding-bottom: 300px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
     text-align: start;
@@ -98,7 +98,7 @@ a {
     width: 620px;
 }
 
-/* 정답 버튼 스타일 */
+/* 문제 버튼 스타일 */
 
 .write-button {
     padding: 10px;
