@@ -50,8 +50,8 @@ public class QuestionSolveService {
         questionSolveRepository.deleteById(solveId);
     }
 
-    public void setMemberID(QuestionSolve questionSolve, Object memberName) {
-        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) memberName);
+    public void setMemberID(QuestionSolve questionSolve, Object memberId) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) memberId);
         if(memberEntity.isPresent()) {
             MemberDto member = MemberDto.toMemberDto(memberEntity.get());
             questionSolve.setMemberId(member.getId());
