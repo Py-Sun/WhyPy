@@ -34,7 +34,7 @@
     <div class="rigth">
       <div class="answer">정답</div>
       <div class="box">
-        <pre th:text="${question.answer}"></pre>
+        <textarea id="code-editor" name="answer" th:text="${question.answer}"></textarea>
       </div>
 
     </div>
@@ -47,6 +47,16 @@
   </div>
 </div>
 <script type="text/javascript" src="/js/problem-solving.js"></script>
+<script>
+  var codeEditor = document.getElementById("code-editor");
+  var editor = CodeMirror.fromTextArea(codeEditor, {
+    lineNumbers: true,
+    mode: "python",
+    theme: "default",
+    readOnly: true,
+    cursorBlinkRate: -1,
+  });
+</script>
 </body>
 
 </html>
