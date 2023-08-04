@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,15 @@ public class PostController {
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
         List<Post> postDtos = postService.getAllPosts();
+        List<String> memberName = new ArrayList<>();
+        for(Post post : postDtos) {
+            Optional<MemberEntity> memberEntity = memberRepository.findById(post.getWriterID());
+            MemberDto memberDto = new MemberDto();
+            if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            memberName.add(memberDto.getNickName());
+        }
         model.addAttribute("posts", postDtos);
+        model.addAttribute("nicknames", memberName);
         return "full-article-page";
     }
 

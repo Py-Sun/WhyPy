@@ -37,14 +37,13 @@ public class PostDto {
 
     public void setRecmdNum(int recmdNum) {this.recmdNum = recmdNum; }
 
-    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath, int recmdNum) {
+    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
         this.title = title;
         this.contents = contents;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.imageName = imageName;
         this.imagePath = imagePath;
-        this.recmdNum = recmdNum;
     }
 
     public Post toEntity() {

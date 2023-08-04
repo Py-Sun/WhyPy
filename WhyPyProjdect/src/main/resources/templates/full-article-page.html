@@ -80,13 +80,13 @@
                         <th>추천수</th>
                     </thead>
                     <tbody align="center">
-                        <tr th:each="post : ${posts}">
+                        <tr th:each="post, index : ${posts}">
                             <td th:text="${post.postId}"></td>
                             <td>직종1</td>
                             <td>
                                 <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
                             </td>
-                            <td th:text="${post.writerID}"></td>
+                            <td th:text="${nicknames[__${index.index}__]}"></td>
                             <td th:text="${post.createDate}"></td>
                             <td th:text="${post.recmdNum}"></td>
                         </tr>
