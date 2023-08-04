@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -44,8 +46,15 @@ public class PostController {
             if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
             memberName.add(memberDto.getNickName());
         }
+
+        List<Post> topPosts = postDtos.stream()
+                .sorted(Comparator.comparingInt(Post::getRecmdNum).reversed())
+                .limit(3) //상위 3개
+                .collect(Collectors.toList());
+
         model.addAttribute("posts", postDtos);
         model.addAttribute("nicknames", memberName);
+        model.addAttribute("topPosts", topPosts);
         return "full-article-page";
     }
 
