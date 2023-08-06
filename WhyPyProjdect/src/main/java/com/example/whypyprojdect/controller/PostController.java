@@ -45,10 +45,17 @@ public class PostController {
             MemberDto memberDto = new MemberDto();
             if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
             memberName.add(memberDto.getNickName());
+
+            int recmdCountForOneDay = postService.getRecmdCountForOneDay(post.getPostId());
+            System.out.println("--------------------------");
+            System.out.println(post.getPostId());
+            System.out.println(recmdCountForOneDay);
+            post.setRecmdOneDayNum(recmdCountForOneDay);
+            postService.savePostData(post);
         }
 
         List<Post> topPosts = postDtos.stream()
-                .sorted(Comparator.comparingInt(Post::getRecmdNum).reversed())
+                .sorted(Comparator.comparingInt(Post::getRecmdOneDayNum).reversed())
                 .limit(3) //상위 3개
                 .collect(Collectors.toList());
 

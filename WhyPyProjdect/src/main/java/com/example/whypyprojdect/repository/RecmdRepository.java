@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface RecmdRepository extends JpaRepository<Recmd, Integer> {
     Optional<Recmd> findByPostIdAndMemberId(Integer postId, Long memberId);
+
+    int countByPostIdAndRecmdDateAfter(Integer postId, String date);
 }

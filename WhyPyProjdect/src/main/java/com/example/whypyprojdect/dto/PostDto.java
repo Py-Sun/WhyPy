@@ -14,6 +14,7 @@ public class PostDto {
     private String imageName;
     private String imagePath;
     private int recmdNum;
+    private int recmdOneDayNum;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -37,6 +38,8 @@ public class PostDto {
 
     public void setRecmdNum(int recmdNum) {this.recmdNum = recmdNum; }
 
+    public void setRecmdOneDayNum(int recmdOneDayNum) {this.recmdOneDayNum = recmdOneDayNum; }
+
     public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
         this.title = title;
         this.contents = contents;
@@ -57,6 +60,7 @@ public class PostDto {
                 .imageName(imageName)
                 .imagePath(imagePath)
                 .recmdNum(recmdNum)
+                .recmdOneDayNum(recmdOneDayNum)
                 .build();
     }
 }

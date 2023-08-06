@@ -44,11 +44,15 @@ public class Post {
     @Column(name = "post_recmdNum")
     private int recmdNum;
 
+    @Column(name = "post_recmdOneDayNum")
+    private int recmdOneDayNum;
+
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
         this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.updateDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.recmdNum = 0;
+        this.recmdOneDayNum = 0;
     }
 
     @PreUpdate //DB에 UPDATE되기 직전에 실행
