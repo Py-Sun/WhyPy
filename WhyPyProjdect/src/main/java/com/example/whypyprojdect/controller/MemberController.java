@@ -5,13 +5,17 @@ import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
+@Log4j2
+
 //링크를 클릭하는 건 다 get
 public class MemberController {
     //@@@--생성자 주입. memberService 필드를 매개변수로 하는 컨트롤 생성자를 만들어 줌.
@@ -63,6 +67,10 @@ public class MemberController {
         }
     }
 
+    //프로필 정보 보여주기
+    //@PostMapping("/member/save") // 데이터 전달. 회원정보(SignupDto), 회원사진() 받아서 기입
+
+
     // 이전 페이지로 돌아가기
     @GetMapping("/member/return")
     public String returnToPrevious(HttpSession session) {
@@ -108,7 +116,8 @@ public class MemberController {
         //return "home";
     }
 
-    //프로필 정보 보여주기
+
+
 
 }
 

@@ -61,4 +61,6 @@ public class MemberService {
     public void update(MemberDto memberDto) {
         memberRepository.save(MemberEntity.toUpateMemberEntity(memberDto));
     }
+
+
 }
