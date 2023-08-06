@@ -2,14 +2,15 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.QuestionDto;
-import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.QuestionSolve;
+import com.example.whypyprojdect.dto.QuestionSolveDto;
+import com.example.whypyprojdect.entity.*;
 import com.example.whypyprojdect.repository.MemberRepository;
 import com.example.whypyprojdect.service.MemberService;
 import com.example.whypyprojdect.service.QuestionService;
 import com.example.whypyprojdect.service.QuestionSolveService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,28 +36,22 @@ public class QuestionController {
 
     @GetMapping("/questions")
     public String getAllQuestions(Model model, HttpSession session) {
-        int solveCount = 0;
-
         List<QuestionDto> questionDtos = questionService.getAllQuestion();
+
         model.addAttribute("questions", questionDtos);
 
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
-        MemberDto memberDto = new MemberDto();
-        List<QuestionSolve> qsDto = questionSolveService.getQuestionSolveByMemberId(memberDto.getId());
 
         if(memberEntity.isPresent())
         {
-            memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            MemberDto memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
-            if(qsDto == null || qsDto.isEmpty())
-            {
-                model.addAttribute("SolveCount", 0);
-            }
-            else
-            {
-                solveCount = qsDto.size();
-                model.addAttribute("SolveCount", solveCount);
-            }
+
+            long solveCount = questionSolveService.getQuestionSolveSolvedCountByMemberId(memberDto.getId());
+            model.addAttribute("SolveCount", solveCount);
+
+            List<QuestionSolve> questionSolveDtos = questionSolveService.getQuestionSolveByMemberId(memberDto.getId());
+            model.addAttribute("isSolved", questionSolveDtos);
         }
 
         return "Problem/problem_list";
@@ -66,15 +61,12 @@ public class QuestionController {
     public String getQuestionById(@PathVariable int questionId, Model model, HttpSession session) {
 
         QuestionDto questionDto = questionService.getQuestionById(questionId);
-        String questionTitle = questionDto.getTitle();
-        String questionContents = questionDto.getContents();
-        String questionAnswer = questionDto.getAnswer();
-        String questionExample = questionDto.getExample();
 
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
         MemberDto memberDto = new MemberDto();
 
         model.addAttribute("question", questionDto);
+
         if(memberEntity.isPresent()) {
             memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
@@ -94,18 +86,33 @@ public class QuestionController {
         if(memberEntity.isPresent()) {
             memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
+
+            // 해당 질문과 회원에 대한 QuestionSolve 조회
+            Optional<QuestionSolve> questionSolveOpt = questionSolveService.getQuestionSolveBySolveIdAndMemberId(questionId, memberDto.getId());
+
+            // qsolve 값이 존재하는 경우, 해당 값에 따라 체크박스 초기 상태를 결정
+            boolean isSolved = questionSolveOpt.isPresent() && questionSolveOpt.get().isSolved();
+            model.addAttribute("qsolve", isSolved);
         }
         return "Problem/problem_answer";
     }
 
-    @RequestMapping(value = "/questions/{questionId}/answer" , method = RequestMethod. POST)
-    public void setCheckBox(@RequestParam(value = "checkboxName", required = false) String checkboxValue) {
-        if (checkboxValue != null) {
-            System.out.println("checkbox is checked");
+    @PostMapping("/questions/{questionId}/answer")
+    public ResponseEntity<?> saveQuestion(@PathVariable int questionId, @RequestParam boolean qSolved, HttpSession session) {
+        QuestionDto questionDto = questionService.getQuestionById(questionId);
+        if (questionDto != null) {
+            QuestionSolve questionSolve = new QuestionSolve();
+            Object member = session.getAttribute("loginName");
+            //System.out.println("questionId" + questionId);
+            questionSolveService.setQuestionID(questionSolve, questionId);
+            questionSolveService.setMemberID(questionSolve, member);
+            questionSolveService.saveOrUpdateSolveData(questionSolve, qSolved);
+            return ResponseEntity.ok("QuestionSolve added successfully");
         } else {
-            System.out.println("checkbox is not checked");
+            return ResponseEntity.notFound().build();
         }
     }
+
 
 /*``````
     @GetMapping("/questionList/filtered")

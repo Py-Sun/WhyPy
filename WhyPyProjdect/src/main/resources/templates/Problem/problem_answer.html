@@ -12,11 +12,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/codemirror.min.js"></script>
   <!-- CodeMirror 파이썬 모드 스크립트 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <title>problem answer</title>
 </head>
 
 <body>
+<input type=hidden id="memberId" th:value="${member.id}">
+<input type=hidden id="questionId" th:value="${question.id}">
+
 <div class="header">
   <div>
     <a href="/" class="logo">logo</a>
@@ -29,9 +33,7 @@
     <div class="left">
       <div class="text">답안</div>
         <div th:if="${member != null}">
-          <form action="path" method="post">
-            <input type="checkbox" name="checkboxName"/>
-          </form>
+            <input type="checkbox" id="solveCheckbox" th:checked="${qsolve}"/>
         </div>
       <div class="explanation">
       </div>
@@ -44,6 +46,7 @@
 
     </div>
   </div>
+
   <div class="un">
     <div class="write-button">
       <a th:href="@{/questions/{questionId}(questionId=${question.id})}">뒤로가기</a>
@@ -52,6 +55,7 @@
   </div>
 </div>
 <script type="text/javascript" src="/js/problem-solving.js"></script>
+
 <script>
   var codeEditor = document.getElementById("code-editor");
   var editor = CodeMirror.fromTextArea(codeEditor, {
@@ -60,6 +64,21 @@
     theme: "default",
     readOnly: true,
     cursorBlinkRate: -1,
+  });
+
+  $(document).ready(function() {
+    $("#solveCheckbox").on("change", function() {
+
+      var isChecked = $(this).prop("checked"); // 체크박스 상태
+      var questionId = $("#questionId").val();
+      var Url = "/questions/" + questionId + "/answer";
+
+      $.ajax({
+        type: "POST",
+        url: Url,
+        data: { qSolved: isChecked }, // qSolve 값 같이 전송
+      });
+    });
   });
 </script>
 </body>
