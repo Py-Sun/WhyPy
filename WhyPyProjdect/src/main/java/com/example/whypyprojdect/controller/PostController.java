@@ -47,9 +47,6 @@ public class PostController {
             memberName.add(memberDto.getNickName());
 
             int recmdCountForOneDay = postService.getRecmdCountForOneDay(post.getPostId());
-            System.out.println("--------------------------");
-            System.out.println(post.getPostId());
-            System.out.println(recmdCountForOneDay);
             post.setRecmdOneDayNum(recmdCountForOneDay);
             postService.savePostData(post);
         }
