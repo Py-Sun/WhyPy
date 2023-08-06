@@ -15,7 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -36,8 +38,9 @@ public class QuestionController {
 
     @GetMapping("/questions")
     public String getAllQuestions(Model model, HttpSession session) {
-        List<QuestionDto> questionDtos = questionService.getAllQuestion();
+        Map<Integer, Boolean> questionSolveMap = new HashMap<>();
 
+        List<QuestionDto> questionDtos = questionService.getAllQuestion();
         model.addAttribute("questions", questionDtos);
 
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
@@ -50,10 +53,22 @@ public class QuestionController {
             long solveCount = questionSolveService.getQuestionSolveSolvedCountByMemberId(memberDto.getId());
             model.addAttribute("SolveCount", solveCount);
 
+            // 현재 사용자의 member_id로 해당 사용자가 푼 문제들의 정보를 가져옵니다.
             List<QuestionSolve> questionSolveDtos = questionSolveService.getQuestionSolveByMemberId(memberDto.getId());
-            model.addAttribute("isSolved", questionSolveDtos);
+
+            // 문제의 question_id와 qsolve 값을 매핑하는 Map을 만듭니다.
+            for (QuestionSolve qs : questionSolveDtos) {
+                questionSolveMap.put(qs.getQuestionId(), qs.isSolved());
+            }
+        }
+        else {
+            // If member_id is not present, set all qsolve values to false
+            for (QuestionDto question : questionDtos) {
+                questionSolveMap.put(question.getId(), false);
+            }
         }
 
+        model.addAttribute("questionSolveMap", questionSolveMap);
         return "Problem/problem_list";
     }
 
@@ -79,7 +94,7 @@ public class QuestionController {
     public String getQuestionAnswer(@PathVariable int questionId, Model model, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
         model.addAttribute("question", questionDto);
-
+        System.out.println("Answer : "  + questionDto.getAnswer());
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
         MemberDto memberDto = new MemberDto();
 
@@ -90,9 +105,19 @@ public class QuestionController {
             // 해당 질문과 회원에 대한 QuestionSolve 조회
             Optional<QuestionSolve> questionSolveOpt = questionSolveService.getQuestionSolveBySolveIdAndMemberId(questionId, memberDto.getId());
 
-            // qsolve 값이 존재하는 경우, 해당 값에 따라 체크박스 초기 상태를 결정
+            // qsolve 값이 이미 존재하는 경우, 해당 값에 따라 체크박스 초기 상태 결정
             boolean isSolved = questionSolveOpt.isPresent() && questionSolveOpt.get().isSolved();
+            
+            // 작성한 답안 보여주기
+            if(questionSolveOpt.isPresent()){
+                String answer = questionSolveOpt.get().getAnswer();
+                System.out.println("userAnswer : "  + answer);
+                model.addAttribute("useranswer", answer);
+            }
+            else model.addAttribute("useranswer", "");
+
             model.addAttribute("qsolve", isSolved);
+
         }
         return "Problem/problem_answer";
     }

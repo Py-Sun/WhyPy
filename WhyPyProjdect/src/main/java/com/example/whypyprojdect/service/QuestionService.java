@@ -47,7 +47,7 @@ public class QuestionService {
         questionDto.setQCategory(question.getCategory());
         questionDto.setQTitle(question.getTitle());
         questionDto.setQLevel(question.getLevel());
-        questionDto.setQSolved(question.getSolved());
+        //questionDto.setQSolved(question.getSolved());
         questionDto.setQContents(question.getContents());
         questionDto.setQAnswer(question.getAnswer());
         questionDto.setQExample(question.getExample());

@@ -44,7 +44,6 @@ public class QuestionSolveService {
                 countOfSolved++;
             }
         }
-        System.out.println("q_solved 값이 1인 데이터의 개수: " + countOfSolved);
         return countOfSolved;
     }
 

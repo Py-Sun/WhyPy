@@ -41,7 +41,7 @@
                     <a th:href="@{/questions/{questionId}(questionId=${question.id})}" th:text="${question.title}"></a>
                     </td>
                     <td th:text="'LV.' + ${question.level}"></td>
-                    <td th:text="${question.solved}"></td>
+                    <td th:text="${questionSolveMap[__${question.id}__] != null ? questionSolveMap[__${question.id}__] : false}"></td>
                     <!--<td><input type="checkbox" class="checkbox"></td>-->
                 </tr>
             </table>

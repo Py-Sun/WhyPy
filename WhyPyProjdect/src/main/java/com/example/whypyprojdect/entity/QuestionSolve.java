@@ -27,6 +27,9 @@ public class QuestionSolve {
     @Column(name = "q_solved")
     private boolean solved;
 
+    @Column(name = "user_answer")
+    private String answer;
+
     public boolean isSolved() {
         return solved;
     }
