@@ -45,7 +45,11 @@
     </div>
     <div class="write-button">
       <button id="reset-button" onclick="resetCodeMirror()"> 초기화</button>
-      <a th:href="@{/questions/{questionId}/answer(questionId=${question.id})}">정답 보기</a>
+      <!-- 로그인 되어있으면 -->
+        <a th:if="${member != null}" th:href="@{/questions/{questionId}/answer(questionId=${question.id})}">정답 보기</a>
+      <!-- 로그인 상태가 아니면 -->
+          <a th:unless="${member != null}" href="/member/login">로그인</a>
+      </div>
       </div>
     </div>
   </div>

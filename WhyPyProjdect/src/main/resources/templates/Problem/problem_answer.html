@@ -28,6 +28,11 @@
   <div class="up">
     <div class="left">
       <div class="text">답안</div>
+        <div th:if="${member != null}">
+          <form action="path" method="post">
+            <input type="checkbox" name="checkboxName"/>
+          </form>
+        </div>
       <div class="explanation">
       </div>
     </div>
