@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 @Controller
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
@@ -37,7 +37,13 @@ public class MemberController {
     }
 
     @GetMapping("/member/login")
-    public String loginForm() {
+    public String loginForm(HttpSession session, HttpServletRequest request) {
+
+        // 이전 페이지 URL 세션 저장
+        String referer = request.getHeader("Referer");
+        session.setAttribute("previousPage", referer);
+
+        System.out.println(referer);
         return "login";
     }
 
@@ -47,10 +53,25 @@ public class MemberController {
         if (loginResult != null) {
             //login 성공
             session.setAttribute("loginName", loginResult.getMemberName());
-            return "loginhome";
+
+            // 바로 이전 페이지로 리다이렉트
+            return "redirect:/member/return";
+            //return "loginhome";
         } else {
             //login 실패
             return "login";
+        }
+    }
+
+    // 이전 페이지로 돌아가기
+    @GetMapping("/member/return")
+    public String returnToPrevious(HttpSession session) {
+        String previousPage = (String) session.getAttribute("previousPage");
+        System.out.println(previousPage);
+        if (previousPage != null && !previousPage.isEmpty()) {
+            return "redirect:" + previousPage;
+        } else {
+            return "redirect:/";
         }
     }
 
@@ -83,9 +104,12 @@ public class MemberController {
     @GetMapping("/member/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "home";
+        return "redirect:/";
+        //return "home";
     }
 
     //프로필 정보 보여주기
 
 }
+
+

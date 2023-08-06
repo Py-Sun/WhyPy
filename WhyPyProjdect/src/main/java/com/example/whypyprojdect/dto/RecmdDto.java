@@ -8,6 +8,7 @@ public class RecmdDto {
     private int recmdId;
     private int postId;
     private long memberId;
+    private String recmdDate;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -31,6 +32,7 @@ public class RecmdDto {
                 .recmdId(recmdId)
                 .postId(postId)
                 .memberId(memberId)
+                .recmdDate(recmdDate)
                 .build();
     }
 }

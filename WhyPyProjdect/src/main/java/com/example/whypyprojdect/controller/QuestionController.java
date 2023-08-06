@@ -12,8 +12,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +63,7 @@ public class QuestionController {
     }
 
     @GetMapping("/questions/{questionId}")
-    public String getQuestionById(@PathVariable int questionId, Model model) {
+    public String getQuestionById(@PathVariable int questionId, Model model, HttpSession session) {
 
         QuestionDto questionDto = questionService.getQuestionById(questionId);
         String questionTitle = questionDto.getTitle();
@@ -72,17 +71,40 @@ public class QuestionController {
         String questionAnswer = questionDto.getAnswer();
         String questionExample = questionDto.getExample();
 
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDto = new MemberDto();
+
         model.addAttribute("question", questionDto);
+        if(memberEntity.isPresent()) {
+            memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            model.addAttribute("member", memberDto);
+        }
 
         return "Problem/problem_solving";
     }
 
     @GetMapping("/questions/{questionId}/answer")
-    public String getQuestionAnswer(@PathVariable int questionId, Model model) {
+    public String getQuestionAnswer(@PathVariable int questionId, Model model, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
         model.addAttribute("question", questionDto);
 
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDto = new MemberDto();
+
+        if(memberEntity.isPresent()) {
+            memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            model.addAttribute("member", memberDto);
+        }
         return "Problem/problem_answer";
+    }
+
+    @RequestMapping(value = "/questions/{questionId}/answer" , method = RequestMethod. POST)
+    public void setCheckBox(@RequestParam(value = "checkboxName", required = false) String checkboxValue) {
+        if (checkboxValue != null) {
+            System.out.println("checkbox is checked");
+        } else {
+            System.out.println("checkbox is not checked");
+        }
     }
 
 /*``````
