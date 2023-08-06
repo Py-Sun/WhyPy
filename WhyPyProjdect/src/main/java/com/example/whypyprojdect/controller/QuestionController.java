@@ -90,6 +90,24 @@ public class QuestionController {
         return "Problem/problem_solving";
     }
 
+    @PostMapping("/questions/{questionId}")
+    public ResponseEntity<String> saveUserAnswer(@PathVariable int questionId, @RequestParam String userAnswer, HttpSession session) {
+        QuestionDto questionDto = questionService.getQuestionById(questionId);
+
+        if (questionDto != null) {
+            QuestionSolve questionSolve = new QuestionSolve();
+            Object member = session.getAttribute("loginName");
+            //System.out.println("questionId" + questionId);
+            questionSolveService.setQuestionID(questionSolve, questionId);
+            questionSolveService.setMemberID(questionSolve, member);
+            questionSolveService.getQuestionUserAnswerByMemberId(questionSolve, userAnswer);
+        }
+
+        String url = "/questions/" + questionId + "/answer";
+        System.out.println("URL" + url);
+        return ResponseEntity.ok(url);
+    }
+
     @GetMapping("/questions/{questionId}/answer")
     public String getQuestionAnswer(@PathVariable int questionId, Model model, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);

@@ -47,6 +47,23 @@ public class QuestionSolveService {
         return countOfSolved;
     }
 
+    // 유저가 입력한 정답 저장
+    public void getQuestionUserAnswerByMemberId(QuestionSolve questionSolve, String userAnswer) {
+        Optional<QuestionSolve> existingSolve = questionSolveRepository.findByQuestionIdAndMemberId(questionSolve.getQuestionId(), questionSolve.getMemberId());
+
+        if (existingSolve.isPresent()) {
+            // 이미 레코드가 존재하면 업데이트
+            QuestionSolve existingSolveEntity = existingSolve.get();
+            existingSolveEntity.setAnswer(userAnswer);
+            questionSolveRepository.save(existingSolveEntity);
+        } else {
+            // 없으면 새 레코드 추가
+            questionSolve.setAnswer(userAnswer);
+            questionSolve.setSolved(false);
+            questionSolveRepository.save(questionSolve);
+        }
+    }
+
     // 체크박스 상태에 따라 qsolve 테이블의 qSolved 값이 달라지는 함수
     public void saveOrUpdateSolveData(QuestionSolve questionSolve, boolean qSolved) {
 
