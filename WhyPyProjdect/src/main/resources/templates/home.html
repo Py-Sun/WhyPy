@@ -43,7 +43,10 @@
 
 
 <h2>Why?PY!</h2>
-<a href="/member/login">로그인</a>
+    <!-- 로그인 되어있으면 -->
+<a th:if="${loginName != null}" href="/member/logout">로그아웃</a>
+    <!-- 로그인 상태가 아니면 -->
+    <a th:unless="${loginName != null}" href="/member/login">로그인</a>
 <br>
 
 <a href="/postList">Go to Post List!</a>
