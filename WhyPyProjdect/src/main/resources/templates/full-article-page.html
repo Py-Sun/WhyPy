@@ -51,7 +51,7 @@
                 <div class="box">
                     <div class="box-left">
                         <div th:each="topPost, index : ${topPosts}">
-                            <span class = "box-item" th:text="${index.index + 1} + '. ' + ${topPost.title}"></span>
+                            <a class = "box-item" th:href="@{/post/{postId}(postId=${topPost.postId})}" th:text="${index.index + 1} + '. ' + ${topPost.title}" ></a>
                         </div>
                         <div class="box-item">4. 제목 4</div>
                         <div class="box-item">5. 제목 5</div>
