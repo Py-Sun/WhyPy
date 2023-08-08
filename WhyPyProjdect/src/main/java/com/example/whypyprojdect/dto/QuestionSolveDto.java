@@ -8,6 +8,8 @@ public class QuestionSolveDto {
     private int solveId;
     private int questionId;
     private long memberId;
+    private boolean solved;
+    private String answer;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -17,6 +19,9 @@ public class QuestionSolveDto {
 
     public void setMemberId(long memberId) {this.memberId = memberId;}
 
+    public void setSolved(boolean solved){this.solved = solved;}
+
+    public void setAnswer(String answer){this.answer = answer;}
     public QuestionSolveDto()
     {
 
@@ -32,6 +37,8 @@ public class QuestionSolveDto {
                 .solveId(solveId)
                 .questionId(questionId)
                 .memberId(memberId)
+                .answer(answer)
+                .solved(solved)
                 .build();
     }
 }

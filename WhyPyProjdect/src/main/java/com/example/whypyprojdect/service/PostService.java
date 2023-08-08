@@ -6,11 +6,13 @@ import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberRepository;
 import com.example.whypyprojdect.repository.PostRepository;
+import com.example.whypyprojdect.repository.RecmdRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.UUID;
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final RecmdRepository recmdRepository;
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
@@ -66,5 +69,11 @@ public class PostService {
         post.setImageName(imageName);
         post.setImagePath("/postImages/" + imageName);
         postRepository.save(post);
+    }
+
+    public int getRecmdCountForOneDay(Integer postId) {
+        LocalDateTime beforeDay = LocalDateTime.now().minusDays(7); //테스트
+        String beforeDayToString = beforeDay.toString();
+        return recmdRepository.countByPostIdAndRecmdDateAfter(postId, beforeDayToString);
     }
 }

@@ -8,7 +8,7 @@ function initCodeMirror() {
 
     // 초기화 버튼 클릭
     document.getElementById("reset-button").addEventListener("click", () => {
-        editor.setValue(" 답안을 작성하세요. ");
+        editor.setValue("코드를 입력해주세요. ");
     });
 }
 

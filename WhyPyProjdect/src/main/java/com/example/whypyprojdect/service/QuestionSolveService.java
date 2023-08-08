@@ -1,10 +1,9 @@
 package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
-import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.QuestionSolve;
-import com.example.whypyprojdect.entity.Recmd;
+import com.example.whypyprojdect.entity.*;
 import com.example.whypyprojdect.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,10 @@ public class QuestionSolveService {
                 .orElseThrow(() -> new NoSuchElementException("SolveId not found with id: " + solveId));
     }
 
+    public List<QuestionSolve> getQuestionSolveByMemberId(long memberId) {
+        return questionSolveRepository.findAllByMemberId(memberId);
+    }
+
     public Optional<QuestionSolve> getQuestionSolveBySolveIdAndMemberId(Integer solveId, Long memberId) {
         Optional<QuestionSolve> questionSolve = questionSolveRepository.findByQuestionIdAndMemberId(solveId, memberId);
         if(questionSolve.isPresent()) {
@@ -33,17 +36,49 @@ public class QuestionSolveService {
         return null;
     }
 
-    public List<QuestionSolve> getQuestionSolveByMemberId(Long memberId) {
+    public long getQuestionSolveSolvedCountByMemberId(Long memberId) {
         List<QuestionSolve> questionSolve = questionSolveRepository.findAllByMemberId(memberId);
-        if(!questionSolve.isEmpty()) {
-            return questionSolve;
+        long countOfSolved = 0;
+        for (QuestionSolve qs : questionSolve) {
+            if (qs.isSolved()) {
+                countOfSolved++;
+            }
         }
-        return null;
+        return countOfSolved;
     }
 
-    public QuestionSolve saveSolveData(QuestionSolve questionSolve) {
-        QuestionSolve qustionSolveEntity = questionSolveRepository.save(questionSolve);
-        return qustionSolveEntity;
+    // 유저가 입력한 정답 저장
+    public void getQuestionUserAnswerByMemberId(QuestionSolve questionSolve, String userAnswer) {
+        Optional<QuestionSolve> existingSolve = questionSolveRepository.findByQuestionIdAndMemberId(questionSolve.getQuestionId(), questionSolve.getMemberId());
+
+        if (existingSolve.isPresent()) {
+            // 이미 레코드가 존재하면 업데이트
+            QuestionSolve existingSolveEntity = existingSolve.get();
+            existingSolveEntity.setAnswer(userAnswer);
+            questionSolveRepository.save(existingSolveEntity);
+        } else {
+            // 없으면 새 레코드 추가
+            questionSolve.setAnswer(userAnswer);
+            questionSolve.setSolved(false);
+            questionSolveRepository.save(questionSolve);
+        }
+    }
+
+    // 체크박스 상태에 따라 qsolve 테이블의 qSolved 값이 달라지는 함수
+    public void saveOrUpdateSolveData(QuestionSolve questionSolve, boolean qSolved) {
+
+        Optional<QuestionSolve> existingSolve = questionSolveRepository.findByQuestionIdAndMemberId(questionSolve.getQuestionId(), questionSolve.getMemberId());
+
+        if (existingSolve.isPresent()) {
+            // 이미 레코드가 존재하면 업데이트
+            QuestionSolve existingSolveEntity = existingSolve.get();
+            existingSolveEntity.setSolved(qSolved);
+            questionSolveRepository.save(existingSolveEntity);
+        } else {
+            // 없으면 새 레코드 추가
+            questionSolve.setSolved(qSolved);
+            questionSolveRepository.save(questionSolve);
+        }
     }
 
     public void deleteSolveData(Integer solveId) {
@@ -58,8 +93,9 @@ public class QuestionSolveService {
         }
     }
 
-    public void setSolveID(QuestionSolve questionSolve, int solveId) {
-        questionSolve.setSolveId(solveId);
+    public void setQuestionID(QuestionSolve questionSolve, int questionId) {
+        //System.out.println("questionId" + questionId);
+        questionSolve.setQuestionId(questionId);
     }
 
 

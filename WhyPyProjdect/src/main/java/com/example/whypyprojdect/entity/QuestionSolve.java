@@ -23,4 +23,15 @@ public class QuestionSolve {
 
     @Column(name = "member_id")
     private long memberId;
+
+    @Column(name = "q_solved")
+    private boolean solved;
+
+    @Column(name = "user_answer")
+    private String answer;
+
+    public boolean isSolved() {
+        return solved;
+    }
+    public void setSolved(boolean solved){this.solved = solved;}
 }

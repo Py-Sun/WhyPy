@@ -11,7 +11,7 @@ public class QuestionDto {
     private String title;
     private int level;
     private String answer;
-    private Boolean solved;
+    //private Boolean solved;
     private String contents;
     private String example;
 
@@ -28,13 +28,13 @@ public class QuestionDto {
         this.level = level;
     }
 
+    public void setQAnswer(String answer){this.answer = answer;}
+    /*
     public void setQSolved(Boolean solved) {
         this.solved = solved;
     }
-
+    */
     public void setQContents(String contents){this.contents = contents;}
-
-    public void setQAnswer(String answer){this.answer = answer;}
 
     public void setQExample(String example){this.example = example;}
 

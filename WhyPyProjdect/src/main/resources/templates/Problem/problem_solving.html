@@ -15,8 +15,10 @@
 
   <title>problem solving</title>
   <script src="../../static/js/problem-solving.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
+<input type=hidden id="questionId" th:value="${question.id}">
 <body>
 <div class="header">
   <div>
@@ -34,7 +36,7 @@
     <div class="rigth">
       <div class="answer">답안</div>
       <div class="box">
-        <textarea id = "code" oninput="updateCodeMirror(this.value)"> 답안을 작성하세요. </textarea>
+        <textarea id = "code" oninput="updateCodeMirror(this.value)">코드를 입력해주세요. </textarea>
       </div>
     </div>
   </div>
@@ -46,7 +48,7 @@
     <div class="write-button">
       <button id="reset-button" onclick="resetCodeMirror()"> 초기화</button>
       <!-- 로그인 되어있으면 -->
-        <a th:if="${member != null}" th:href="@{/questions/{questionId}/answer(questionId=${question.id})}">정답 보기</a>
+      <button th:if="${member != null}" id="submitAnswer">정답 보기</button>
       <!-- 로그인 상태가 아니면 -->
           <a th:unless="${member != null}" href="/member/login">로그인</a>
       </div>
@@ -55,6 +57,38 @@
   </div>
 
 <script type="text/javascript" src="/js/problem-solving.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $("#submitAnswer").click(function() {
+      var userAnswer = getCodeMirrorValue();
+      var questionId = $("#questionId").val();
+
+
+      // AJAX 요청 보내기
+      $.ajax({
+        url: "/questions/" + questionId,
+        method: "POST",
+        data: {
+          userAnswer: userAnswer
+        },
+        success: function(data) {
+          // AJAX 요청이 성공적으로 완료되었을 때 실행되는 콜백 함수
+          window.location.href = data; // 리다이렉트 수행
+        }
+      });
+    });
+  });
+
+  function getCodeMirrorValue() {
+    // CodeMirror 인스턴스를 가져온 후 getValue() 메서드를 사용하여 값 반환
+    var codeMirrorInstance = CodeMirror.fromTextArea(document.getElementById("code"));
+
+    console.log("uA " + codeMirrorInstance);
+    return codeMirrorInstance.getValue();
+  }
+</script>
+
 
 
 </body>

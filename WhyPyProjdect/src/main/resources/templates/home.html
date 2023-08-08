@@ -32,10 +32,10 @@
         <div class="right-area">
             <div class="ranking">금주 소스코드 랭킹</div>
             <div class="source-code">
-                <div class="source-code-title">소스코드 제목</div>
+                <a class="source-code-title" th:href="@{/post/{postId}(postId=${topPost[0].postId})}" th:text="${topPost[0].title}"></a>
                 <br>
                 <br>
-                <div class="source-code-text">소스코드</div>
+                <div class="source-code-text" th:text="${topPost[0].contents}"></div>
             </div>
         </div>
     </div>
