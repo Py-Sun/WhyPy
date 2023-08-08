@@ -33,7 +33,7 @@ public class MemberController {
         System.out.println("MemberController.save"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
         System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/member/login")
