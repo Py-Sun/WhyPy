@@ -53,16 +53,16 @@ public class QuestionController {
             long solveCount = questionSolveService.getQuestionSolveSolvedCountByMemberId(memberDto.getId());
             model.addAttribute("SolveCount", solveCount);
 
-            // 현재 사용자의 member_id로 해당 사용자가 푼 문제들의 정보를 가져옵니다.
+            // 해당 사용자가 푼 문제들의 정보 가져옴
             List<QuestionSolve> questionSolveDtos = questionSolveService.getQuestionSolveByMemberId(memberDto.getId());
 
-            // 문제의 question_id와 qsolve 값을 매핑하는 Map을 만듭니다.
+            // question_id와 qsolve 값을 매핑하는 Map
             for (QuestionSolve qs : questionSolveDtos) {
                 questionSolveMap.put(qs.getQuestionId(), qs.isSolved());
             }
         }
         else {
-            // If member_id is not present, set all qsolve values to false
+            // 없으면, 모두 false로 표시 set all qsolve values to false
             for (QuestionDto question : questionDtos) {
                 questionSolveMap.put(question.getId(), false);
             }

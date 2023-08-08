@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" type="text/css" href="/css/home.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/home.js" defer></script>
     <meta charset="UTF-8">
     <title>Main Website</title>
 </head>
 <body>
+<input type=hidden id="memberId" th:value="${unsolvedQuestions}">
     <div class="up">
         <div>
             <div class="logo">logo</div>
@@ -26,8 +28,20 @@
 
     <div class="main">
         <div class="left-area">
-            <div class="box" onclick="redirectToLectures()">오늘의 추천 동영상</div>
-            <div class="box" onclick="redirectToQuestions()">랜덤 문제 풀어보기</div>
+            <div class="box" onclick="redirectToLectures()">
+                오늘의 추천 동영상
+            </div>
+            <!--<div class="box" onclick="redirectToQuestions()">-->
+            <div class="box">
+            <th:block th:each="question : ${unsolvedQuestions}">
+                <li>
+                    <p><a th:href="@{/questions/{id}(id=${question.id})}">
+                        <span th:text="${question.title}"></span>
+                    </a></p>
+                    <!-- Add more properties as needed -->
+                </li>
+            </th:block>
+            </div>
         </div>
         <div class="right-area">
             <div class="ranking">금주 소스코드 랭킹</div>
@@ -52,6 +66,7 @@
 <a href="/postList">Go to Post List!</a>
 <!--<a href="/questionList">문제 목록 페이지</a>
 <a href="/lectures">Go to Lecture List!</a>-->
+
 </body>
 </html>
 
