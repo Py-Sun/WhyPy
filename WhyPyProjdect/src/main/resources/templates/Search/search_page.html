@@ -34,14 +34,15 @@
   <div class="left">
     <div class="source">
       <div class="code">소스코드</div>
-      <div class="sc">
-        <div class="image"></div>
-        <div class="title">웹페이지 제목</div>
+      <div th:if="${postList != null}">
+        <div class="sc">
+          <div th:each="post : ${postList}">
+            <div class="image"></div>
+            <a class="title" th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
+          </div>
+        </div>
       </div>
-      <div class="sc">
-        <div class="image"></div>
-        <div class="title">웹페이지 제목</div>
-      </div>
+      <div th:unless="${postList != null}" class="title">검색 결과가 없습니다. </div>
     </div>
 
     <!-- 문제 검색 결과 -->
