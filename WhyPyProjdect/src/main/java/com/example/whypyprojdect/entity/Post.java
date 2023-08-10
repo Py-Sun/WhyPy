@@ -47,6 +47,9 @@ public class Post {
     @Column(name = "post_recmdOneDayNum")
     private int recmdOneDayNum;
 
+    @Column(name = "post_is_anonymous")
+    private boolean isAnonymous;
+
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
         this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
