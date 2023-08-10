@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>search page</title>
+  <link rel="stylesheet" href="/css/Search/search_page.css">
+</head>
+
+<body>
+<div class="header">
+  <div>
+    <a href="/" class="logo">logo</a>
+    <div class="tagline">Why? py!</div>
+    <div class="right-area">
+      <a href="#" class="button plus-one">+1</a>
+      <a href="./profile_main.html" class="button my">my</a>
+      <a href="#" class="button list">목록</a>
+    </div>
+  </div>
+</div>
+
+<form action="/search" method="GET">
+  <div class="search-container">
+    <input type="text" id="search-input" name = "keyword" placeholder="검색어를 입력해주세요">
+    <button type="submit" id="search-button">?</button>
+  </div>
+</form>
+
+
+<div class="main">
+  <div class="left">
+    <div class="source">
+      <div class="code">소스코드</div>
+      <div class="sc">
+        <div class="image"></div>
+        <div class="title">웹페이지 제목</div>
+      </div>
+      <div class="sc">
+        <div class="image"></div>
+        <div class="title">웹페이지 제목</div>
+      </div>
+    </div>
+
+    <!-- 문제 검색 결과 -->
+    <div class="video">
+      <div class="vid">문제</div>
+        <div th:if="${questionList != null}">
+        <div class="v">
+          <div th:each="question : ${questionList}">
+            <a class="related" th:href="@{/questions/{questionId}(questionId=${question.id})}" th:text="${question.title}"></a>
+            <br>
+          </div>
+        </div>
+      </div>
+      <div th:unless="${questionList != null}" class="related">검색 결과가 없습니다. </div>
+    </div>
+
+    <!-- 동영상 검색 결과 -->
+    <div class="video">
+      <div class="vid">동영상</div>
+      <div th:if="${lectureDtoList != null}">
+        <div class="v">
+          <div th:each="lecture : ${lectureDtoList}">
+            <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+            <br>
+          </div>
+          <!--<div class="related">관련동영상</div>
+           <div class="related">관련동영상</div>
+           <div class="related">관련동영상</div>
+           <div class="related">관련동영상</div>-->
+        </div>
+      </div>
+      <div th:unless="${lectureDtoList != null}" class="related">검색 결과가 없습니다. </div>
+    </div>
+
+    </div>
+  <div class="right">
+    <div class="box">
+      <div class="rank">검색어 순위</div>
+      <div class="rank1">1위 검색어</div>
+      <div class="rank1">2위 검색어</div>
+      <div class="rank1">3위 검색어</div>
+      <div class="rank1">4위 검색어</div>
+      <div class="rank1">5위 검색어</div>
+      <div class="day">2023.05.30</div>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>
