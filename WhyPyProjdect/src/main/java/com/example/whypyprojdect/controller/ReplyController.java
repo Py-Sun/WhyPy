@@ -17,7 +17,10 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @PostMapping("/createReply")
-    public String createPostData(@RequestParam Integer postId, ReplyDto replyDto, HttpSession session) {
+    public String createReply(@RequestParam Integer postId, ReplyDto replyDto, HttpSession session) {
+        if(session.getAttribute("loginName") == null) {
+            return "/login";
+        }
         Reply reply = replyDto.toEntity();
         Object writer = session.getAttribute("loginName");
         replyService.setPostID(reply, postId);

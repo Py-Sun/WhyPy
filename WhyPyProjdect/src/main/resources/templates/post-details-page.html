@@ -82,7 +82,8 @@
 
 <form th:action="@{/createReply}" method="post">
   <input type="hidden" name="postId" th:value="${post.postId}" />
-  <textarea name="comment" placeholder="댓글 작성"></textarea>
+  <textarea name="comment" th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '댓글 작성'}"
+            th:readonly="${session.loginName == null}"></textarea>
   <p th:if="${member.id == post.writerID}">
     <span th:if="${post.isAnonymous}">
       <label>익명 체크: <input type="checkbox" name="isAnonymous" checked="checked" disabled="disabled"/></label>

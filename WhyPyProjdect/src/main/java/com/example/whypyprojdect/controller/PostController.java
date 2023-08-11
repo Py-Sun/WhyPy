@@ -82,7 +82,10 @@ public class PostController {
     }
 
     @GetMapping("/createPost")
-    public String posting() {
+    public String posting(HttpSession session) {
+        if(session.getAttribute("loginName") == null) {
+            return "/login";
+        }
         //return "writing_page";
         return "temp/create-post";
     }
