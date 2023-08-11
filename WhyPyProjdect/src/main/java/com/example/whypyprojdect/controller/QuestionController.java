@@ -85,7 +85,16 @@ public class QuestionController {
         if(memberEntity.isPresent()) {
             memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
+
+            Optional<QuestionSolve> questionSolveOpt = questionSolveService.getQuestionSolveBySolveIdAndMemberId(questionId, memberDto.getId());
+            if(questionSolveOpt.isPresent()){
+                String answer = questionSolveOpt.get().getAnswer();
+                System.out.println("userAnswer : "  + answer);
+                model.addAttribute("useranswer", answer);
+            }
+            else model.addAttribute("useranswer", "");
         }
+        else model.addAttribute("useranswer", "");
 
         return "Problem/problem_solving";
     }
