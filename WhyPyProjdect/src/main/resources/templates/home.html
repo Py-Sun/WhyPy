@@ -30,9 +30,25 @@
 
     <div class="main">
         <div class="left-area">
-            <div class="box" onclick="redirectToLectures()">
-                오늘의 추천 동영상
+            <!--<div class="box" onclick="redirectToLectures()">-->
+            <div class="box">
+                <th:block th:if="${#lists.isEmpty(notwatchLectures)}">
+                    <p>모든 강의를 시청하셨습니다</p>
+                </th:block>
+                <th:block th:unless="${#lists.isEmpty(notwatchLectures)}">
+                    <!-- ${notwatchLectures}가 비어있지 않은 경우 -->
+                    <ul>
+                        <th:block th:each="lecture : ${notwatchLectures}">
+                            <li>
+                                <p><a th:href="@{/lectures/{id}(id=${lecture.lectureId})}">
+                                    <span th:text="${lecture.title}"></span>
+                                </a></p>
+                            </li>
+                        </th:block>
+                    </ul>
+                </th:block>
             </div>
+
             <!--<div class="box" onclick="redirectToQuestions()">-->
             <div class="box">
             <th:block th:each="question : ${unsolvedQuestions}">
@@ -40,11 +56,11 @@
                     <p><a th:href="@{/questions/{id}(id=${question.id})}">
                         <span th:text="${question.title}"></span>
                     </a></p>
-                    <!-- Add more properties as needed -->
                 </li>
             </th:block>
             </div>
         </div>
+
         <div class="right-area">
             <div class="ranking">금주 소스코드 랭킹</div>
             <div class="source-code">

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -34,6 +35,10 @@ public class LectureWatchService {
             lectureWatch.createDate();
             lectureWatchRepository.save(lectureWatch);
         }
+    }
+
+    public List<LectureWatch> getLectureWatchByMemberId(long memberId){
+        return lectureWatchRepository.findAllByMemberId(memberId);
     }
 
     public void setLectureId(LectureWatch lectureWatch, int lectureId)
