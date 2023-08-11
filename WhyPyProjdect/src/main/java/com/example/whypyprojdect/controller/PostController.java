@@ -72,7 +72,6 @@ public class PostController {
         if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
         Optional<Recmd> recmdDto = recmdService.getRecmdByPostIdAndMemberId(postId, memberDto.getId());
         List<Reply> replyList = replyService.getRepliesByPostId(postId);
-
         List<List<Reply>> rereplyList = new ArrayList<>();
         for(Reply reply : replyList) {
             List<Reply> rereply = replyService.getRepliesByParentId(reply.getReplyId());

@@ -64,7 +64,7 @@ public class ReplyService {
     }
 
     public List<Reply> getRepliesByPostId(int postId) {
-        return replyRepository.findByPostId(postId);
+        return replyRepository.findByPostIdAndParentId(postId, 0);
     }
 
     public List<Reply> getRepliesByParentId(int parentId) {

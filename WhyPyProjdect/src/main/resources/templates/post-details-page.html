@@ -76,10 +76,10 @@
           </span>
         </p>
 
-        <!--div th:if="${rereply[index]}">
-          <div th:each="rereplies : ${rereply[index]}">
+        <div th:if="${rereply[__${index.index}__]}">
+          <div th:each="rereplies : ${rereply[__${index.index}__]}">
             <div class="rereply">
-              <t>
+              <blockquote>
                 <p>대댓글내용: <span th:text="${rereplies.comment}"></span></p>
                 <p>작성일시: <span th:text="${rereplies.createDate}"></span></p>
                 <p th:if="${rereplies.writerId == post.writerID}">
@@ -98,10 +98,10 @@
                     작성자: <span th:text="${rereplies.writerId}"></span>
                   </span>
                 </p>
-              </t>
+              </blockquote>
             </div>
           </div>
-        </div-->
+        </div>
 
         <button id="showRereplyForm">답글 작성</button>
         <form th:action="@{/createReply}" method="post" id="createRereplyForm" style="display: none;">
