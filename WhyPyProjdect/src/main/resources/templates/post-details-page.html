@@ -57,10 +57,24 @@
   <div th:if="${reply}">
     <div th:each="reply : ${reply}">
       <div class="reply">
-        <p th:text="${reply.comment}"></p>
+        <p>댓글내용: <span th:text="${reply.comment}"></span></p>
         <p>작성일시: <span th:text="${reply.createDate}"></span></p>
-        <p th:if="${reply.writerId == post.writerID}">작성자: <span th:text="${reply.writerId + ' (게시글 작성자)'}"></span></p>
-        <p th:unless="${reply.writerId == post.writerID}">작성자: <span th:text="${reply.writerId}"></span></p>
+        <p th:if="${reply.writerId == post.writerID}">
+          <span th:if="${post.isAnonymous}">
+            작성자: <span th:text="${'익명 (게시글 작성자)'}"></span>
+          </span>
+          <span th:unless="${post.isAnonymous}">
+            작성자: <span th:text="${reply.writerId + ' (게시글 작성자)'}"></span>
+          </span>
+        </p>
+        <p th:unless="${reply.writerId == post.writerID}">
+          <span th:if="${reply.isAnonymous}">
+              작성자: <span th:text="${'익명'}"></span>
+          </span>
+          <span th:unless="${reply.isAnonymous}">
+              작성자: <span th:text="${reply.writerId}"></span>
+          </span>
+        </p>
       </div>
     </div>
   </div>
@@ -69,6 +83,17 @@
 <form th:action="@{/createReply}" method="post">
   <input type="hidden" name="postId" th:value="${post.postId}" />
   <textarea name="comment" placeholder="댓글 작성"></textarea>
+  <p th:if="${member.id == post.writerID}">
+    <span th:if="${post.isAnonymous}">
+      <label>익명 체크: <input type="checkbox" name="isAnonymous" checked="checked" disabled="disabled"/></label>
+    </span>
+    <span th:unless="${post.isAnonymous}">
+      <label>익명 체크: <input type="checkbox" name="isAnonymous" disabled="disabled"/></label>
+    </span>
+  </p>
+  <p th:unless="${member.id == post.writerID}">
+    <label>익명 체크: <input type="checkbox" name="isAnonymous" /></label>
+  </p>
   <button type="submit">작성</button>
 </form>
 

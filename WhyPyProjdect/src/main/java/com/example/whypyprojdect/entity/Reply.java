@@ -39,6 +39,9 @@ public class Reply {
     @Column(name = "reply_parent_id")
     private int parentId;
 
+    @Column(name = "reply_is_anonymous")
+    private boolean isAnonymous;
+
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate() {
         this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));

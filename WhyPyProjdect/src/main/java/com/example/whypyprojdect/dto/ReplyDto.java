@@ -12,6 +12,7 @@ public class ReplyDto {
     private String comment;
     private long writerId;
     private int parentId;
+    private boolean isAnonymous;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -29,6 +30,8 @@ public class ReplyDto {
 
     public void setParentId(int parentId) {this.parentId = parentId;}
 
+    public void setIsAnonymous(boolean isAnonymous) {this.isAnonymous = isAnonymous; }
+
     public ReplyDto(String comment, String createDate, String updateDate) {
         this.comment = comment;
         this.createDate = createDate;
@@ -44,6 +47,7 @@ public class ReplyDto {
                 .updateDate(updateDate)
                 .writerId(writerId)
                 .parentId(parentId)
+                .isAnonymous(isAnonymous)
                 .build();
     }
 }
