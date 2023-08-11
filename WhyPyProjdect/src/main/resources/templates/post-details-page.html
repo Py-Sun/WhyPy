@@ -51,6 +51,13 @@
     </td>
   </tr>
 </table>
+
+<form th:action="@{/createReply}" method="post">
+  <input type="hidden" name="postId" th:value="${post.postId}" />
+  <textarea name="comment" placeholder="댓글 작성"></textarea>
+  <button type="submit">작성</button>
+</form>
+
 <script type="text/javascript" src="/js/prism.js"></script>
 </body>
 </html>
