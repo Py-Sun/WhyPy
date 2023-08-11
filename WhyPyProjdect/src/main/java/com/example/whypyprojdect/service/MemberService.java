@@ -1,19 +1,26 @@
 package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.entity.Follow;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.bind.annotation.PathVariable;
+import com.example.whypyprojdect.repository.FollowRepository;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service //스프링이 관리하는 스프링 빈으로 등록
 @RequiredArgsConstructor
 public class MemberService {
     //생성자 주입
     private final MemberRepository memberRepository;
+
+    private final FollowRepository followRepository;
 
     public void save(MemberDto memberDto) {
         //1. dto > entity 변환
@@ -64,7 +71,7 @@ public class MemberService {
     }
 
     public MemberEntity findByMemberName(String memberName) {
-          return memberRepository.findByMemberName(memberName).orElseThrow(()-> {
+        return memberRepository.findByMemberName(memberName).orElseThrow(()-> {
         return new IllegalArgumentException("예외");
           });
     }
@@ -74,4 +81,61 @@ public class MemberService {
            return new IllegalArgumentException("예외");
        });
     }
+
+
+//     // @param leaderNickname : 팔로우할 유저의 닉네임
+//     // @param follower : 팔로우 유저
+//    @Transactional
+//    public void followUser(String leaderNickname, MemberEntity follower){
+//        // 자기 자신을 팔로우 하는 경우 에러
+////        if (follower.getNickname().equals(leaderNickname)){
+////            throw CustomException.of(CustomErrorCode.INTERNAL_SERVER_ERROR, "leader and follower are same...?");
+////        }
+//        // 팔로잉 당하는 유저가 존재하는지 확인
+//        MemberEntity leader = findByNicknameOrElseThrow(leaderNickname);
+//        // 이미 팔로우가 되어 있는지 확인
+//        followRepository.findByLeaderAndFollower(leader, follower).ifPresent(it->{
+//            throw CustomException.of(CustomErrorCode.ALREADY_FOLLOWING);
+//        });
+//        // 팔로우 관계 저장
+//        followRepository.save(Follow.of(leader, follower));
+//    }
+//    /**
+//     * 특정 유저의 팔로잉 관계 조회하기
+//     * @param targetNickname : 특정 유저의 닉네임
+//     * @param followingType
+//     * - LEADER : 특정 유저를 팔로잉 하는 팔로워들
+//     * - FOLLOWER : 특정 유저가 팔로우하는 리더들
+//     * @return User Dto
+//     */
+//    @Transactional(readOnly = true)
+//    public Set<MemberDto> getUsersFollow(String targetNickname, FollowingType followingType){
+//        if (followingType.equals(FollowingType.LEADER)){
+//            return followRepository.findByLeader_Nickname(targetNickname)
+//                    .stream().map(Follow::getFollower).map(MemberEntity::dto).collect(Collectors.toSet());
+//        }
+//        if (followingType.equals(FollowingType.FOLLOWER)){
+//            return followRepository.findByFollower_Nickname(targetNickname)
+//                    .stream().map(Follow::getLeader).map(MemberEntity::dto).collect(Collectors.toSet());
+//        }
+//        throw CustomException.of(CustomErrorCode.INTERNAL_SERVER_ERROR);
+//    }
+//    /**
+//     * 언팔로우 기능
+//     * @param leaderNickname : 팔로우된 사람의 닉네임
+//     * @param follower : 팔로워
+//     */
+//    @Transactional
+//    public void unFollow(String leaderNickname, Follow follower){
+//        // 자기 자신을 언팔 하는 경우 에러
+//        if (follower.getNickname().equals(leaderNickname)){
+//            throw CustomException.of(CustomErrorCode.INTERNAL_SERVER_ERROR, "leader and follower are same...?");
+//        }
+//        Follow follow = followRepository
+//                .findByLeaderAndFollower(findByNicknameOrElseThrow(leaderNickname), follower)
+//                .orElseThrow(()->{throw CustomException.of(CustomErrorCode.FOLLOWING_NOT_FOUND);});
+//        followRepository.delete(follow);
+//    }
+//}
+
 }
