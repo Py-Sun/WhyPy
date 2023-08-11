@@ -8,7 +8,7 @@ function initCodeMirror() {
 
     // 초기화 버튼 클릭
     document.getElementById("reset-button").addEventListener("click", () => {
-        editor.setValue("코드를 입력해주세요. ");
+        editor.setValue("코드를 입력해주세요.");
     });
     
     // 제출 버튼 클릭
@@ -16,7 +16,7 @@ function initCodeMirror() {
         var userAnswer = editor.getValue();
         var questionId = $("#questionId").val();
 
-        if (userAnswer === "코드를 입력해주세요. ") {
+        if (userAnswer === "코드를 입력해주세요.") {
             userAnswer = ""; // 코드가 초기 값이면 공백으로 설정
         }
 
