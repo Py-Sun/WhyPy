@@ -52,6 +52,20 @@
   </tr>
 </table>
 
+<div class="comments">
+  <h3>댓글 목록</h3>
+  <div th:if="${reply}">
+    <div th:each="reply : ${reply}">
+      <div class="reply">
+        <p th:text="${reply.comment}"></p>
+        <p>작성일시: <span th:text="${reply.createDate}"></span></p>
+        <p th:if="${reply.writerId == post.writerID}">작성자: <span th:text="${reply.writerId + ' (게시글 작성자)'}"></span></p>
+        <p th:unless="${reply.writerId == post.writerID}">작성자: <span th:text="${reply.writerId}"></span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <form th:action="@{/createReply}" method="post">
   <input type="hidden" name="postId" th:value="${post.postId}" />
   <textarea name="comment" placeholder="댓글 작성"></textarea>

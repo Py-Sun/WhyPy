@@ -58,4 +58,8 @@ public class ReplyService {
             reply.setWriterId(member.getId());
         }
     }
+
+    public List<Reply> getRepliesByPostId(int postId) {
+        return replyRepository.findByPostId(postId);
+    }
 }
