@@ -17,13 +17,14 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @PostMapping("/createReply")
-    public String createReply(@RequestParam Integer postId, ReplyDto replyDto, HttpSession session) {
+    public String createReply(@RequestParam Integer postId, @RequestParam Integer parentId, ReplyDto replyDto, HttpSession session) {
         if(session.getAttribute("loginName") == null) {
             return "/login";
         }
         Reply reply = replyDto.toEntity();
         Object writer = session.getAttribute("loginName");
         replyService.setPostID(reply, postId);
+        replyService.setParentID(reply, parentId);
         replyService.setWriterId(reply, writer);
         replyService.saveReplyData(reply);
         return "redirect:/post/" + postId;

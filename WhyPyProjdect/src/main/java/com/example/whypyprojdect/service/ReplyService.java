@@ -51,6 +51,10 @@ public class ReplyService {
         reply.setPostId(postId);
     }
 
+    public void setParentID(Reply reply, int parentId) {
+        reply.setParentId(parentId);
+    }
+
     public void setWriterId(Reply reply, Object writerName) {
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) writerName);
         if(memberEntity.isPresent()) {
@@ -61,5 +65,9 @@ public class ReplyService {
 
     public List<Reply> getRepliesByPostId(int postId) {
         return replyRepository.findByPostId(postId);
+    }
+
+    public List<Reply> getRepliesByParentId(int parentId) {
+        return replyRepository.findByParentId(parentId);
     }
 }

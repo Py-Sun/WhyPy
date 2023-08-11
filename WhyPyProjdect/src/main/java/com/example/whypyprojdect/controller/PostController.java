@@ -73,8 +73,15 @@ public class PostController {
         Optional<Recmd> recmdDto = recmdService.getRecmdByPostIdAndMemberId(postId, memberDto.getId());
         List<Reply> replyList = replyService.getRepliesByPostId(postId);
 
+        List<List<Reply>> rereplyList = new ArrayList<>();
+        for(Reply reply : replyList) {
+            List<Reply> rereply = replyService.getRepliesByParentId(reply.getReplyId());
+            rereplyList.add(rereply);
+        }
+
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
+        model.addAttribute("rereply",rereplyList);
         if(recmdDto != null) model.addAttribute("recmd", recmdDto.get());
         else model.addAttribute("recmd", new RecmdDto());
         model.addAttribute("reply", replyList);
