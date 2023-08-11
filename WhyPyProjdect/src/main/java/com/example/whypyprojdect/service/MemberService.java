@@ -2,6 +2,7 @@ package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.entity.MemberEntity;
+import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class MemberService {
             }
         } else {
             //조회 결과가 없다(해당 아이디를 가진 회원이 없다)
-           return null;
+            return null;
         }
     }
 
@@ -62,5 +63,15 @@ public class MemberService {
         memberRepository.save(MemberEntity.toUpateMemberEntity(memberDto));
     }
 
+    public MemberEntity findByMemberName(String memberName) {
+          return memberRepository.findByMemberName(memberName).orElseThrow(()-> {
+        return new IllegalArgumentException("예외");
+          });
+    }
 
+    public MemberEntity findById(Long id) {
+       return memberRepository.findById(id).orElseThrow(()->{
+           return new IllegalArgumentException("예외");
+       });
+    }
 }

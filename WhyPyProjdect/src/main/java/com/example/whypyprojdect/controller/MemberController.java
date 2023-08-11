@@ -5,17 +5,13 @@ import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
-@Log4j2
-
 //링크를 클릭하는 건 다 get
 public class MemberController {
     //@@@--생성자 주입. memberService 필드를 매개변수로 하는 컨트롤 생성자를 만들어 줌.
@@ -37,7 +33,7 @@ public class MemberController {
         System.out.println("MemberController.save"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
         System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
-        return "home";
+        return "redirect:/";
     }
 
     @GetMapping("/member/login")
@@ -57,7 +53,6 @@ public class MemberController {
         if (loginResult != null) {
             //login 성공
             session.setAttribute("loginName", loginResult.getMemberName());
-
             // 바로 이전 페이지로 리다이렉트
             return "redirect:/member/return";
             //return "loginhome";
@@ -66,10 +61,6 @@ public class MemberController {
             return "login";
         }
     }
-
-    //프로필 정보 보여주기
-    //@PostMapping("/member/save") // 데이터 전달. 회원정보(SignupDto), 회원사진() 받아서 기입
-
 
     // 이전 페이지로 돌아가기
     @GetMapping("/member/return")
@@ -116,9 +107,6 @@ public class MemberController {
         //return "home";
     }
 
-
-
+    //프로필 정보 보여주기
 
 }
-
-

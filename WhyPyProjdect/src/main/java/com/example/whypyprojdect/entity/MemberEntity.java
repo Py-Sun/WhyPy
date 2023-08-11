@@ -36,7 +36,7 @@ public class MemberEntity {
 
     //썸네일이 들어갈 파일명
     @Column
-    private String memberImgUrl;
+    private String profileThumbnail;
 
 
     //엔티티 객체를 객체로 만들어서 호출하는 게 아닌 그냥 클래스 메소드로 정의
@@ -47,7 +47,6 @@ public class MemberEntity {
         memberEntity.setMemberName(memberDto.getMemberName());
         memberEntity.setNickName(memberDto.getNickName());
         memberEntity.setMemberProfile(memberDto.getMemberProfile());
-        memberEntity.setMemberImgUrl(memberDto.getMemberImgUrl());
         //dto에 담긴 것을 entity로 넘김(변환)
         //에러가 나거나 값이 생각한 값이 아니면 이 부분에서 문제가 있을 가능성 큼
         return memberEntity;
@@ -61,7 +60,6 @@ public class MemberEntity {
         memberEntity.setMemberName(memberDto.getMemberName());
         memberEntity.setNickName(memberDto.getNickName());
         memberEntity.setMemberProfile(memberDto.getMemberProfile());
-        memberEntity.setMemberImgUrl(memberDto.getMemberImgUrl());
         return memberEntity;
     }
 }
