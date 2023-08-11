@@ -14,7 +14,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.2/mode/python/python.min.js"></script>
 
   <title>problem solving</title>
-  <script src="../../static/js/problem-solving.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -46,7 +45,7 @@
       <div class="example" th:text="${question.example}"></div>
     </div>
     <div class="write-button">
-      <button id="reset-button" onclick="resetCodeMirror()"> 초기화</button>
+      <button id="reset-button"> 초기화</button>
       <!-- 로그인 되어있으면 -->
       <button th:if="${member != null}" id="submitAnswer">정답 보기</button>
       <!-- 로그인 상태가 아니면 -->
@@ -64,6 +63,9 @@
       var userAnswer = getCodeMirrorValue();
       var questionId = $("#questionId").val();
 
+      if (userAnswer === "코드를 입력해주세요.") {
+        userAnswer = ""; // 코드가 초기 값이면 공백으로 설정
+      }
 
       // AJAX 요청 보내기
       $.ajax({
@@ -88,8 +90,6 @@
     return codeMirrorInstance.getValue();
   }
 </script>
-
-
 
 </body>
 
