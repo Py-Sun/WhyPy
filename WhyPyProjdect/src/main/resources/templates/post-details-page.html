@@ -75,6 +75,24 @@
               작성자: <span th:text="${reply.writerId}"></span>
           </span>
         </p>
+        <button id="showRereplyForm">답글 작성</button>
+        <form th:action="@{/createRereply}" method="post" id="createRereplyForm" style="display: none;">
+          <input type="hidden" name="postId" th:value="${post.postId}" />
+          <textarea name="comment" th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '댓글 작성'}"
+                    th:readonly="${session.loginName == null}"></textarea>
+          <p th:if="${member.id == post.writerID}">
+            <span th:if="${post.isAnonymous}">
+              <label>익명 체크: <input type="checkbox" name="isAnonymous" checked="checked" disabled="disabled"/></label>
+            </span>
+            <span th:unless="${post.isAnonymous}">
+              <label>익명 체크: <input type="checkbox" name="isAnonymous" disabled="disabled"/></label>
+            </span>
+          </p>
+          <p th:unless="${member.id == post.writerID}">
+            <label>익명 체크: <input type="checkbox" name="isAnonymous" /></label>
+          </p>
+          <button type="submit">작성</button>
+        </form>
       </div>
     </div>
   </div>
@@ -153,10 +171,30 @@
     Prism.highlightAll();
   }
 
+  function toggleRereplyForm(index) {
+    console.log("toggle" + index);
+    const createRereplyForm = document.querySelectorAll(".createRereplyForm");
+    const form = createRereplyForm[index];
+    form.style.display = form.style.display === "none" ? "block" : "none";
+  }
+
+  function createRereply() {
+    const showRereplyFormButton = document.querySelectorAll(".showRereplyForm");
+    console.log(showRereplyFormButton);
+    showRereplyFormButton.forEach((button, index) => {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        console.log(index);
+        toggleRereplyForm(index);
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
     makeContents();
     chkWriter();
     chkRecmd();
+    createRereply();
   });
 
   function deletePost(){
