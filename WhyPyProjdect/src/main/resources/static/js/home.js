@@ -1,3 +1,23 @@
+function makeContents() {
+    console.log("make");
+    let contentsElement = document.getElementById("contents");
+    let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    let trimText = boldText.replace(/\n/g, "<br>");
+    //let codeText = trimText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
+    let codeText = trimText.replace(/('''(.*?)''')/g, function(match, p1) {
+        p1 = match.replace(/'''<br>/g, "");
+        p1 = p1.replace(/'''/g, "");
+        p1 = p1.replace(/<br\s*>/g, "\n");
+        return "<pre><code class=\"language-css\">" + p1 + "</code></pre>";
+    });
+    contentsElement.innerHTML = codeText;
+    Prism.highlightAll();
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    makeContents();
+});
+
 function redirectToLectures() {
     window.location.href = "/lectures";
 }
