@@ -112,7 +112,7 @@ public class QuestionController {
     public String getQuestionAnswer(@PathVariable int questionId, Model model, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
         model.addAttribute("question", questionDto);
-        System.out.println("Answer : "  + questionDto.getAnswer());
+        //System.out.println("Answer : "  + questionDto.getAnswer());
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
         MemberDto memberDto = new MemberDto();
 

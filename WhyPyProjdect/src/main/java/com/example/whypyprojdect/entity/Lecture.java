@@ -15,8 +15,8 @@ public class Lecture {
     @Column(name = "lecture_id")
     private int lectureId;
 
-    @Column(name = "lecture_viewDate")
-    private Date viewDate;
+    //@Column(name = "lecture_viewDate")
+    //private Date viewDate;
 
     @Column(name = "lecture_URL")
     private String url;
@@ -43,7 +43,7 @@ public class Lecture {
         this.uploader = uploader;
     }
 
-    public void setViewDate(Date viewDate) {
-        this.viewDate = viewDate;
-    }
+    //public void setViewDate(Date viewDate) {
+    //    this.viewDate = viewDate;
+    //}
 }

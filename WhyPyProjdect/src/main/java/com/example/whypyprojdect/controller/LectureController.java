@@ -1,7 +1,14 @@
 package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.LectureDto;
+import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.entity.LectureWatch;
+import com.example.whypyprojdect.entity.MemberEntity;
+import com.example.whypyprojdect.repository.MemberRepository;
 import com.example.whypyprojdect.service.LectureService;
+import com.example.whypyprojdect.service.LectureWatchService;
+import com.example.whypyprojdect.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +18,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class LectureController {
     private final LectureService lectureService;
-
+    private final LectureWatchService lectureWatchService;
+    private final MemberRepository memberRepository;
     @Autowired
-    public LectureController(LectureService lectureService) {
+    public LectureController(LectureService lectureService, MemberRepository memberRepository, LectureWatchService lectureWatchService) {
         this.lectureService = lectureService;
+        this.memberRepository = memberRepository;
+        this.lectureWatchService = lectureWatchService;
     }
 
     @GetMapping("/lectures")
@@ -29,10 +40,19 @@ public class LectureController {
     }
 
     @GetMapping("/lectures/{lectureId}")
-    public String getLectureById(@PathVariable int lectureId, Model model) {
-        // 클릭한 날짜로 업데이트
-        Date viewDate = new Date();
-        lectureService.updateViewDate(lectureId, viewDate);
+    public String getLectureById(@PathVariable int lectureId, Model model, HttpSession session) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        // 로그인 되어있으면 클릭한 날짜로 업데이트
+        if(memberEntity.isPresent())
+        {
+            LectureWatch lectureWatch = new LectureWatch();
+            Object member= session.getAttribute("loginName");
+            lectureWatchService.setLectureId(lectureWatch, lectureId);
+            lectureWatchService.setMemberId(lectureWatch, member);
+            lectureWatchService.saveOrupdateViewDate(lectureWatch);
+        }
+
+        //lectureService.updateViewDate(lectureId, viewDate);
 
         LectureDto lectureDto = lectureService.getLectureById(lectureId);
         String videoUrl = lectureDto.getUrl();

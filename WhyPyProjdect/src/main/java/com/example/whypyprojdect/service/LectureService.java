@@ -60,7 +60,7 @@ public class LectureService {
     private LectureDto convertToDto(Lecture lecture) {
         LectureDto lectureDto = new LectureDto();
         lectureDto.setLectureId(lecture.getLectureId());
-        lectureDto.setViewDate(lecture.getViewDate());
+        //lectureDto.setViewDate(lecture.getViewDate());
         lectureDto.setUrl(lecture.getUrl());
         lectureDto.setTitle(lecture.getTitle());
         lectureDto.setThumbnail(lecture.getThumbnail());
@@ -136,6 +136,7 @@ public class LectureService {
         return videoId;
     }
 
+    /*
     public void updateViewDate(int lectureId, Date viewDate) {
         Optional<Lecture> lectureOptional = lectureRepository.findById(lectureId);
         Lecture lecture = lectureOptional.orElseThrow(() -> new NotFoundException("Lecture not found"));
@@ -143,6 +144,7 @@ public class LectureService {
         lecture.setViewDate(viewDate);
         lectureRepository.save(lecture);
     }
+*/
 
     // 동영상 검색
     @Transactional
