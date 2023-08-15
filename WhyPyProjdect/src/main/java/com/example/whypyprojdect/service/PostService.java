@@ -13,10 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -75,5 +72,9 @@ public class PostService {
         LocalDateTime beforeDay = LocalDateTime.now().minusDays(7); //테스트
         String beforeDayToString = beforeDay.toString();
         return recmdRepository.countByPostIdAndRecmdDateAfter(postId, beforeDayToString);
+    }
+
+    public List<Post> searchPost(String keyword) {
+        return postRepository.findByTitleContainingIgnoreCase(keyword);
     }
 }

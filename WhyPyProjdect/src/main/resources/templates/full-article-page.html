@@ -86,7 +86,10 @@
                             <td>
                                 <a th:href="@{/post/{postId}(postId=${post.postId})}" th:text="${post.title}"></a>
                             </td>
-                            <td th:text="${nicknames[__${index.index}__]}"></td>
+                            <td>
+                                <span th:if="${post.isAnonymous}">익명</span>
+                                <span th:unless="${post.isAnonymous}" th:text="${nicknames[__${index.index}__]}"></span>
+                            </td>
                             <td th:text="${post.createDate}"></td>
                             <td th:text="${post.recmdNum}"></td>
                         </tr>

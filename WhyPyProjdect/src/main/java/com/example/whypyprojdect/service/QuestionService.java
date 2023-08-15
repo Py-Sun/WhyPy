@@ -6,6 +6,7 @@ import com.example.whypyprojdect.entity.Lecture;
 import com.example.whypyprojdect.entity.Question;
 import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.QuestionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,21 @@ public class QuestionService {
         questionDto.setQExample(question.getExample());
 
         return questionDto;
+    }
+
+    // 검색하기
+    @Transactional
+    public List<QuestionDto> searchQuestion(String keyword)
+    {
+        List<Question> questions = questionRepository.findByTitleContaining(keyword);
+        List<QuestionDto> questionDtoList = new ArrayList<>();
+
+        if(questions.isEmpty()) return questionDtoList;
+
+        for(Question question : questions){
+            questionDtoList.add(this.convertToDto(question));
+        }
+        return questionDtoList;
     }
 
     /*

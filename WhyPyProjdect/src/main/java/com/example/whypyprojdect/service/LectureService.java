@@ -12,6 +12,7 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +60,7 @@ public class LectureService {
     private LectureDto convertToDto(Lecture lecture) {
         LectureDto lectureDto = new LectureDto();
         lectureDto.setLectureId(lecture.getLectureId());
-        lectureDto.setViewDate(lecture.getViewDate());
+        //lectureDto.setViewDate(lecture.getViewDate());
         lectureDto.setUrl(lecture.getUrl());
         lectureDto.setTitle(lecture.getTitle());
         lectureDto.setThumbnail(lecture.getThumbnail());
@@ -135,11 +136,28 @@ public class LectureService {
         return videoId;
     }
 
+    /*
     public void updateViewDate(int lectureId, Date viewDate) {
         Optional<Lecture> lectureOptional = lectureRepository.findById(lectureId);
         Lecture lecture = lectureOptional.orElseThrow(() -> new NotFoundException("Lecture not found"));
 
         lecture.setViewDate(viewDate);
         lectureRepository.save(lecture);
+    }
+*/
+
+    // 동영상 검색
+    @Transactional
+    public List<LectureDto> searchLecture(String keyword)
+    {
+        List<Lecture> lectures = lectureRepository.findByTitleContaining(keyword);
+        List<LectureDto> lectureDtoList = new ArrayList<>();
+
+        if(lectures.isEmpty()) return lectureDtoList;
+
+        for(Lecture lecture : lectures){
+            lectureDtoList.add(this.convertToDto(lecture));
+        }
+        return lectureDtoList;
     }
 }

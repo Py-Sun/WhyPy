@@ -6,10 +6,11 @@ import com.example.whypyprojdect.dto.RecmdDto;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.entity.Recmd;
+import com.example.whypyprojdect.entity.Reply;
 import com.example.whypyprojdect.repository.MemberRepository;
-import com.example.whypyprojdect.service.MemberService;
 import com.example.whypyprojdect.service.PostService;
 import com.example.whypyprojdect.service.RecmdService;
+import com.example.whypyprojdect.service.ReplyService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class PostController {
     private final PostService postService;
     private final MemberRepository memberRepository;
     private final RecmdService recmdService;
+    private final ReplyService replyService;
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
@@ -69,16 +71,27 @@ public class PostController {
         MemberDto memberDto = new MemberDto();
         if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
         Optional<Recmd> recmdDto = recmdService.getRecmdByPostIdAndMemberId(postId, memberDto.getId());
-        //MemberDto memberDto = memberService.updateForm((String) session.getAttribute("loginName"));
+        List<Reply> replyList = replyService.getRepliesByPostId(postId);
+        List<List<Reply>> rereplyList = new ArrayList<>();
+        for(Reply reply : replyList) {
+            List<Reply> rereply = replyService.getRepliesByParentId(reply.getReplyId());
+            rereplyList.add(rereply);
+        }
+
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
+        model.addAttribute("rereply",rereplyList);
         if(recmdDto != null) model.addAttribute("recmd", recmdDto.get());
         else model.addAttribute("recmd", new RecmdDto());
+        model.addAttribute("reply", replyList);
         return "post-details-page";
     }
 
     @GetMapping("/createPost")
-    public String posting() {
+    public String posting(HttpSession session) {
+        if(session.getAttribute("loginName") == null) {
+            return "/login";
+        }
         //return "writing_page";
         return "temp/create-post";
     }

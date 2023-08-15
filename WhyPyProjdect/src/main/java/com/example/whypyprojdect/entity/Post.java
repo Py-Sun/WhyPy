@@ -6,7 +6,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -46,6 +48,9 @@ public class Post {
 
     @Column(name = "post_recmdOneDayNum")
     private int recmdOneDayNum;
+
+    @Column(name = "post_is_anonymous")
+    private boolean isAnonymous;
 
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){

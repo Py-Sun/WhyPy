@@ -7,7 +7,7 @@ import java.util.Date;
 @Getter
 public class LectureDto {
     private int lectureId;
-    private Date viewDate;
+    //private Date viewDate;
     private String url;
     private String title;
     private String thumbnail;
@@ -20,9 +20,9 @@ public class LectureDto {
         this.lectureId = lectureId;
     }
 
-    public void setViewDate(Date viewDate) {
-        this.viewDate = viewDate != null ? new Date(viewDate.getTime()) : null;
-    }
+    //public void setViewDate(Date viewDate) {
+       // this.viewDate = viewDate != null ? new Date(viewDate.getTime()) : null;
+    //}
 
     public void setUrl(String url) {
         this.url = url;
