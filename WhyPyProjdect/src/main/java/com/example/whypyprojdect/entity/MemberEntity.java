@@ -3,16 +3,36 @@ package com.example.whypyprojdect.entity;
 //해당 파일은 데이터베이스의 테이블을 자바 객체처럼 활용할 수 있게 해줌
 
 import com.example.whypyprojdect.dto.MemberDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.web.WebProperties;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.Access;
+import jakarta.persistence.AccessType;
+import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+
 
 @Entity //엔티티 정의
 @Setter
 @Getter
 @Table(name="member_table") //실제 생성됐을 때 테이블 이름 정의
-public class MemberEntity {
+public class MemberEntity implements Serializable {
 
     @Id //pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment 지정
@@ -38,6 +58,11 @@ public class MemberEntity {
     @Column
     private String profileThumbnail;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "Asia/Seoul")
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Column(insertable = false, updatable = false, columnDefinition = "datetime default CURRENT_TIMESTAMP")
+    private Date createdAt;
+
 
     //엔티티 객체를 객체로 만들어서 호출하는 게 아닌 그냥 클래스 메소드로 정의
     public static MemberEntity toMemberEntity(MemberDto memberDto) {
@@ -62,4 +87,12 @@ public class MemberEntity {
         memberEntity.setMemberProfile(memberDto.getMemberProfile());
         return memberEntity;
     }
+//
+//    @Builder
+//    public Member(Long id, String memberName, String password) {
+//        this.id = id;
+//        this.memberName = memberName;
+//        this.memberPassword = memberPassword();
+//        this.createdAt = new Date();
+//    }
 }

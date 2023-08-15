@@ -1,16 +1,17 @@
 package com.example.whypyprojdect.repository;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.example.whypyprojdect.entity.Follow;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
-public interface FollowRepository extends JpaRepository<Follow, Integer> {
+public interface FollowRepository extends JpaRepository<Follow, String> {
 
-    int countByFollowerIdAndFollowingMemberName(Long id, String memberName); // 팔로우 되어있는지 count하는 메서드
+    List<Follow> findByFollowerId(String fromId);
 
-    @Modifying
-    @Transactional
-    void deleteByFollowingIdAndFollowerId(Long following_id, Long follower_id); // 언팔로우 메서드
+    Long deleteByFollowerIdAndFollowingId(String fromId, String toId);
 
 }

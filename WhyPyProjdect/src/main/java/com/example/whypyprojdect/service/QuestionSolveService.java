@@ -18,7 +18,6 @@ public class QuestionSolveService {
     private final QuestionRepository postRepository;
     private final MemberRepository memberRepository;
 
-
     public QuestionSolve getQuestionSolveById(Integer solveId) {
         return questionSolveRepository.findById(solveId)
                 .orElseThrow(() -> new NoSuchElementException("SolveId not found with id: " + solveId));
@@ -97,6 +96,5 @@ public class QuestionSolveService {
         //System.out.println("questionId" + questionId);
         questionSolve.setQuestionId(questionId);
     }
-
 
 }

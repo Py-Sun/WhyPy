@@ -1,10 +1,16 @@
 package com.example.whypyprojdect.controller;
 
+import com.example.whypyprojdect.dto.FollowDto;
 import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.dto.QuestionDto;
+import com.example.whypyprojdect.entity.Follow;
+import com.example.whypyprojdect.entity.QuestionSolve;
+import com.example.whypyprojdect.service.FollowService;
 import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
 //링크를 클릭하는 건 다 get
 public class MemberController {
+
+    private final FollowService followService;
+
+
     //@@@--생성자 주입. memberService 필드를 매개변수로 하는 컨트롤 생성자를 만들어 줌.
     //MemberController클래스에 대한 객체를 스프링 빈에 등록할 때 자동적으로 서비스 클래스의 객체를 주입을 받는다.
     //주입 받는다=컨트롤러가 서비스 클래스의 자원(메소드, 필드 등)을 사용할 수 있게 됨
@@ -107,6 +117,17 @@ public class MemberController {
         //return "home";
     }
 
-    //프로필 정보 보여주기
+    @GetMapping("/follow")
+    public String goFollowForm() {
+        return "follow";
+    }
 
+    @PostMapping("/follow")
+    public String follow(FollowDto followDto, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String fromId = (String) session.getAttribute("loginName");
+        followService.follow(fromId, String.valueOf(followDto.getFollowing()));
+        return "redirect:/";
+
+    }
 }

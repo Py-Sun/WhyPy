@@ -1,8 +1,10 @@
 package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.dto.QuestionDto;
 import com.example.whypyprojdect.entity.Follow;
 import com.example.whypyprojdect.entity.MemberEntity;
+import com.example.whypyprojdect.entity.Question;
 import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberRepository;
 import jakarta.transaction.Transactional;
@@ -10,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.whypyprojdect.repository.FollowRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,12 +40,12 @@ public class MemberService {
 
     public MemberDto login(MemberDto memberDto) {
         /*
-          1.회원이 입력한 이메일로 db에서 조회를 함
+          1.회원이 입력한 아아디로 db에서 조회를 함
           2.db에서 조회한 비밀번호와 사용자가 입력한 비밀번호가 일치하는지 판단
          */
         Optional<MemberEntity> byMemberName = memberRepository.findByMemberName(memberDto.getMemberName());
         if (byMemberName.isPresent()) {
-            // 조회 결과가 있다 (해당 이메일을 가진 회원 정보가 있다)
+            // 조회 결과가 있다 (해당 아이디를 가진 회원 정보가 있다)
             MemberEntity memberEntity=byMemberName.get();
             if (memberEntity.getMemberPassword().equals(memberDto.getMemberPassword())) {
                 //login 성공
@@ -69,19 +74,6 @@ public class MemberService {
     public void update(MemberDto memberDto) {
         memberRepository.save(MemberEntity.toUpateMemberEntity(memberDto));
     }
-
-    public MemberEntity findByMemberName(String memberName) {
-        return memberRepository.findByMemberName(memberName).orElseThrow(()-> {
-        return new IllegalArgumentException("예외");
-          });
-    }
-
-    public MemberEntity findById(Long id) {
-       return memberRepository.findById(id).orElseThrow(()->{
-           return new IllegalArgumentException("예외");
-       });
-    }
-
 
 //     // @param leaderNickname : 팔로우할 유저의 닉네임
 //     // @param follower : 팔로우 유저
