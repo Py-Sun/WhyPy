@@ -74,9 +74,7 @@
             <input type="checkbox" name="category" value="1"> 연습문제
             <input type="checkbox" name="category" value="2"> 직무문제
 
-            <div th:if="${member != null}" class="status">
-                <button type="button" id="statusBtn">상태</button>
-            </div>
+            <div th:if="${member != null}" class="status">상태 </div>
             <div th:if="${member != null}" id="statusChecklist" style="display: none;">
                 <input type="checkbox" name="solvedList" value="true"> 푼 문제
                 <input type="checkbox" name="solvedList" value="false"> 안 푼 문제
