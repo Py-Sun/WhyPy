@@ -8,6 +8,7 @@ import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -69,6 +70,13 @@ public class QuestionService {
             questionDtoList.add(this.convertToDto(question));
         }
         return questionDtoList;
+    }
+
+    public List<QuestionDto> getAllQuestionForFilter(Specification<Question> spec) {
+        List<Question> questions = questionRepository.findAll(spec);
+        return questions.stream()
+                .map(QuestionDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     /*

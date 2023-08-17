@@ -1,5 +1,6 @@
 package com.example.whypyprojdect.controller;
 
+import com.example.whypyprojdect.Specification.QuestionSpecifications;
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.QuestionDto;
 import com.example.whypyprojdect.dto.QuestionSolveDto;
@@ -10,6 +11,7 @@ import com.example.whypyprojdect.service.QuestionService;
 import com.example.whypyprojdect.service.QuestionSolveService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,16 +39,36 @@ public class QuestionController {
     }
 
     @GetMapping("/questions")
-    public String getAllQuestions(Model model, HttpSession session) {
-        Map<Integer, Boolean> questionSolveMap = new HashMap<>();
+    public String getAllQuestions(
+            @RequestParam(name = "level", required = false) List<Integer> levels,
+            @RequestParam(name = "solved", required = false) List<Boolean> solvedList,
+            @RequestParam(name = "category", required = false) List<Integer> categories,
+            Model model, HttpSession session) {
 
-        List<QuestionDto> questionDtos = questionService.getAllQuestion();
-        model.addAttribute("questions", questionDtos);
+        Map<Integer, Boolean> questionSolveMap = new HashMap<>();
+        Specification<Question> spec = Specification.where(null);
+
+        if (levels != null && !levels.isEmpty()) {
+            spec = spec.and(QuestionSpecifications.hasLevelIn(levels));
+        }
+
+        if (categories != null && !categories.isEmpty()) {
+            spec = spec.and(QuestionSpecifications.hasCategoryIn(categories));
+        }
+        List<QuestionDto> questionDtos = questionService.getAllQuestionForFilter(spec);
+
+
+        //List<QuestionDto> questionDtos = questionService.getAllQuestion();
+        //model.addAttribute("questions", questionDtos);
 
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
 
         if(memberEntity.isPresent())
         {
+            if (solvedList != null && !solvedList.isEmpty()) {
+                spec = spec.and(QuestionSpecifications.isSolvedIn(solvedList));
+            }
+
             MemberDto memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
 
@@ -68,6 +90,7 @@ public class QuestionController {
             }
         }
 
+        model.addAttribute("questions", questionDtos);
         model.addAttribute("questionSolveMap", questionSolveMap);
         return "Problem/problem_list";
     }

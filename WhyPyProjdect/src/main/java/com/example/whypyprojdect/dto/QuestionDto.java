@@ -1,5 +1,6 @@
 package com.example.whypyprojdect.dto;
 
+import com.example.whypyprojdect.entity.Question;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.Getter;
@@ -37,5 +38,19 @@ public class QuestionDto {
     public void setQContents(String contents){this.contents = contents;}
 
     public void setQExample(String example){this.example = example;}
+
+    public static QuestionDto fromEntity(Question question) {
+        QuestionDto questionDto = new QuestionDto();
+        questionDto.setId(question.getId());
+        questionDto.setCategory(question.getCategory());
+        questionDto.setTitle(question.getTitle());
+        questionDto.setLevel(question.getLevel());
+        questionDto.setAnswer(questionDto.getAnswer());
+        questionDto.setContents(questionDto.getContents());
+        questionDto.setExample(questionDto.getExample());
+        // 나머지 필드도 동일하게 설정
+
+        return questionDto;
+    }
 
 }
