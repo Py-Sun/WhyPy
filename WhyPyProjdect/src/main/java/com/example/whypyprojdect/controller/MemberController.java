@@ -1,20 +1,10 @@
 package com.example.whypyprojdect.controller;
 
-import com.example.whypyprojdect.dto.FollowDto;
 import com.example.whypyprojdect.dto.MemberDto;
-import com.example.whypyprojdect.dto.PostDto;
-import com.example.whypyprojdect.dto.QuestionDto;
-import com.example.whypyprojdect.entity.Follow;
-import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.entity.QuestionSolve;
-import com.example.whypyprojdect.service.FollowService;
 import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.MappingMatch;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor ///생성자 주입을 위해 선언
 //링크를 클릭하는 건 다 get
 public class MemberController {
-
-    private final FollowService followService;
-
 
     //@@@--생성자 주입. memberService 필드를 매개변수로 하는 컨트롤 생성자를 만들어 줌.
     //MemberController클래스에 대한 객체를 스프링 빈에 등록할 때 자동적으로 서비스 클래스의 객체를 주입을 받는다.

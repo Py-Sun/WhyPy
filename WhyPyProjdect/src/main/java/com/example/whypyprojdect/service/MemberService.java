@@ -1,32 +1,21 @@
 package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
-import com.example.whypyprojdect.dto.QuestionDto;
-import com.example.whypyprojdect.entity.Follow;
 import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.entity.Question;
-import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberImageRepository;
 import com.example.whypyprojdect.repository.MemberRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import com.example.whypyprojdect.repository.FollowRepository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service //스프링이 관리하는 스프링 빈으로 등록
 @RequiredArgsConstructor
 public class MemberService {
     //생성자 주입
     private final MemberRepository memberRepository;
-
-    private final FollowRepository followRepository;
 
     private final MemberImageRepository memberImageRepository;
 
