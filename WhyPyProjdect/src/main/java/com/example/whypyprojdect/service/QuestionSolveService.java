@@ -97,4 +97,14 @@ public class QuestionSolveService {
         questionSolve.setQuestionId(questionId);
     }
 
+    public boolean isQuestionSolvedByMemberId(int questionId, long memberId) {
+        Optional<QuestionSolve> existingSolve = questionSolveRepository.findByQuestionIdAndMemberId(questionId, memberId);
+
+        if (existingSolve.isPresent()){
+            QuestionSolve existingSolveEntity = existingSolve.get();
+            return existingSolveEntity.isSolved();
+        }
+        else return false;
+    }
+
 }

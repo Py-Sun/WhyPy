@@ -49,12 +49,29 @@ public class QuestionService {
         questionDto.setQCategory(question.getCategory());
         questionDto.setQTitle(question.getTitle());
         questionDto.setQLevel(question.getLevel());
-        //questionDto.setQSolved(question.getSolved());
+        questionDto.setQSolved(question.getSolved());
         questionDto.setQContents(question.getContents());
         questionDto.setQAnswer(question.getAnswer());
         questionDto.setQExample(question.getExample());
 
         return questionDto;
+    }
+
+    public Question convertToEntity(QuestionDto questionDto) {
+        Question question = new Question();
+        question.setId(questionDto.getId());
+        question.setCategory(questionDto.getCategory());
+        question.setTitle(questionDto.getTitle());
+        question.setLevel(questionDto.getLevel());
+        question.setContents(questionDto.getContents());
+        question.setAnswer(questionDto.getAnswer());
+        question.setSolved(questionDto.getSolved());
+        question.setExample(questionDto.getExample());
+        return question;
+    }
+
+    public Question saveQuestion(Question question) {
+        return questionRepository.save(question);
     }
 
     // 검색하기

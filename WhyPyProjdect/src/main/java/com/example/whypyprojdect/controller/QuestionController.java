@@ -41,11 +41,9 @@ public class QuestionController {
     @GetMapping("/questions")
     public String getAllQuestions(
             @RequestParam(name = "level", required = false) List<Integer> levels,
-            @RequestParam(name = "solved", required = false) List<Boolean> solvedList,
+            @RequestParam(name = "solvedList", required = false) List<Boolean> solvedList,
             @RequestParam(name = "category", required = false) List<Integer> categories,
             Model model, HttpSession session) {
-
-        Map<Integer, Boolean> questionSolveMap = new HashMap<>();
         Specification<Question> spec = Specification.where(null);
 
         if (levels != null && !levels.isEmpty()) {
@@ -57,17 +55,12 @@ public class QuestionController {
         }
         List<QuestionDto> questionDtos = questionService.getAllQuestionForFilter(spec);
 
-
         //List<QuestionDto> questionDtos = questionService.getAllQuestion();
         //model.addAttribute("questions", questionDtos);
 
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
 
-        if(memberEntity.isPresent())
-        {
-            if (solvedList != null && !solvedList.isEmpty()) {
-                spec = spec.and(QuestionSpecifications.isSolvedIn(solvedList));
-            }
+        if(memberEntity.isPresent()) {
 
             MemberDto memberDto = MemberDto.toMemberDto((memberEntity.get()));
             model.addAttribute("member", memberDto);
@@ -75,23 +68,41 @@ public class QuestionController {
             long solveCount = questionSolveService.getQuestionSolveSolvedCountByMemberId(memberDto.getId());
             model.addAttribute("SolveCount", solveCount);
 
-            // 해당 사용자가 푼 문제들의 정보 가져옴
-            List<QuestionSolve> questionSolveDtos = questionSolveService.getQuestionSolveByMemberId(memberDto.getId());
+            for (QuestionDto question : questionDtos) {
+                boolean isSolved = questionSolveService.isQuestionSolvedByMemberId(question.getId(), memberDto.getId());
 
-            // question_id와 qsolve 값을 매핑하는 Map
-            for (QuestionSolve qs : questionSolveDtos) {
-                questionSolveMap.put(qs.getQuestionId(), qs.isSolved());
+                // QuestionDto -> Question 변환
+                Question questionEntity = questionService.convertToEntity(question);
+
+                // 엔티티 업데이트
+                questionEntity.setSolved(isSolved);
+
+                questionService.saveQuestion(questionEntity);
+            }
+
+            if (solvedList != null && !solvedList.isEmpty()) {
+              spec = spec.and(QuestionSpecifications.isSolvedIn(solvedList));
+              questionDtos = questionService.getAllQuestionForFilter(spec);
+            }
+
+            for(QuestionDto question : questionDtos){
+                boolean isSolved = questionSolveService.isQuestionSolvedByMemberId(question.getId(), memberDto.getId());
+                question.setSolved(isSolved);
             }
         }
         else {
             // 없으면, 모두 false로 표시 set all qsolve values to false
             for (QuestionDto question : questionDtos) {
-                questionSolveMap.put(question.getId(), false);
+                // Dto 업데이트
+                question.setQSolved(false);
+                Question que = questionService.convertToEntity(question);
+                // 엔티티 업데이트
+                que.setSolved(false);
+                questionService.saveQuestion(que);
             }
         }
 
         model.addAttribute("questions", questionDtos);
-        model.addAttribute("questionSolveMap", questionSolveMap);
         return "Problem/problem_list";
     }
 

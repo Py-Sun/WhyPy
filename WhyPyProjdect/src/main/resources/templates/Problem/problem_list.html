@@ -41,7 +41,7 @@
                     <a th:href="@{/questions/{questionId}(questionId=${question.id})}" th:text="${question.title}"></a>
                     </td>
                     <td th:text="'LV.' + ${question.level}"></td>
-                    <td th:text="${questionSolveMap[__${question.id}__] != null ? questionSolveMap[__${question.id}__] : false}"></td>
+                    <td th:text="${question.solved}"></td>
                     <!--<td><input type="checkbox" class="checkbox"></td>-->
                 </tr>
             </table>
@@ -75,7 +75,7 @@
             <input type="checkbox" name="category" value="2"> 직무문제
 
             <div th:if="${member != null}" class="status">상태 </div>
-            <div th:if="${member != null}" id="statusChecklist" style="display: none;">
+            <div th:if="${member != null}" id="statusChecklist">
                 <input type="checkbox" name="solvedList" value="true"> 푼 문제
                 <input type="checkbox" name="solvedList" value="false"> 안 푼 문제
             </div>

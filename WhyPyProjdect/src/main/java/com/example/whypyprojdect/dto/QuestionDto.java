@@ -12,7 +12,7 @@ public class QuestionDto {
     private String title;
     private int level;
     private String answer;
-    //private Boolean solved;
+    private Boolean solved;
     private String contents;
     private String example;
 
@@ -30,11 +30,8 @@ public class QuestionDto {
     }
 
     public void setQAnswer(String answer){this.answer = answer;}
-    /*
-    public void setQSolved(Boolean solved) {
-        this.solved = solved;
-    }
-    */
+
+    public void setQSolved(Boolean solved) {this.solved = solved;}
     public void setQContents(String contents){this.contents = contents;}
 
     public void setQExample(String example){this.example = example;}
@@ -48,6 +45,7 @@ public class QuestionDto {
         questionDto.setAnswer(questionDto.getAnswer());
         questionDto.setContents(questionDto.getContents());
         questionDto.setExample(questionDto.getExample());
+        questionDto.setQSolved(questionDto.getSolved());
         // 나머지 필드도 동일하게 설정
 
         return questionDto;

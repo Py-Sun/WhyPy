@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface QuestionSolveRepository extends JpaRepository<QuestionSolve, Integer> {
     Optional<QuestionSolve> findByQuestionIdAndMemberId(Integer questionId, Long memberId);
     List<QuestionSolve> findAllByMemberId(Long memberId);
+
 }
