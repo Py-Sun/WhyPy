@@ -69,10 +69,26 @@
     <div class="fil">
         <h3>필터</h3>
         <hr>
-        <div class="type">문제 종류</div>
-        <div class="status">상태</div>
-        <div class="level">레벨</div>
+        <form th:action="@{/questions}" method="get">
+            <div class="type">문제 종류</div>
+            <input type="checkbox" name="category" value="1"> 연습문제
+            <input type="checkbox" name="category" value="2"> 직무문제
+
+            <div th:if="${member != null}" class="status">상태 </div>
+            <div th:if="${member != null}" id="statusChecklist" style="display: none;">
+                <input type="checkbox" name="solvedList" value="true"> 푼 문제
+                <input type="checkbox" name="solvedList" value="false"> 안 푼 문제
+            </div>
+
+            <div class="level">레벨</div>
+            <input type="checkbox" name="level" value="1"> LV.1
+            <input type="checkbox" name="level" value="2"> LV.2
+
+            <button type="submit">필터 적용</button>
+        </form>
     </div>
+
+
 </div>
 <div class="search-container">
     <input type="text" id="search-input">
@@ -81,5 +97,36 @@
 
 
 </body>
+
+
+<script>
+
+    // 맨 처음에는 모든 체크박스 선택 해제
+    document.addEventListener('DOMContentLoaded', function() {
+        var statusCheckboxes = document.querySelectorAll('#statusChecklist input[type="checkbox"]');
+        var allUnchecked = true;
+
+        statusCheckboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                allUnchecked = false;
+            }
+        });
+
+        if (allUnchecked) {
+            statusCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = true;
+            });
+        }
+
+        // 이전 선택한 필터 체크 유지
+        var urlParams = new URLSearchParams(window.location.search);
+        urlParams.forEach(function(value, key) {
+            var inputElement = document.querySelector(`[name="${key}"][value="${value}"]`);
+            if (inputElement) {
+                inputElement.checked = true;
+            }
+        });
+    });
+</script>
 
 </html>
