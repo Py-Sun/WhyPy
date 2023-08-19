@@ -2,7 +2,9 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.LectureDto;
 import com.example.whypyprojdect.dto.QuestionDto;
+import com.example.whypyprojdect.entity.KeywordRank;
 import com.example.whypyprojdect.entity.Post;
+import com.example.whypyprojdect.service.KeywordRankService;
 import com.example.whypyprojdect.service.LectureService;
 import com.example.whypyprojdect.service.PostService;
 import com.example.whypyprojdect.service.QuestionService;
@@ -20,10 +22,14 @@ public class SearchController {
     private final LectureService lectureService;
     private final PostService postService;
 
-    public SearchController(QuestionService questionService, LectureService lectureService, PostService postService){
+    private final KeywordRankService keywordRankService;
+
+    public SearchController(QuestionService questionService, LectureService lectureService,
+                            PostService postService, KeywordRankService keywordRankService){
         this.questionService = questionService;
         this.lectureService = lectureService;
         this.postService = postService;
+        this.keywordRankService = keywordRankService;
     }
     @GetMapping("/search")
     public String search(@RequestParam(value="keyword") String keyword, Model model)
@@ -39,6 +45,14 @@ public class SearchController {
         List<Post> postDtoList = postService.searchPost(keyword);
         if(postDtoList != null && !postDtoList.isEmpty())
             model.addAttribute("postList", postDtoList);
+
+        // 검색 키워드 순위 업데이트
+        keywordRankService.updateKeywordRank(keyword);
+
+        // 오늘 검색 순위 중 상위 10개 조회
+        List<KeywordRank> top10KeywordRank = keywordRankService.getTop10TodayKeywordRank();
+        model.addAttribute("keywordRankList", top10KeywordRank);
+
         return "Search/search_page";
     }
 }
