@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/lecture-details.css">
+    <script type="text/javascript" src="/js/lecture-details.js"></script>
     <title>play page</title>
 </head>
 
@@ -38,18 +39,20 @@
         </div>
         <div class="day">2023.07.20</div>
         <div class="explanation" th:text="${lecture.uploader}"></div>
+        <div class="category" th:text="${lecture.category}"></div>
     </div>
 
     <div class="right">
         <div class='v-line'></div>
         <div th:each="lecture, stat : ${lectures}" th:limit="5">
             <div class="lien1" th:if="${stat.index &lt; 5}">
-            <div class="video1">
-                <img th:src="${lecture.thumbnail}" alt="Thumbnail">
-            </div>
-            <div class="title1">
-                <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
-            </div>
+                <div class="video1">
+                    <img th:src="${lecture.thumbnail}" alt="Thumbnail">
+                </div>
+                <div class="title1">
+                    <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+                </div>
+                <div class="category" th:text="${lecture.category}"></div>
         </div>
         <!--
         <div class="lien1">

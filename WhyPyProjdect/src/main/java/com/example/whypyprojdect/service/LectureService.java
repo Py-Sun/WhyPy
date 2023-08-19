@@ -65,6 +65,7 @@ public class LectureService {
         lectureDto.setTitle(lecture.getTitle());
         lectureDto.setThumbnail(lecture.getThumbnail());
         lectureDto.setUploader(lecture.getUploader());
+        lectureDto.setCategory(lecture.getCategory());
 
         return lectureDto;
     }
@@ -160,4 +161,26 @@ public class LectureService {
         }
         return lectureDtoList;
     }
+
+
+    public List<LectureDto> getLecturesByCategory(int categoryId) {
+        List<LectureDto> lecturesInCategory = new ArrayList<>();
+
+        List<Lecture> lecturesFromDatabase = lectureRepository.findByCategory(categoryId);
+
+        for (Lecture lecture : lecturesFromDatabase) {
+            LectureDto lectureDto = new LectureDto();
+            lectureDto.setLectureId(lecture.getLectureId());
+            lectureDto.setUrl(lecture.getUrl());
+            lectureDto.setTitle(lecture.getTitle());
+            lectureDto.setThumbnail(lecture.getThumbnail());
+            lectureDto.setUploader(lecture.getUploader());
+            lectureDto.setCategory(lecture.getCategory());
+
+            lecturesInCategory.add(lectureDto);
+        }
+
+        return lecturesInCategory;
+    }
+
 }

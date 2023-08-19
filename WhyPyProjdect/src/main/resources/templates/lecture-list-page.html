@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video List</title>
     <link rel="stylesheet" type="text/css" href="/css/lecture-list.css">
+    <script type="text/javascript" src="/js/lecture-list.js"></script>
 </head>
 
 <body>
@@ -29,10 +30,9 @@
 </div>
 <div class="content-area">
     <div class="main-menu">
-        <li><a href="#">카테고리 1</a></li>
-        <li><a href="#">카테고리 2</a></li>
-        <li><a href="#">카테고리 3</a></li>
-        <li><a href="#">카테고리 4</a></li>
+        <li><a href="/lectures">전체보기</a></li>
+        <li><a href="/lectures?category=1">카테고리 1</a></li>
+        <li><a href="/lectures?category=2">카테고리 2</a></li>
     </div>
     <div class="main-content">
         <div class="item" th:each="lecture : ${lectures}">
@@ -42,6 +42,7 @@
             <div>
                 <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
                 <p th:text="${lecture.uploader}"></p>
+                <p class="l_category" th:text="${lecture.category}"></p>
             </div>
         </div>
 

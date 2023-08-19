@@ -30,6 +30,9 @@ public class Lecture {
     @Column(name = "lecture_Uploader")
     private String uploader;
 
+    @Column(name="lecture_category")
+    private int category;
+
     // 생성자, getter, setter 등 필요한 메서드 추가
     public void setTitle(String title) {
         this.title = title;
