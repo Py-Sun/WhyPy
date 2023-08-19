@@ -26,6 +26,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity //엔티티 정의
@@ -52,11 +53,10 @@ public class MemberEntity implements Serializable {
     private String nickName;
 
     @Column
-    private String memberProfile;
+    private String memberImage;
 
-    //썸네일이 들어갈 파일명
     @Column
-    private String profileThumbnail;
+    private String ImagePath;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "Asia/Seoul")
     @Temporal(value = TemporalType.TIMESTAMP)
@@ -71,7 +71,8 @@ public class MemberEntity implements Serializable {
         memberEntity.setMemberPassword(memberDto.getMemberPassword());
         memberEntity.setMemberName(memberDto.getMemberName());
         memberEntity.setNickName(memberDto.getNickName());
-        memberEntity.setMemberProfile(memberDto.getMemberProfile());
+        memberEntity.setMemberImage(String.valueOf(memberDto.getMemberImage()));
+        memberEntity.setImagePath(memberDto.getImagePath());
         //dto에 담긴 것을 entity로 넘김(변환)
         //에러가 나거나 값이 생각한 값이 아니면 이 부분에서 문제가 있을 가능성 큼
         return memberEntity;
@@ -84,7 +85,8 @@ public class MemberEntity implements Serializable {
         memberEntity.setMemberPassword(memberDto.getMemberPassword());
         memberEntity.setMemberName(memberDto.getMemberName());
         memberEntity.setNickName(memberDto.getNickName());
-        memberEntity.setMemberProfile(memberDto.getMemberProfile());
+        memberEntity.setMemberImage(String.valueOf(memberDto.getMemberImage()));
+        memberEntity.setImagePath(memberDto.getImagePath());
         return memberEntity;
     }
 //

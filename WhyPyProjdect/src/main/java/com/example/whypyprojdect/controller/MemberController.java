@@ -2,8 +2,11 @@ package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.FollowDto;
 import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.dto.PostDto;
 import com.example.whypyprojdect.dto.QuestionDto;
 import com.example.whypyprojdect.entity.Follow;
+import com.example.whypyprojdect.entity.MemberEntity;
+import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.entity.QuestionSolve;
 import com.example.whypyprojdect.service.FollowService;
 import com.example.whypyprojdect.service.MemberService;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller
@@ -39,15 +43,17 @@ public class MemberController {
 
     //cf. @RequestParam("memberEmail") String memberEmail) >a에 입력받은 값을 a에 저장해달라
     @PostMapping("/member/save")  //save에서 입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
-    public String save(@ModelAttribute MemberDto memberDto) {
+    public String save(MultipartFile image, @ModelAttribute MemberDto memberDto) throws Exception {
         System.out.println("MemberController.save"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
         System.out.println("memberDto = " + memberDto);
-        memberService.save(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
+        if(!image.isEmpty())
+            memberService.save(image, memberDto);
+        else memberService.saveWithNoImage(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
         return "redirect:/";
     }
 
     @GetMapping("/member/login")
-    public String loginForm(HttpSession session, HttpServletRequest request) {
+    public String loginForm (HttpSession session, HttpServletRequest request) {
 
         // 이전 페이지 URL 세션 저장
         String referer = request.getHeader("Referer");
@@ -56,6 +62,7 @@ public class MemberController {
         System.out.println(referer);
         return "login";
     }
+
 
     @PostMapping("/member/login")
     public String login(@ModelAttribute MemberDto memberDto, HttpSession session) {
@@ -116,18 +123,18 @@ public class MemberController {
         return "redirect:/";
         //return "home";
     }
-
-    @GetMapping("/follow")
-    public String goFollowForm() {
-        return "follow";
-    }
-
-    @PostMapping("/follow")
-    public String follow(FollowDto followDto, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        String fromId = (String) session.getAttribute("loginName");
-        followService.follow(fromId, String.valueOf(followDto.getFollowing()));
-        return "redirect:/";
-
-    }
+//
+//    @GetMapping("/follow")
+//    public String goFollowForm() {
+//        return "follow";
+//    }
+//
+//    @PostMapping("/follow")
+//    public String follow(FollowDto followDto, HttpServletRequest request) {
+//        HttpSession session = request.getSession();
+//        String fromId = (String) session.getAttribute("loginName");
+//        followService.follow(fromId, String.valueOf(followDto.getFollowing()));
+//        return "redirect:/";
+//
+//    }
 }

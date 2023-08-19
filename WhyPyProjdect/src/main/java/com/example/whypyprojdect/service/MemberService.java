@@ -4,19 +4,20 @@ import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.QuestionDto;
 import com.example.whypyprojdect.entity.Follow;
 import com.example.whypyprojdect.entity.MemberEntity;
+import com.example.whypyprojdect.entity.Post;
 import com.example.whypyprojdect.entity.Question;
 import com.example.whypyprojdect.exception.NotFoundException;
+import com.example.whypyprojdect.repository.MemberImageRepository;
 import com.example.whypyprojdect.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.whypyprojdect.repository.FollowRepository;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.io.File;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service //스프링이 관리하는 스프링 빈으로 등록
@@ -27,15 +28,33 @@ public class MemberService {
 
     private final FollowRepository followRepository;
 
-    public void save(MemberDto memberDto) {
+    private final MemberImageRepository memberImageRepository;
+
+    public void save(MultipartFile image, MemberDto memberDto) throws Exception {
         //1. dto > entity 변환
         //2. repository의 save 메서드 호출
+
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
+
         //memberEntity의 toMemberEntity메소드를 매개변수 memberDto 이용해서 호출
         //그리고 변환된 entity를 가져와야 하므로 Member Entity memberEntity= ~~
-        memberRepository.save(memberEntity);
+
+        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\memberImages";
+        UUID uuid = UUID.randomUUID();
+        String memberImage = uuid + "_" + image.getOriginalFilename();
+        File saveFile = new File(filePath, memberImage);
+        image.transferTo(saveFile);
+        memberEntity.setMemberImage(memberImage);
+        memberEntity.setImagePath("/memberImages/"+memberImage);
+
+        memberImageRepository.save(memberEntity);
         //(jpa 제공하는) 래파지토리 save 메소드 호출
         //memberRepository의 save 메소드 호출 (조건: entity 객체를 넘겨줘야 함)
+    }
+
+    public void saveWithNoImage(MemberDto memberDto) {
+        MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
+        memberRepository.save(memberEntity);
     }
 
     public MemberDto login(MemberDto memberDto) {
@@ -74,6 +93,8 @@ public class MemberService {
     public void update(MemberDto memberDto) {
         memberRepository.save(MemberEntity.toUpateMemberEntity(memberDto));
     }
+
+
 
 //     // @param leaderNickname : 팔로우할 유저의 닉네임
 //     // @param follower : 팔로우 유저
