@@ -13,6 +13,7 @@ public class LectureDto {
     private String thumbnail;
     private String uploader;
     private String videoId;
+    private int category;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -43,4 +44,6 @@ public class LectureDto {
     public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
+
+    public void setCategory(int category){this.category = category; }
 }

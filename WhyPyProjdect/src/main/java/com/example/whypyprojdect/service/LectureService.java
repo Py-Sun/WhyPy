@@ -65,6 +65,7 @@ public class LectureService {
         lectureDto.setTitle(lecture.getTitle());
         lectureDto.setThumbnail(lecture.getThumbnail());
         lectureDto.setUploader(lecture.getUploader());
+        lectureDto.setCategory(lecture.getCategory());
 
         return lectureDto;
     }
