@@ -127,6 +127,30 @@
             }
         });
     });
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 이전 선택한 필터를 복원하기 위한 URL의 쿼리 매개변수
+        var urlParams = new URLSearchParams(window.location.search);
+
+        // 초기에는 상태 체크박스 선택 해제
+        var solvedCheckboxes = document.querySelectorAll('input[name="solvedList"]');
+        solvedCheckboxes.forEach(function(checkbox) {
+            checkbox.checked = false;
+        });
+
+        // 체크박스 상태 복원
+        urlParams.forEach(function(value, key) {
+            if (key === "solvedList") {
+                solvedCheckboxes.forEach(function(checkbox) {
+                    if (checkbox.value === value) {
+                        checkbox.checked = true;
+                    }
+                });
+            }
+        });
+    });
+
 </script>
 
 </html>
