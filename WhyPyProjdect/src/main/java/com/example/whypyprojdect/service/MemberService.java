@@ -39,10 +39,11 @@ public class MemberService {
         //memberEntity의 toMemberEntity메소드를 매개변수 memberDto 이용해서 호출
         //그리고 변환된 entity를 가져와야 하므로 Member Entity memberEntity= ~~
 
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\memberImages";
+      //  String dir = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\memberImages";
+        String dir = "D://";
         UUID uuid = UUID.randomUUID();
         String memberImage = uuid + "_" + image.getOriginalFilename();
-        File saveFile = new File(filePath, memberImage);
+        File saveFile = new File(dir, memberImage);
         image.transferTo(saveFile);
         memberEntity.setMemberImage(memberImage);
         memberEntity.setImagePath("/memberImages/"+memberImage);

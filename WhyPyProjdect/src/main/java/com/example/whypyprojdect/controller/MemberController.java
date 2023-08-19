@@ -12,6 +12,7 @@ import com.example.whypyprojdect.service.FollowService;
 import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.MappingMatch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class MemberController {
 
     //cf. @RequestParam("memberEmail") String memberEmail) >a에 입력받은 값을 a에 저장해달라
     @PostMapping("/member/save")  //save에서 입력받은 회원 가입 정보값들이 dto에 잘 담기게 됨(정리한 코드)
-    public String save(MultipartFile image, @ModelAttribute MemberDto memberDto) throws Exception {
+    public String save(MultipartFile image, MemberDto memberDto) throws Exception {
         System.out.println("MemberController.save"); //여기까지 입력하면 500에러가 뜸. 왜? 이제 post방식으로 보낸 걸 받아주는 주소가 있으니 404에러는 아님
         System.out.println("memberDto = " + memberDto);
         if(!image.isEmpty())
@@ -51,6 +52,19 @@ public class MemberController {
         else memberService.saveWithNoImage(memberDto); //memberService의 save메소드를 미리 정해봄 어떻게 호출할지
         return "redirect:/";
     }
+
+    //회원가입에서 프로필 이미지 입력받기 구현
+    //포스트매핑 url
+    // 일단 엔티티값으로 입력 받고 dto로 서비스에 넘긴다.
+    //엔티티를 DTO로 변환하는 로직> DTO 파일에 있다
+    // image 없을때, 있을 때 구현 (상황 나눠서)
+    // dto를 다시 엔티티로 변환한다
+    // 서비스에서 회원가입 정보를 저장하는 로직을 구현한다
+    //위의 로직은 jpa save 함수를 이용
+    //그게 리턴 값
+    // MemberEntity memberEntity = MemberDto.toMemberDto();
+
+
 
     @GetMapping("/member/login")
     public String loginForm (HttpSession session, HttpServletRequest request) {
@@ -123,6 +137,8 @@ public class MemberController {
         return "redirect:/";
         //return "home";
     }
+
+
 //
 //    @GetMapping("/follow")
 //    public String goFollowForm() {
