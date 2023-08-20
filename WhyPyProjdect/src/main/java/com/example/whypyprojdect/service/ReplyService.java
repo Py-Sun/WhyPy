@@ -2,8 +2,6 @@ package com.example.whypyprojdect.service;
 
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.entity.Recmd;
 import com.example.whypyprojdect.entity.Reply;
 import com.example.whypyprojdect.exception.NotFoundException;
 import com.example.whypyprojdect.repository.MemberRepository;
@@ -12,7 +10,6 @@ import com.example.whypyprojdect.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
