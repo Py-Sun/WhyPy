@@ -93,8 +93,6 @@ public class QuestionController {
         else {
             // 없으면, 모두 false로 표시 set all qsolve values to false
             for (QuestionDto question : questionDtos) {
-                // Dto 업데이트
-                question.setQSolved(false);
                 Question que = questionService.convertToEntity(question);
                 // 엔티티 업데이트
                 que.setSolved(false);

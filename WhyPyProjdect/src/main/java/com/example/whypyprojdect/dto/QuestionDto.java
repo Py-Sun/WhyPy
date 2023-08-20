@@ -42,10 +42,10 @@ public class QuestionDto {
         questionDto.setCategory(question.getCategory());
         questionDto.setTitle(question.getTitle());
         questionDto.setLevel(question.getLevel());
-        questionDto.setAnswer(questionDto.getAnswer());
-        questionDto.setContents(questionDto.getContents());
-        questionDto.setExample(questionDto.getExample());
-        questionDto.setQSolved(questionDto.getSolved());
+        questionDto.setAnswer(question.getAnswer());
+        questionDto.setContents(question.getContents());
+        questionDto.setExample(question.getExample());
+        questionDto.setQSolved(question.getSolved());
         // 나머지 필드도 동일하게 설정
 
         return questionDto;
