@@ -8,6 +8,24 @@
 <body>
 <a href="/member/editInform">회원정보수정</a>
 <a href="/member/logout">로그아웃</a>
-<a href="/sendFriends">친구신청</a>
+<br><br>
+<label for="dropdown">선택하세요:</label>
+<select id="dropdown">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="9">9</option>
+</select>
+<button id="showProfile">프로필보기</button>
 </body>
 </html>
+
+<script>
+    const dropdown = document.getElementById("dropdown");
+    const showProfileBtn = document.getElementById("showProfile");
+    showProfileBtn.addEventListener("click", function() {
+        const selectedMemberId = dropdown.value;
+        window.location.href = "/profile/" + selectedMemberId;
+    });
+</script>
