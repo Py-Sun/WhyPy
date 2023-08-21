@@ -20,6 +20,8 @@
 <button id="showProfile">프로필보기</button>
 <br><br>
 <button id="showFriendsRequest">친구신청보기</button>
+<br>
+<button id="showFriendsList">친구목록보기</button>
 </body>
 </html>
 
@@ -27,11 +29,15 @@
     const dropdown = document.getElementById("dropdown");
     const showProfileBtn = document.getElementById("showProfile");
     const showFriendsRequestBtn = document.getElementById("showFriendsRequest");
+    const showFriendsListBtn = document.getElementById("showFriendsList");
     showProfileBtn.addEventListener("click", function() {
         const selectedMemberId = dropdown.value;
         window.location.href = "/profile/" + selectedMemberId;
     });
     showFriendsRequestBtn.addEventListener("click", function() {
         window.location.href = "/showFriendsRequest";
+    });
+    showFriendsListBtn.addEventListener("click", function() {
+        window.location.href = "/showFriendsList";
     });
 </script>

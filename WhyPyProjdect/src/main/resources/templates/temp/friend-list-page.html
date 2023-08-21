@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friends List</title>
+</head>
+<body>
+<div class="friends-list">
+    <th:block th:if="${friendsNameList.empty}">
+        <p>등록된 친구가 없습니다.</p>
+    </th:block>
+    <th:block th:each="friendsName : ${friendsNameList}">
+        <div>
+            <p th:text="${friendsName}+'님과 친구입니다'"></p>
+            <!--form action="/deleteFriend" method="get">
+                <input type="hidden" name="senderId" th:value="${friendsReq.senderId}" />
+                <input type="hidden" name="receiverId" th:value="${friendsReq.receiverId}" />
+                <button type="submit">삭제</button>
+            </form-->
+        </div>
+    </th:block>
+</div>
+</body>
+</html>

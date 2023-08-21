@@ -55,4 +55,8 @@ public class FriendsService {
     public List<Friends> findByReceiverIdAndState(Long receiverId, String state) {
         return friendsRepository.findByReceiverIdAndState(receiverId, state);
     }
+
+    public List<Friends> findFriends(Long memberId) {
+        return friendsRepository.findFriends(memberId);
+    }
 }

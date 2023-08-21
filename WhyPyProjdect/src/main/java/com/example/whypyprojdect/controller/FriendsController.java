@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +49,33 @@ public class FriendsController {
         if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
         List<Friends> friendsRequest = friendsService.findByReceiverIdAndState(memberDto.getId(), "pending");
         model.addAttribute("friendsRequest", friendsRequest);
-        return "temp/friends-list-page";
+        return "temp/friend-request-list-page";
+    }
+
+    @GetMapping("/showFriendsList")
+    public String showFriendsList(HttpSession session, Model model) {
+        Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDto = new MemberDto();
+        if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+        Long memberId = memberDto.getId();
+        List<Friends> friendsList = friendsService.findFriends(memberId);
+        List<String> friendsNameList = new ArrayList<>();
+        if(!friendsList.isEmpty()) {
+            for(Friends friends : friendsList) {
+                Optional<MemberEntity> memberEntity2;
+                if(friends.getSenderId() != memberId) {
+                    memberEntity2 = memberRepository.findById(friends.getSenderId());
+                }
+                else {
+                    memberEntity2 = memberRepository.findById(friends.getReceiverId());
+                }
+                MemberDto memberDto2 = new MemberDto();
+                if(memberEntity2.isPresent()) memberDto2 = MemberDto.toMemberDto((memberEntity2.get()));
+                friendsNameList.add(memberDto2.getNickName());
+            }
+        }
+        model.addAttribute("friendsNameList", friendsNameList);
+        return "temp/friend-list-page";
     }
 
     @GetMapping("/receiveFriendRequest")
