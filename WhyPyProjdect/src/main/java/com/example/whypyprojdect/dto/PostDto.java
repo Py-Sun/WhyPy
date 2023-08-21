@@ -16,6 +16,7 @@ public class PostDto {
     private int recmdNum;
     private int recmdOneDayNum;
     private boolean isAnonymous;
+    private int postPublic;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -43,6 +44,8 @@ public class PostDto {
 
     public void setIsAnonymous(boolean isAnonymous) {this.isAnonymous = isAnonymous; }
 
+    public void setPostPublic(int postPublic) {this.postPublic = postPublic; }
+
     public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
         this.title = title;
         this.contents = contents;
@@ -65,6 +68,7 @@ public class PostDto {
                 .recmdNum(recmdNum)
                 .recmdOneDayNum(recmdOneDayNum)
                 .isAnonymous(isAnonymous)
+                .postPublic(postPublic)
                 .build();
     }
 }

@@ -3,11 +3,9 @@ package com.example.whypyprojdect.controller;
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.dto.PostDto;
 import com.example.whypyprojdect.dto.RecmdDto;
-import com.example.whypyprojdect.entity.MemberEntity;
-import com.example.whypyprojdect.entity.Post;
-import com.example.whypyprojdect.entity.Recmd;
-import com.example.whypyprojdect.entity.Reply;
+import com.example.whypyprojdect.entity.*;
 import com.example.whypyprojdect.repository.MemberRepository;
+import com.example.whypyprojdect.service.FriendsService;
 import com.example.whypyprojdect.service.PostService;
 import com.example.whypyprojdect.service.RecmdService;
 import com.example.whypyprojdect.service.ReplyService;
@@ -37,6 +35,7 @@ public class PostController {
     private final MemberRepository memberRepository;
     private final RecmdService recmdService;
     private final ReplyService replyService;
+    private final FriendsService friendsService;
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
@@ -70,6 +69,30 @@ public class PostController {
         Optional<MemberEntity> memberEntity = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
         MemberDto memberDto = new MemberDto();
         if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+
+        if(postDto.getPostPublic() == 1) {
+            //친구공개
+            List<Friends> friendsDto = friendsService.findFriends(postDto.getWriterID());
+            boolean isFriend = false;
+            for(Friends friends : friendsDto) {
+                if(memberDto.getId() == null) break;
+                if(postDto.getWriterID() == memberDto.getId()) {
+                    isFriend = true;
+                    break;
+                }
+                if(friends.getReceiverId() == memberDto.getId() || friends.getSenderId() == memberDto.getId()) {
+                    isFriend = true;
+                    break;
+                }
+            }
+            if(!isFriend) return "temp/public-friends-page";
+        }
+
+        if(postDto.getPostPublic() == 2) {
+            //나만보기
+            if(memberDto.getId() == null || postDto.getWriterID() != memberDto.getId()) return "temp/public-writer-page";
+        }
+        
         Optional<Recmd> recmdDto = recmdService.getRecmdByPostIdAndMemberId(postId, memberDto.getId());
         List<Reply> replyList = replyService.getRepliesByPostId(postId);
         List<List<Reply>> rereplyList = new ArrayList<>();
