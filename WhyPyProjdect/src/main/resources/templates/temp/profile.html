@@ -15,10 +15,26 @@
   var sessionUserName = /*[[${session.loginName}]]*/ '';
   var memberName = /*[[${member.memberName}]]*/ '';
   var memberId = /*[[${member.id}]]*/ '';
+  var friendState = /*[[${friend != null ? friend.state : ''}]]*/ '';
   var friendStatusButton = document.getElementById("friendStatusButton");
 
   if (sessionUserName === memberName) {
     friendStatusButton.textContent = "본인 프로필!";
+    friendStatusButton.disabled = true;
+  }
+  else if (friendState == '') {
+    friendStatusButton.textContent = "친구 신청"
+  }
+  else if (friendState=="pending") {
+    friendStatusButton.textContent = "친구 대기"
+    friendStatusButton.disabled = true;
+  }
+  else if (friendState=="received") {
+    friendStatusButton.textContent = "친구입니다"
+    friendStatusButton.disabled = true;
+  }
+  else {
+    friendStatusButton.textContent = "예외처리 필요"
     friendStatusButton.disabled = true;
   }
 

@@ -34,11 +34,20 @@ public class FriendsController {
     }
 
     @GetMapping("/profile/{memberId}")
-    public String getProfileById(@PathVariable long memberId, Model model) {
-        Optional<MemberEntity> memberEntity = memberRepository.findById(memberId);
-        MemberDto memberDto = new MemberDto();
-        if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
-        model.addAttribute("member", memberDto);
+    public String getProfileById(@PathVariable long memberId, HttpSession session, Model model) {
+        Optional<MemberEntity> memberEntityById = memberRepository.findById(memberId);
+        MemberDto memberDtoById = new MemberDto();
+        if(memberEntityById.isPresent()) memberDtoById = MemberDto.toMemberDto((memberEntityById.get()));
+
+        Optional<MemberEntity> memberEntityByName = memberRepository.findByMemberName((String) session.getAttribute("loginName"));
+        MemberDto memberDtoByName = new MemberDto();
+        if(memberEntityByName.isPresent()) memberDtoByName = MemberDto.toMemberDto((memberEntityByName.get()));
+        Friends friend = friendsService.findBySenderIdAndReceiverId(memberId, memberDtoByName.getId());
+        if(friend == null) {
+            friend = friendsService.findBySenderIdAndReceiverId(memberDtoByName.getId(), memberId);
+        }
+        model.addAttribute("member", memberDtoById);
+        model.addAttribute("friend", friend);
         return "temp/profile";
     }
 
