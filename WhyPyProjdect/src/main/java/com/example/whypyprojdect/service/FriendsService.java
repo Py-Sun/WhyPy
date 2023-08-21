@@ -37,10 +37,9 @@ public class FriendsService {
         friendsRepository.deleteById(friendsId);
     }
 
-    public void updateFriendsData(Integer friendsId, String state) {
-        Optional<Friends> friendsOptional = friendsRepository.findById(friendsId);
+    public void updateFriendsData(Long senderId, Long receiverId, String state) {
+        Optional<Friends> friendsOptional = Optional.ofNullable(friendsRepository.findBySenderIdAndReceiverId(senderId, receiverId));
         Friends friends = friendsOptional.orElseThrow(() -> new NotFoundException("Friends not found"));
-        friends.setReceiverId(friendsId);
         friends.setState(state);
         friendsRepository.save(friends);
     }
@@ -51,5 +50,9 @@ public class FriendsService {
             MemberDto member = MemberDto.toMemberDto(memberEntity.get());
             friends.setSenderId(member.getId());
         }
+    }
+
+    public List<Friends> findByReceiverIdAndState(Long receiverId, String state) {
+        return friendsRepository.findByReceiverIdAndState(receiverId, state);
     }
 }

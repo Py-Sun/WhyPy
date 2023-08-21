@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friends List</title>
+</head>
+<body>
+<div class="friends-list">
+    <th:block th:if="${friendsRequest.empty}">
+        <p>받은 친구신청이 없습니다.</p>
+    </th:block>
+    <th:block th:each="friendsReq : ${friendsRequest}">
+        <div>
+            <p th:text="${friendsReq.senderId}+'님에게 온 친구 신청'"></p>
+            <form action="/receiveFriendRequest" method="get">
+                <input type="hidden" name="senderId" th:value="${friendsReq.senderId}" />
+                <input type="hidden" name="receiverId" th:value="${friendsReq.receiverId}" />
+                <button type="submit">OK</button>
+            </form>
+        </div>
+    </th:block>
+</div>
+</body>
+</html>
