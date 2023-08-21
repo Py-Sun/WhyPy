@@ -5,10 +5,27 @@
   <title>profile</title>
 </head>
 <body>
+<input type=hidden id="receiverId" th:value="${member.id}">
 <p th:text="${member.memberName + '님 페이지'}"></p>
-<button>친구상태</button>
+<button id="friendStatusButton" onclick="sendFriendRequest()">친구상태</button>
 </body>
 </html>
+
+<script th:inline="javascript">
+  var sessionUserName = /*[[${session.loginName}]]*/ '';
+  var memberName = /*[[${member.memberName}]]*/ '';
+  var memberId = /*[[${member.id}]]*/ '';
+  var friendStatusButton = document.getElementById("friendStatusButton");
+
+  if (sessionUserName === memberName) {
+    friendStatusButton.textContent = "본인 프로필!";
+    friendStatusButton.disabled = true;
+  }
+
+  function sendFriendRequest() {
+    window.location.href = "/sendFriendRequest/" + memberId;
+  }
+</script>
 
 
 

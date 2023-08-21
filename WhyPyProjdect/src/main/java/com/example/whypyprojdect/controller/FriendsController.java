@@ -21,13 +21,13 @@ public class FriendsController {
     private final FriendsService friendsService;
     private final MemberRepository memberRepository;
 
-    @GetMapping("/sendFriends")
-    public String sendFriends(HttpSession session) {
+    @GetMapping("/sendFriendRequest/{receiverId}")
+    public String sendFriends(@PathVariable long receiverId, HttpSession session) {
         Friends friends = new Friends();
         Object sender = session.getAttribute("loginName");
         friendsService.setSenderID(friends, sender);
-        friendsService.saveFriendsData(friends);
-        return "redirect:/member/mypage";
+        friendsService.saveFriendsData(friends, receiverId);
+        return "redirect:/profile/" + receiverId;
     }
 
     @GetMapping("/profile/{memberId}")

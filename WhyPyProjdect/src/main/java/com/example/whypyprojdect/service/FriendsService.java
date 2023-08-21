@@ -26,9 +26,9 @@ public class FriendsService {
                 .orElseThrow(() -> new NoSuchElementException("Friends not found with id: " + friendsId));
     }
 
-    public Friends saveFriendsData(Friends friends) {
-        friends.setReceiverId(1);
-        friends.setState("chk");
+    public Friends saveFriendsData(Friends friends, long receiverId) {
+        friends.setReceiverId(receiverId);
+        friends.setState("pending");
         Friends friendsEntity = friendsRepository.save(friends);
         return friendsEntity;
     }
