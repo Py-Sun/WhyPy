@@ -17,6 +17,11 @@
                 <input type="hidden" name="receiverId" th:value="${friendsReq.receiverId}" />
                 <button type="submit">OK</button>
             </form>
+            <form action="/denyFriendRequest" method="get">
+                <input type="hidden" name="senderId" th:value="${friendsReq.senderId}" />
+                <input type="hidden" name="receiverId" th:value="${friendsReq.receiverId}" />
+                <button type="submit">DENY</button>
+            </form>
         </div>
     </th:block>
 </div>

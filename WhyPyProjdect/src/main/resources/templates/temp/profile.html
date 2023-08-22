@@ -33,6 +33,10 @@
     friendStatusButton.textContent = "친구입니다"
     friendStatusButton.disabled = true;
   }
+  else if (friendState=="deny") {
+    friendStatusButton.textContent = "친구 거절"
+    friendStatusButton.disabled = true;
+  }
   else {
     friendStatusButton.textContent = "예외처리 필요"
     friendStatusButton.disabled = true;

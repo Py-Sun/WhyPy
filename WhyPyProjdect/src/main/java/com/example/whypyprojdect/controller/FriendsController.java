@@ -83,13 +83,26 @@ public class FriendsController {
                 friendsNameList.add(memberDto2.getNickName());
             }
         }
+        model.addAttribute("friendsList", friendsList);
         model.addAttribute("friendsNameList", friendsNameList);
         return "temp/friend-list-page";
+    }
+
+    @GetMapping("/deleteFriend")
+    public String deleteFriend(@RequestParam Integer friendId) {
+        friendsService.deleteFriendsData(friendId);
+        return "redirect:/showFriendsList";
     }
 
     @GetMapping("/receiveFriendRequest")
     public String receiveFriendRequest(@RequestParam Long senderId, @RequestParam Long receiverId) {
         friendsService.updateFriendsData(senderId, receiverId, "received");
+        return "redirect:/showFriendsRequest";
+    }
+
+    @GetMapping("/denyFriendRequest")
+    public String denyFriendRequest(@RequestParam Long senderId, @RequestParam Long receiverId) {
+        friendsService.updateFriendsData(senderId, receiverId, "deny");
         return "redirect:/showFriendsRequest";
     }
 }
