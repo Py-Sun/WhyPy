@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,13 +74,25 @@ public class LetterController {
             return "/login";
         }
 
-        String senderName = (String) session.getAttribute("loginName");
-        Optional<MemberEntity> memberOptional = memberRepository.findByMemberName(senderName);
+        String receiverName = (String) session.getAttribute("loginName");
+        Optional<MemberEntity> memberOptional = memberRepository.findByMemberName(receiverName);
 
         if (memberOptional.isPresent()) {
             MemberEntity member = memberOptional.get();
             long receiverId = letterService.getMemberID(member);
             List<Letter> receivedLetters = letterService.getReceivedLetters(receiverId);
+            List<String> senderNames = new ArrayList<>();
+
+            for (Letter letter : receivedLetters) {
+                Optional<MemberEntity> senderOptional = memberRepository.findById(letter.getSenderId());
+                if (senderOptional.isPresent()) {
+                    senderNames.add(senderOptional.get().getMemberName());
+                } else {
+                    senderNames.add("알 수 없음");
+                }
+            }
+            model.addAttribute("senderNames", senderNames);
+
             model.addAttribute("receivedLetters", receivedLetters);
         }
 
@@ -100,6 +113,16 @@ public class LetterController {
             MemberEntity member = memberOptional.get();
             long senderId = letterService.getMemberID(member);
             List<Letter> sentLetters = letterService.getSentLetters(senderId);
+            List<String> receiverNames = new ArrayList<>();
+            for (Letter letter : sentLetters) {
+                Optional<MemberEntity> senderOptional = memberRepository.findById(letter.getSenderId());
+                if (senderOptional.isPresent()) {
+                    receiverNames.add(senderOptional.get().getMemberName());
+                } else {
+                    receiverNames.add("알 수 없음");
+                }
+            }
+            model.addAttribute("receiverNames", receiverNames);
             model.addAttribute("sentLetters", sentLetters);
         }
 

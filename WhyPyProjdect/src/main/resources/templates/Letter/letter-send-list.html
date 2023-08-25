@@ -14,8 +14,8 @@
     <th>보낸 날짜</th>
     <th>삭제</th>
   </tr>
-  <tr th:each="letter : ${sentLetters}">
-    <td th:text="${letter.receiverId}"></td>
+  <tr th:each="letter, idx : ${sentLetters}">
+    <td th:text="${receiverNames[idx.index]}"></td>
     <td th:text="${letter.title}"></td>
     <td th:text="${letter.content}"></td>
     <td th:text="${#dates.format(letter.sendDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
