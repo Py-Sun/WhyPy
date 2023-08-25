@@ -1,82 +1,109 @@
-/*
 package com.example.whypyprojdect.controller;
 
-import com.example.whypyprojdect.dto.LetterDto;
 import com.example.whypyprojdect.dto.MemberDto;
 import com.example.whypyprojdect.entity.MemberEntity;
 import com.example.whypyprojdect.repository.MemberRepository;
-import com.example.whypyprojdect.service.LetterService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.whypyprojdect.service.MemberService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.xml.ws.Response;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import com.example.whypyprojdect.entity.Letter;
+import com.example.whypyprojdect.service.LetterService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@RequiredArgsConstructor
-@RestController
+import java.lang.reflect.Member;
+import java.util.List;
+import java.util.Optional;
+
+@Controller
 public class LetterController {
-
     private final LetterService letterService;
     private final MemberRepository memberRepository;
 
-    //@ApiOperation(value="쪽지 보내기", notes ="쪽지 보내기")
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/letters")
-    public Response<?> sendLetter(@RequestBody LetterDto letterDto, HttpSession httpSession, HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
-        MemberEntity memberEntity = memberRepository.findById(session.loginName);
-        letterDto.setLetterSenderName(memberEntity.getNickName());
-
-        return new Response<>("성공", "쪽지를 보냈습니다.", letterService.write(letterDto));
-
+    @Autowired
+    public LetterController(LetterService letterService, MemberRepository memberRepository)
+    {
+        this.letterService = letterService;
+        this.memberRepository = memberRepository;
     }
 
-    //@ApiOperation(value="받은 편지함 읽기", notes="받은 편지함 확인")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/letters/received")
-    public Response<?> getReceivedLetter() {
-        MemberEntity memberEntity = memberRepository.findById(2).orElseThrow(() -> {
-            return new IllegalArgumentException("유저를 찾을 수 없습니다.");
-        });
+    // 쪽지 보내기
+    @PostMapping("/sendLetter")
+    public String sendLetter(@RequestParam String receiverName, @RequestParam String title,
+                             @RequestParam String content, HttpSession session) {
+        String senderName = (String) session.getAttribute("loginName");
+        Optional<MemberEntity> memberOptional = memberRepository.findByMemberName(senderName);
+        Optional<MemberEntity> receiverOptional = memberRepository.findByMemberName(receiverName);
 
-        return new Response("성공", "받은 쪽지를 불러왔습니다.", letterService.receivedLetter(memberEntity));
-    }
+        if (memberOptional.isPresent()) {
+            MemberEntity member = memberOptional.get();
+            long senderId = letterService.getMemberID(member);
 
-    //@ApiOperation(value="받은 쪽지 삭제하기", notes="받은 쪽지를 삭제합니다.")
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/letters/received/{letterId}")
-    public Response<?> deleteReceivedLetter(@PathVariable("letterId") Integer letterId) {
-        MemberEntity memberEntity = memberRepository.findById(1).orElseThrow(()-> {
-            return new IllegalArgumentException("유저를 찾을 수 없습니다.");
-        });
-
-        return new Response<>("삭제 성공", "받은 쪽지인, "+ letterId +"번 쪽지를 삭제했습니다.", letterService.deletedLetterByLetterReceiver(letterId, memberEntity));
-    }
-
-    //@ApiOperation(value="보낸 편지함 읽기", notes="보낸 편지함 확인.")
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/letters/sent")
-    public Response<?> getSentLetter() {
-        MemberEntity memberEntity=memberRepository.findById(1).orElseThrow(()->{
-            return new IllegalArgumentException("유저를 찾을 수 없습니다.");
-        });
-
-        return new Response("성공", "보낸 쪽지를 불러왔습니다.", letterService.sentLetter(memberEntity));
+            // 받는 사람도 있으면 (추후에 프론트 나오면 친구 리스트와 연동하기)
+            if (receiverOptional.isPresent()) {
+                MemberEntity receiver = receiverOptional.get();
+                long receiverId = letterService.getMemberID(receiver);
+                letterService.sendLetter(senderId, receiverId, title, content);
+            }
         }
 
-    //@ApiOperation(value="보낸 쪽지 삭제하기", notes="보낸 쪽지를 삭제합니다.")
-    @ResponseStatus(HttpStatus.OK)
-    @DeleteMapping("/letters/sent/{letterId}")
-    public Response<?> deleteSentMessage(@PathVariable("letterId") Integer letterId) {
-        MemberEntity memberEntity = memberRepository.findById(1).orElseThrow(()->{
-            return new IllegalArgumentException("유저를 찾을 수 없습니다.");
-        });
+        return "redirect:/sentLetters";
+    }
 
-        return new Response<>("삭제 성공", "보낸 쪽지인,"+ letterId +"번 쪽지를 삭제했습니다",letterService.deleteLetterByLetterSender(letterId, memberEntity));
-   }
+    @GetMapping("/sendLetter")
+    public String sendLetterPage(HttpSession session){
+        if(session.getAttribute("loginName")== null){
+            return "/login";
+        }
 
+        return "Letter/letter-send";
+    }
+
+    // 받은 쪽지함
+    @GetMapping("/receivedLetters")
+    public String viewReceivedLetters(Model model, @RequestParam long receiverId) {
+        List<Letter> receivedLetters = letterService.getReceivedLetters(receiverId);
+        model.addAttribute("receivedLetters", receivedLetters);
+        return "Letter/letter-receive-list";
+    }
+
+    // 보낸 쪽지함
+    @GetMapping("/sentLetters")
+    public String viewSentLetters(Model model, HttpSession session) {
+        if(session.getAttribute("loginName")== null){
+            return "/login";
+        }
+
+        String senderName = (String) session.getAttribute("loginName");
+        Optional<MemberEntity> memberOptional = memberRepository.findByMemberName(senderName);
+
+        if (memberOptional.isPresent()) {
+            MemberEntity member = memberOptional.get();
+            long senderId = letterService.getMemberID(member);
+            List<Letter> sentLetters = letterService.getSentLetters(senderId);
+            model.addAttribute("sentLetters", sentLetters);
+        }
+
+        return "Letter/letter-send-list";
+    }
+
+    // 받은 쪽지 삭제
+    @GetMapping("/deleteReceivedLetter/{letterId}")
+    public String deleteReceivedLetter(@PathVariable int letterId) {
+        letterService.deleteReceivedLetter(letterId);
+        return "redirect:/receivedLetters";
+    }
+
+    // 보낸 쪽지 삭제
+    @GetMapping("/deleteSentLetter/{letterId}")
+    public String deleteSentLetter(@PathVariable int letterId) {
+        letterService.deleteSentLetter(letterId);
+        return "redirect:/sentLetters";
+    }
 }
-
-*/

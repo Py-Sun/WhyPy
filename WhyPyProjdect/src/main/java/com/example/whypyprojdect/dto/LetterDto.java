@@ -1,27 +1,41 @@
-//package com.example.whypyprojdect.dto;
-//
-//import com.example.whypyprojdect.entity.Letter;
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-///* 엔티티와 달리 값을 예쁘게 (?) 주고 받는 dto에서는
-//title,content,sendername,receivername만 받아서 서버(프론트)에 주면 됨  */
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-//public class LetterDto {
-//    private String letterTitle;
-//    private String letterContent;
-//    private String letterSenderName;
-//    private String letterReceiverName;
-//
-//    public static LetterDto toDto(Letter letter) {
-//        return new LetterDto(
-//                letter.getLetterTitle(),
-//                letter.getLetterContent(),
-//                letter.getLetterSender().getNickName(),
-//                letter.getLetterReceiver().getNickName()
-//        );
-//    }
-//}
+package com.example.whypyprojdect.dto;
+
+import com.example.whypyprojdect.entity.Letter;
+import lombok.Data;
+
+import java.util.Date;
+
+@Data
+public class LetterDto {
+    private int letterId;
+    private long receiverId;
+    private long senderId;
+    private String title;
+    private String content;
+    private Date sendDate;
+
+    public void setLetterId(int letterId){this.letterId = letterId;}
+
+    public void setReceiverId(long receiverId){this.receiverId = receiverId;}
+
+    public void setSenderId(long senderId){this.senderId = senderId;}
+
+    public void setTitle(String title){this.title = title;}
+
+    public void setContent(String content){this.content = content;}
+
+    public void SetSendDate(Date sendDate){this.sendDate = sendDate;}
+
+    public void LetterDto() {}
+
+    public Letter toEntity() {
+        return Letter.builder()
+                .letterId(letterId)
+                .receiverId(receiverId)
+                .senderId(senderId)
+                .title(title)
+                .content(content)
+                .sendDate(sendDate)
+                .build();
+    }
+}

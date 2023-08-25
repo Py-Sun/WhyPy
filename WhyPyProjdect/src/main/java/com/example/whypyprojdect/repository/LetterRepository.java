@@ -1,14 +1,13 @@
 package com.example.whypyprojdect.repository;
 
 import com.example.whypyprojdect.entity.Letter;
-import com.example.whypyprojdect.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
+@Repository
 public interface LetterRepository extends JpaRepository<Letter, Integer> {
-    List<Letter> findAllByLetterReceiver(MemberEntity memberEntity);
-    List<Letter> findAllByLetterSender(MemberEntity memberEntity);
-    Optional<Object> findByLetterId(int letterId);
+    List<Letter> findByReceiverId(long receiverId);
+    List<Letter> findBySenderId(long senderId);
 }

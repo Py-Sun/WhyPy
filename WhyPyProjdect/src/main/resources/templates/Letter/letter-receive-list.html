@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>편지함</title>
+</head>
+<body>
+<h1>받은 편지함</h1>
+<table>
+    <tr>
+        <th>보낸 사람</th>
+        <th>제목</th>
+        <th>내용</th>
+        <th>보낸 날짜</th>
+        <th>삭제</th>
+    </tr>
+    <tr th:each="letter : ${receivedLetters}">
+        <td th:text="${letter.senderId}"></td>
+        <td th:text="${letter.title}"></td>
+        <td th:text="${letter.content}"></td>
+        <td th:text="${#dates.format(letter.sendDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td><a th:href="@{/deleteReceivedLetter/{letterId}(letterId=${letter.letterId})}">삭제</a></td>
+    </tr>
+</table>
+</body>
+</html>
