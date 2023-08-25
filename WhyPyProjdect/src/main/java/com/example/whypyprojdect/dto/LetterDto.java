@@ -13,6 +13,7 @@ public class LetterDto {
     private String title;
     private String content;
     private Date sendDate;
+    private boolean read;
 
     public void setLetterId(int letterId){this.letterId = letterId;}
 
@@ -26,6 +27,8 @@ public class LetterDto {
 
     public void SetSendDate(Date sendDate){this.sendDate = sendDate;}
 
+    public void setRead(boolean read){this.read = read;}
+
     public void LetterDto() {}
 
     public Letter toEntity() {
@@ -36,6 +39,7 @@ public class LetterDto {
                 .title(title)
                 .content(content)
                 .sendDate(sendDate)
+                .read(read)
                 .build();
     }
 }

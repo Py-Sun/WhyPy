@@ -33,4 +33,7 @@ public class Letter {
 
     @Column(name="letter_sendDate")
     private Date sendDate;
+
+    @Column(name = "letter_read")
+    private boolean read;
 }

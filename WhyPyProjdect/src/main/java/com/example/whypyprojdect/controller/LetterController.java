@@ -142,4 +142,22 @@ public class LetterController {
         letterService.deleteSentLetter(letterId);
         return "redirect:/sentLetters";
     }
+
+    @GetMapping("/receivedLetter/{letterId}")
+    public String viewReceivedLetterDetails(@PathVariable int letterId, Model model) {
+        Letter receivedLetter = letterService.getReceivedLetterById(letterId);
+        if (receivedLetter != null) {
+            Optional<MemberEntity> senderOptional = memberRepository.findById(receivedLetter.getSenderId());
+            String senderName = senderOptional.map(MemberEntity::getMemberName).orElse("알 수 없음");
+
+            letterService.saveSetRead(receivedLetter);
+
+            model.addAttribute("letter", receivedLetter);
+            model.addAttribute("senderName", senderName);
+
+            return "Letter/letter-receive";
+        }
+
+        return "redirect:/receivedLetters";
+    }
 }

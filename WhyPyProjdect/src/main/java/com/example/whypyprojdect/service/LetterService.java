@@ -32,6 +32,7 @@ public class LetterService {
         letter.setTitle(title);
         letter.setContent(content);
         letter.setSendDate(new Date());
+        letter.setRead(false);
         return letterRepository.save(letter);
     }
 
@@ -56,4 +57,14 @@ public class LetterService {
         return member.getId();
     }
 
+    public Letter getReceivedLetterById(int letterId) {
+        Optional<Letter> receivedLetterOptional = letterRepository.findById(letterId);
+        return receivedLetterOptional.orElse(null);
+    }
+
+    public void saveSetRead(Letter receivedLetter) {
+        // 쪽지를 읽었음을 표시하고 데이터베이스에 업데이트
+        receivedLetter.setRead(true);
+        letterRepository.save(receivedLetter);
+    }
 }
