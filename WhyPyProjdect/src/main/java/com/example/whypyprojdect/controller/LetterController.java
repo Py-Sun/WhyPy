@@ -66,10 +66,23 @@ public class LetterController {
     }
 
     // 받은 쪽지함
+    // 중복 코드 함수 처리 해야하는데.. 미래의 내가 하겠징..ㅎ
     @GetMapping("/receivedLetters")
-    public String viewReceivedLetters(Model model, @RequestParam long receiverId) {
-        List<Letter> receivedLetters = letterService.getReceivedLetters(receiverId);
-        model.addAttribute("receivedLetters", receivedLetters);
+    public String viewReceivedLetters(Model model, HttpSession session) {
+        if(session.getAttribute("loginName")== null){
+            return "/login";
+        }
+
+        String senderName = (String) session.getAttribute("loginName");
+        Optional<MemberEntity> memberOptional = memberRepository.findByMemberName(senderName);
+
+        if (memberOptional.isPresent()) {
+            MemberEntity member = memberOptional.get();
+            long receiverId = letterService.getMemberID(member);
+            List<Letter> receivedLetters = letterService.getReceivedLetters(receiverId);
+            model.addAttribute("receivedLetters", receivedLetters);
+        }
+
         return "Letter/letter-receive-list";
     }
 
