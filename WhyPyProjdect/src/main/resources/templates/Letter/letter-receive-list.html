@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+    .bold-text {
+        font-weight: bold;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>편지함</title>
@@ -16,9 +23,9 @@
     </tr>
         <tr th:each="letter, idx : ${receivedLetters}">
         <td th:text="${senderNames[idx.index]}"></td>
-        <td>
-            <a th:href="@{/receivedLetter/{letterId}(letterId=${letter.letterId})}" th:text="${letter.title}"></a>
-        </td>
+            <td>
+                <a class="title" th:href="@{/receivedLetter/{letterId}(letterId=${letter.letterId})}" th:text="${letter.title}" th:class="${letter.read == false} ? 'bold-text' : ''"></a>
+            </td>
         <td th:text="${letter.content}"></td>
         <td th:text="${#dates.format(letter.sendDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td><a th:href="@{/deleteReceivedLetter/{letterId}(letterId=${letter.letterId})}">삭제</a></td>
