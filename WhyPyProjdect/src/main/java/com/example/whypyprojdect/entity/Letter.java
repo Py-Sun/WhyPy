@@ -1,59 +1,39 @@
 package com.example.whypyprojdect.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import java.lang.reflect.Member;
-import jakarta.persistence.*;
+import java.util.Date;
 
-@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Data
 public class Letter {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "letter_id")
     private int letterId;
 
-    @Column
-    private String letterTitle;
+    @Column(name="letter_receiver_id")
+    private long receiverId;
 
-    @Column
-    @Lob
-    private String letterContent;
+    @Column(name="letter_sender_id")
+    private long senderId;
 
-    @Column
-    private boolean deletedByLetterSender;
+    @Column(name="letter_title")
+    private String title;
 
-    @Column
-    private boolean deletedByLetterReceiver;
+    @Column(name="letter_content")
+    private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="letterSenderId")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private MemberEntity letterSender;
-    //MemberEntity 타입으로 sender 생성
+    @Column(name="letter_sendDate")
+    private Date sendDate;
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="letterReceiverId")
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private MemberEntity letterReceiver;
-
-    public void deleteByLetterSender() {
-        this.deletedByLetterSender=true;
-    }
-
-    public void deleteByLetterReceiver() {
-        this.deletedByLetterReceiver=true;
-    }
-
-    public boolean isDeleted() {
-        return isDeletedByLetterSender() && isDeletedByLetterReceiver();
-    }
+    @Column(name = "letter_read")
+    private boolean read;
 }

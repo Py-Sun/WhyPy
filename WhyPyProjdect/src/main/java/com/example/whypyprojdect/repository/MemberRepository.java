@@ -11,9 +11,7 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<MemberEntity, Long>{
     //아이디로 회원 정보 조회
    Optional <MemberEntity> findByMemberName(String memberName);
-
     //MemberEntity findBymemberNameAndmemeberPassword(String memberName, String memberPassword);
-
 //optional = null 방지
 
 
