@@ -24,26 +24,30 @@
 
     <div class="content-area">
         <div class="main-menu">
-            <li><a href="#">전체글</a></li>
-            <label class="job" for="job">직종별</label>
-            <input id="job" type="checkbox">
-            <nav id="job_nav">
-                <ul>
-                    <li><a href="#">직종1</a></li>
-                    <li><a href="#">직종2</a></li>
-                    <li><a href="#">직종3</a></li>
-                </ul>
-            </nav>
-            <label class="lan" for="lan">언어별</label>
-            <input id="lan" type="checkbox">
-            <nav id="lan_nav">
-                <ul>
-                    <li><a href="#">언어1</a></li>
-                    <li><a href="#">언어2</a></li>
-                    <li><a href="#">언어3</a></li>
-                </ul>
-            </nav>
-            <li><a href="#">자유게시판</a></li>
+            <li><button class="writing">전체글</button></li>
+            <div class="select">
+                <button onclick="opensetting1()" class="job">직종별
+                    <img class="togglebutton" src="/toggle-button1.svg">
+                </button>
+                <nav id="job_nav">
+                    <ul>
+                        <li><button class="job1">직종1</button></li>
+                        <li><button class="job1">직종2</button></li>
+                        <li><button class="job1">직종3</button></li>
+                    </ul>
+                </nav>
+                <button onclick="opensetting2()" class="lan">언어별
+                    <img class="togglebutton" src="/toggle-button1.svg">
+                </button>
+                <nav id="lan_nav">
+                    <ul>
+                        <li><button class="lan">언어1</button></li>
+                        <li><button class="lan">언어2</button></li>
+                        <li><button class="lan">언어3</button></li>
+                    </ul>
+                </nav>
+            </div>
+            <li><button class="free">자유게시판</button></li>
         </div>
         <div class="main-content">
             <div class="best-box">
@@ -103,5 +107,20 @@
         <button type="submit" id="search-button">?</button>
     </div>
 </body>
-
+<script>
+    function opensetting1() {
+        if (document.getElementById('job_nav').style.display === 'block') {
+            document.getElementById('job_nav').style.display = 'none';
+        } else {
+            document.getElementById('job_nav').style.display = 'block';
+        }
+    }
+    function opensetting2() {
+        if (document.getElementById('lan_nav').style.display === 'block') {
+            document.getElementById('lan_nav').style.display = 'none';
+        } else {
+            document.getElementById('lan_nav').style.display = 'block';
+        }
+    }
+</script>
 </html>

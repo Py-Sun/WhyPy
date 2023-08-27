@@ -2,7 +2,6 @@
     margin: 0px;
     padding: 0px;
     background-color: #E6E6E6;
-    font-family: Arial, sans-serif;
 }
 
 a {
@@ -78,40 +77,48 @@ a {
 }
 
 /* 토글버튼 */
-
-input#job {
+.select {
+    display: flex;
+    flex-direction: column;
+}
+.select .job {
+    margin-bottom: 10px;
+}
+.main-menu button {
+    cursor: pointer;
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    padding-left: 0px;
+    border: 0px;
+    font-size: medium;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+}
+#job_nav,
+#lan_nav {
+    width: 80%;
     display: none;
+    margin-left: 1%;
+    border-radius: 1px;
 }
-
-nav#job_nav {
-    display: none;
+.togglebutton {
+    width: 20px;
+    height: 20px;
 }
-
-input#job:checked+nav#job_nav {
-    display: block;
+#job_nav li,
+#lan_nav li {
+    padding: 0px;
+    border: solid 0.1px;
+    margin-top: 5px;
+    border-radius: 5px;
 }
-
-label.lan {
-    padding: 4px;
-}
-
-input#lan {
-    display: none;
-}
-
-nav#lan_nav {
-    display: none;
-}
-
-input#lan:checked+nav#lan_nav {
-    display: block;
-}
-
-
-
 .main-menu li {
     list-style-type: none;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     padding-top: 10px;
 }
 
