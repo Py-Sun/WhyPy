@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/writing_page.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/writing_page.css">
     <title>writing page</title>
 </head>
 
@@ -15,7 +15,7 @@
             <a href="main_page.html" class="logo">logo</a>
             <div class="tagline">Why?py!</div>
             <div class="right-area">
-                <a href="/member/mypage" class="button my">my</a>
+                <a href="#" class="button my">my</a>
                 <a href="#" class="button list">목록</a>
             </div>
         </div>
@@ -41,11 +41,18 @@
             <div class="sort">정렬</div>
             <div class="line">줄간격</div>
         </div>
-        <div class="contents"></div>
-        <div class="write-button">
-            <a href="#">등록하기</a>
+        <div class="content-box">
+            <textarea type="text" id="post-title" class="post-content-input" placeholder="내용을 입력해주세요"></textarea>
+        </div>
+        <div class="button">
+            <button class="write-button" type="button" onclick="doAction()">등록하기</button>
         </div>
     </div>
+    <script>
+        function doAction() {
+            alert("등록되었습니다!");
+        }  
+    </script>
 </body>
 
 </html>
