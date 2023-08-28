@@ -26,6 +26,10 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> getPostByBoard(String board) {
+        return postRepository.findByBoard(board);
+    }
+
     public Post getPostById(Integer postId) {
         return postRepository.findById(postId)
                 .orElseThrow(() -> new NoSuchElementException("Post not found with id: " + postId));

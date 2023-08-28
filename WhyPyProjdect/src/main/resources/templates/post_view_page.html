@@ -27,7 +27,10 @@
 </div>
 <div class="bigbox">
     <div class="up">
-        <button class="posting" type="button" onclick="doAction()">게시판 이름 ></button>
+        <button class="posting" type="button"
+                th:onclick="|location.href='@{/postList/{board}(board=${post.board})}'|"
+                th:style="'cursor: pointer;'"
+                th:text="${post.board} + ' >'"></button>
         <div class="title" th:text="${post.title}"></div>
         <div class="publisher">
             <div class="photo">
@@ -156,7 +159,7 @@
                             <input type="hidden" name="postId" th:value="${post.postId}"/>
                             <input type="hidden" name="parentId" th:value="${reply.replyId}"/>
                             <textarea name="comment"
-                                      th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '답글 작성'}"
+                                      th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '답글을 남겨보세요'}"
                                       th:readonly="${session.loginName == null}"></textarea>
                             <p th:if="${member.id == post.writerID}">
                                 <span th:if="${post.isAnonymous}">

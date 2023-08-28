@@ -17,6 +17,7 @@ public class PostDto {
     private int recmdOneDayNum;
     private boolean isAnonymous;
     private int postPublic;
+    private String board;
 
     // 생성자, getter, setter 등 필요한 메서드 추가
 
@@ -46,13 +47,16 @@ public class PostDto {
 
     public void setPostPublic(int postPublic) {this.postPublic = postPublic; }
 
-    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath) {
+    public void setBoard(String board) {this.board = board; }
+
+    public PostDto(String title, String contents, String createDate, String updateDate, String imageName, String imagePath, String board) {
         this.title = title;
         this.contents = contents;
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.imageName = imageName;
         this.imagePath = imagePath;
+        this.board = board;
     }
 
     public Post toEntity() {
@@ -69,6 +73,7 @@ public class PostDto {
                 .recmdOneDayNum(recmdOneDayNum)
                 .isAnonymous(isAnonymous)
                 .postPublic(postPublic)
+                .board(board)
                 .build();
     }
 }
