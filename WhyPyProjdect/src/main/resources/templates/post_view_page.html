@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글페이지</title>
+    <link rel="stylesheet" type="text/css" href="/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="/css/post_view_page.css">
+</head>
+
+<body>
+<input type=hidden id="postId" th:value="${post.postId}">
+<input type=hidden id="postWriter" th:value="${post.writerID}">
+<input type=hidden id="currentUser" th:value="${member.id}">
+<input type=hidden id="recmdData" th:value="${recmd != null ? recmd.recmdId : ''}">
+<div class="header">
+    <div>
+        <a href="/" class="logo">logo</a>
+        <div class="tagline">Why?py!</div>
+        <div class="right-area">
+            <a href="#" class="button my">my</a>
+            <a href="#" class="button list">목록</a>
+        </div>
+    </div>
+</div>
+<div class="bigbox">
+    <div class="up">
+        <button class="posting" type="button" onclick="doAction()">게시판 이름 ></button>
+        <div class="title" th:text="${post.title}"></div>
+        <div class="publisher">
+            <div class="photo">
+                    <span th:unless="${post.isAnonymous}"
+                          th:style="'display: block; width: 100%; height: 100%; cursor: pointer; background-color: #d9d9d9;'"
+                          th:onclick="|location.href='@{/profile/{writerId}(writerId=${post.writerID})}'|">
+                    </span>
+            </div>
+            <div class="information">
+                <div class="name">
+                    <span th:if="${post.isAnonymous}">익명</span>
+                    <span th:unless="${post.isAnonymous}"
+                          th:onclick="|location.href='@{/profile/{writerId}(writerId=${post.writerID})}'|"
+                          th:text="${writer}" th:style="'cursor: pointer;'"></span>
+                </div>
+                <div class="day" th:text="${post.updateDate}"></div>
+            </div>
+        </div>
+        <div class="setting">수정 | 삭제</div>
+        <div class="line">
+            <hr>
+        </div>
+    </div>
+    <div class="middle">
+        <div class="content" th:text="${post.contents}" id="contents"></div>
+        <div class="select">
+            <div class="left">
+                <div class="suggestion" id="recmdText" th:text="'추천 '+${post.recmdNum}"></div>
+                <div class="comment" th:text="'댓글 '+${#lists.size(reply)}"></div>
+            </div>
+            <div class="right">
+                <div class="share" onclick="sharePost()" style="cursor:pointer">공유하기</div>
+                <div class="recmd" id="recmdBtn" onclick="recmdPost()" style="cursor:pointer">추천하기</div>
+            </div>
+        </div>
+        <div class="line">
+            <hr>
+        </div>
+    </div>
+    <div class="down">
+        <form th:action="@{/createReply}" method="post">
+            <div class="group">
+                <div class="group1">
+                    <input type="hidden" name="postId" th:value="${post.postId}"/>
+                    <input type="hidden" name="parentId" th:value="0"/>
+                    <div class="writename" th:text="${member.nickName}"></div>
+                    <p th:if="${member.id == post.writerID}">
+                           <span th:if="${post.isAnonymous}">
+                               <label><input type="checkbox" name="isAnonymous" checked="checked" disabled="disabled"/> 익명</label>
+                           </span>
+                        <span th:unless="${post.isAnonymous}">
+                                <label><input type="checkbox" name="isAnonymous" disabled="disabled"/> 익명</label>
+                            </span>
+                    </p>
+                    <p th:unless="${member.id == post.writerID}">
+                        <label><input type="checkbox" name="isAnonymous"/> 익명</label>
+                    </p>
+                </div>
+                <input type="text" class="write" name="comment"
+                       th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '댓글을 남겨보세요'}"
+                       th:readonly="${session.loginName == null}">
+                <button type="submit" class="write_button">등록하기</button>
+            </div>
+        </form>
+        <div class="comments my-3">
+            <div class="comments">
+                <h3>댓글</h3>
+                <div th:if="${reply}">
+                    <div th:each="reply, index : ${reply}">
+                        <div class="comment-list">
+                            <div class="comment-header">
+                                <p class="comment-author">
+                            <span th:if="${reply.writerId == post.writerID}">
+                                <span th:if="${post.isAnonymous}">익명 (게시글 작성자)</span>
+                                <span th:unless="${post.isAnonymous}" th:text="${reply.writerId + ' (게시글 작성자)'}"></span>
+                            </span>
+                                    <span th:unless="${reply.writerId == post.writerID}">
+                                <span th:if="${reply.isAnonymous}">익명</span>
+                                <span th:unless="${reply.isAnonymous}" th:text="${reply.writerId}"></span>
+                            </span>
+                                </p>
+                                <p class="comment-date" th:text="${reply.createDate}"></p>
+                            </div>
+                            <p class="comment-content" th:text="${reply.comment}"></p>
+                            <div class="comment-actions" th:if="${reply.writerId == member.id}">
+                                <button class="comment-action-button" onclick="window.location.href='/updateReply'">댓글 수정</button>
+                                <form action="/deleteReply" method="get">
+                                    <input type="hidden" name="postId" th:value="${reply.postId}" />
+                                    <input type="hidden" name="replyId" th:value="${reply.replyId}" />
+                                    <button class="comment-action-button" type="submit">댓글 삭제</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- 답글 부분 -->
+                        <div th:if="${rereply[__${index.index}__]}">
+                            <div th:each="rereplies : ${rereply[__${index.index}__]}" class="rereply">
+                                <!-- 답글 내용 -->
+                                <blockquote class="rereply-blockquote">
+                                    <p class="rereply-content" th:text="${rereplies.comment}"></p>
+                                    <p class="rereply-info">
+                                <span th:if="${rereplies.writerId == post.writerID}">
+                                    <span th:if="${post.isAnonymous}">익명 (게시글 작성자)</span>
+                                    <span th:unless="${post.isAnonymous}" th:text="${rereplies.writerId + ' (게시글 작성자)'}"></span>
+                                </span>
+                                        <span th:unless="${rereplies.writerId == post.writerID}">
+                                    <span th:if="${rereplies.isAnonymous}">익명</span>
+                                    <span th:unless="${rereplies.isAnonymous}" th:text="${rereplies.writerId}"></span>
+                                </span>
+                                    </p>
+                                    <p class="rereply-date" th:text="${rereplies.createDate}"></p>
+                                    <!-- 답글 수정 및 삭제 버튼 -->
+                                    <div class="rereply-actions" th:if="${rereplies.writerId == member.id}">
+                                        <button class="rereply-action-button" onclick="window.location.href='/updateReply'">답글 수정</button>
+                                        <form action="/deleteReply" method="get">
+                                            <input type="hidden" name="postId" th:value="${rereplies.postId}" />
+                                            <input type="hidden" name="replyId" th:value="${rereplies.replyId}" />
+                                            <button class="rereply-action-button" type="submit">답글 삭제</button>
+                                        </form>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                        <button id="showRereplyForm">답글 작성</button>
+                        <form th:action="@{/createReply}" method="post" id="createRereplyForm"
+                              style="display: none;">
+                            <input type="hidden" name="postId" th:value="${post.postId}"/>
+                            <input type="hidden" name="parentId" th:value="${reply.replyId}"/>
+                            <textarea name="comment"
+                                      th:placeholder="${session.loginName == null ? '회원만 작성할 수 있습니다.' : '답글 작성'}"
+                                      th:readonly="${session.loginName == null}"></textarea>
+                            <p th:if="${member.id == post.writerID}">
+                                <span th:if="${post.isAnonymous}">
+                                    <label>익명 체크: <input type="checkbox" name="isAnonymous" checked="checked" disabled="disabled"/></label>
+                                </span>
+                                <span th:unless="${post.isAnonymous}">
+                                    <label>익명 체크: <input type="checkbox" name="isAnonymous" disabled="disabled"/></label>
+                                </span>
+                            </p>
+                            <p th:unless="${member.id == post.writerID}">
+                                <label>익명 체크: <input type="checkbox" name="isAnonymous"/></label>
+                            </p>
+                            <button type="submit">작성</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="button">
+    <button class="list" type="button" onclick="location.href='/postList'">글 목록</button>
+</div>
+<script type="text/javascript" src="/js/prism.js"></script>
+</body>
+</html>
+
+<script>
+    function addComment(event) {
+        event.preventDefault();
+        var commentInput = event.target.querySelector("input");
+        var commentText = commentInput.value;
+        var date = new Date().toLocaleString();
+
+        var commentDiv = document.createElement("div");
+        commentDiv.className = "card";
+        commentDiv.innerHTML = `<div class="card-body">
+    <p class="card-text">${commentText}</p>
+    <p class="card-text"><small class="text-muted">${date}</small></p>
+    </div>`;
+
+        var commentsDiv = event.target.parentNode.querySelector(".comments");
+        commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
+
+        commentInput.value = "";
+    }
+
+    function makeContents() {
+        let contentsElement = document.getElementById("contents");
+        let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+        let trimText = boldText.replace(/\n/g, "<br>");
+        //let codeText = trimText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
+        let codeText = trimText.replace(/('''(.*?)''')/g, function (match, p1) {
+            p1 = match.replace(/'''<br>/g, "");
+            p1 = p1.replace(/'''/g, "");
+            p1 = p1.replace(/<br\s*>/g, "\n");
+            return "<pre><code class=\"language-css\">" + p1 + "</code></pre>";
+        });
+
+        console.log(codeText);
+        contentsElement.innerHTML = codeText;
+        Prism.highlightAll();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        chkRecmd();
+        makeContents();
+        createRereply();
+    });
+
+    function sharePost() {
+        const currentUrl = window.location.href;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(currentUrl)
+                .then(() => {
+                    alert("URL이 클립보드에 복사되었습니다!");
+                })
+                .catch((error) => {
+                    console.error("클립보드 복사 실패:", error);
+                });
+        } else {
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = currentUrl;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+            alert("URL이 클립보드에 복사되었습니다!");
+        }
+    }
+
+    function chkRecmd() {
+        let val = document.getElementById('recmdData').value;
+        let recmdBtn = document.getElementById('recmdBtn');
+        if (val != 0) recmdBtn.style.color = "blue"
+    }
+
+    function recmdPost() {
+        let writer = document.getElementById('postWriter').value;
+        let user = document.getElementById('currentUser').value;
+        let recmdBtn = document.getElementById('recmdBtn');
+        if (writer === user) alert('작성자는 추천을 누를 수 없습니다!');
+        else if (recmdBtn.style.color == "blue") alert('이미 추천한 게시물입니다!')
+        else {
+            let id = document.getElementById('postId').value;
+            let Url = '/post/' + id + '/recmdPost';
+            let otherPram = {
+                method: 'POST',
+            };
+            fetch(Url, otherPram)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch();
+
+            let recmdText = document.getElementById('recmdText');
+            let recmdNum = parseInt(recmdText.innerText.split(' ')[1]);
+            recmdText.innerText = '추천 ' + (recmdNum + 1);
+            recmdBtn.style.color = "blue";
+        }
+    }
+
+    function toggleRereplyForm(index) {
+        const createRereplyForm = document.querySelectorAll("#createRereplyForm");
+        const form = createRereplyForm[index];
+        form.style.display = form.style.display === "none" ? "block" : "none";
+    }
+
+    function createRereply() {
+        const showRereplyFormButton = document.querySelectorAll("#showRereplyForm");
+        showRereplyFormButton.forEach((button, index) => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                toggleRereplyForm(index);
+            });
+        });
+    }
+</script>

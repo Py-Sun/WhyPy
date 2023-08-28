@@ -101,13 +101,19 @@ public class PostController {
             rereplyList.add(rereply);
         }
 
+        Optional<MemberEntity> writerEntity = memberRepository.findById(postDto.getWriterID());
+        MemberDto writerDto = new MemberDto();
+        if(writerEntity.isPresent()) writerDto = MemberDto.toMemberDto((writerEntity.get()));
+        String writerName = writerDto.getNickName();
+
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
         model.addAttribute("rereply",rereplyList);
         if(recmdDto != null) model.addAttribute("recmd", recmdDto.get());
         else model.addAttribute("recmd", new RecmdDto());
         model.addAttribute("reply", replyList);
-        return "post-details-page";
+        model.addAttribute("writer", writerName);
+        return "post_view_page";
     }
 
     @GetMapping("/createPost")
