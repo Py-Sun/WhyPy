@@ -63,6 +63,23 @@ public class PostController {
         return "full-article-page";
     }
 
+    @GetMapping("/postList/{board}")
+    public String getPostByBoard(@PathVariable String board, Model model) {
+        List<Post> postDtos = postService.getPostByBoard(board);
+        List<String> memberName = new ArrayList<>();
+        for(Post post : postDtos) {
+            Optional<MemberEntity> memberEntity = memberRepository.findById(post.getWriterID());
+            MemberDto memberDto = new MemberDto();
+            if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            memberName.add(memberDto.getNickName());
+        }
+
+        model.addAttribute("board", board);
+        model.addAttribute("posts", postDtos);
+        model.addAttribute("nicknames", memberName);
+        return "full-article-page-board";
+    }
+
     @GetMapping("/post/{postId}")
     public String getPostById(@PathVariable int postId, Model model, HttpSession session) {
         Post postDto = postService.getPostById(postId);

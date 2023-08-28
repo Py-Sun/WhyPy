@@ -55,6 +55,9 @@ public class Post {
     @Column(name = "post_public")
     private int postPublic;
 
+    @Column(name = "post_board")
+    private String board;
+
     @PrePersist //DB에 INSERT되기 직전에 실행
     public void createDate(){
         this.createDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
