@@ -40,7 +40,7 @@
                     <div class="name">
                         <span th:if="${post.isAnonymous}">익명</span>
                         <span th:unless="${post.isAnonymous}" th:onclick="|location.href='@{/profile/{writerId}(writerId=${post.writerID})}'|"
-                              th:text="${post.writerID}" th:style="'cursor: pointer;'"></span>
+                              th:text="${writer}" th:style="'cursor: pointer;'"></span>
                     </div>
                     <div class="day" th:text="${post.updateDate}"></div>
                 </div>
@@ -54,7 +54,7 @@
             <div class="content" th:text="${post.contents}" id="contents"></div>
             <div class="select">
                 <div class="left">
-                    <div class="suggestion" th:text="'추천 '+${post.recmdNum}"></div>
+                    <div class="suggestion" id="recmdText" th:text="'추천 '+${post.recmdNum}"></div>
                     <div class="comment" th:text="'댓글 '+${#lists.size(reply)}"></div>
                 </div>
                 <div class="right">
@@ -175,6 +175,10 @@
                     console.log(data);
                 })
                 .catch();
+
+            let recmdText = document.getElementById('recmdText');
+            let recmdNum = parseInt(recmdText.innerText.split(' ')[1]);
+            recmdText.innerText = '추천 ' + (recmdNum + 1);
             recmdBtn.style.color = "blue";
         }
     }
