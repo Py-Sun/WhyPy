@@ -102,10 +102,12 @@
             </div>
         </div>
     </div>
-    <div class="search-container">
-        <input type="text" id="search-input">
-        <button type="submit" id="search-button">?</button>
-    </div>
+    <form th:action="@{/searchPost}" method="get">
+        <div class="search-container">
+            <input type="text" name="keyword" id="search-input">
+            <button type="submit" id="search-button">?</button>
+        </div>
+    </form>
 </body>
 <script>
     function opensetting1() {
