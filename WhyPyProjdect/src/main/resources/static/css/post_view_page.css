@@ -1,0 +1,200 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    background-color: #E6E6E6;
+}
+
+a {
+    text-decoration-line: none;
+}
+
+/* 로고 스타일 */
+.logo {
+    display: inline-block;
+    background-color: #4a88e5;
+    color: #fff;
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
+    padding: 20px;
+    margin: 20px;
+}
+
+/* 문구 스타일 */
+.tagline {
+    display: inline-block;
+    color: #000;
+    text-align: center;
+    font-size: 17px;
+}
+
+/* 버튼 스타일 */
+.button {
+    padding: 10px;
+    margin: 10px;
+    margin-top: 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+.button.my {
+    background-color: #757575;
+    color: #fff;
+    border-radius: 15px;
+}
+
+.button.list {
+    background-color: #757575;
+    color: #fff;
+}
+
+.left-area {
+    position: relative;
+    float: left;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 오른쪽 영역 스타일 */
+.right-area {
+    float: right;
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: right;
+}
+
+.bigbox {
+    border: 1px solid #757575;
+    border-radius: 20px;
+    height: 100%;
+    margin: 30px;
+    margin-top: 0px;
+}
+
+.up {
+    margin: 20px;
+}
+
+.posting {
+    border: none;
+    color: #a045c4;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.publisher {
+    display: flex;
+}
+
+.photo {
+    background-color: #d9d9d9;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.day {
+    color: #757575;
+}
+
+.setting {
+    display: flex;
+    justify-content: end;
+    color: #757575;
+}
+
+.line {
+    margin: -20px;
+    margin-top: 10px;
+}
+
+.middle {
+    margin: 20px;
+}
+
+.content {
+    margin-top: 40px;
+    margin-bottom: 30%;
+}
+
+.select {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+}
+
+.suggestion {
+    margin-right: 15px;
+}
+
+.group {
+    border: 1px solid #757575;
+    border-radius: 20px;
+    width: 95%;
+    height: 30%;
+    margin: 10px;
+    margin-top: 40px;
+}
+
+.group1 {
+    display: flex;
+    margin: 20px;
+}
+
+.writename {
+    margin-right: 10px;
+    font-weight: 700;
+}
+
+
+.write {
+    border: none;
+    margin: 10px;
+    margin-top: 0px;
+    padding: 10px;
+    margin-bottom: 120px;
+}
+
+.write_button {
+    border: 1px solid #757575;
+    background-color: #757575;
+    color: #fff;
+    border-radius: 20px;
+    width: 100px;
+    height: 40px;
+}
+
+.button {
+    text-align: center;
+}
+
+.list {
+    background-color: #9b47a5;
+    border-color: #9b47a5;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 15px;
+}
