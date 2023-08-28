@@ -49,7 +49,11 @@
                 <div class="day" th:text="${post.updateDate}"></div>
             </div>
         </div>
-        <div class="setting">수정 | 삭제</div>
+        <div class="setting">
+            <span onclick="updatePost()" style="cursor:pointer">수정&nbsp;</span>
+            <span> | </span>
+            <span onclick="deletePost()" style="cursor: pointer">&nbsp;삭제</span>
+        </div>
         <div class="line">
             <hr>
         </div>
@@ -226,6 +230,7 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         chkRecmd();
+        chkWriter();
         makeContents();
         createRereply();
     });
@@ -251,10 +256,42 @@
         }
     }
 
+    function chkWriter() {
+        let writer=document.getElementById('postWriter').value;
+        let user=document.getElementById('currentUser').value;
+        let deleteBtn = document.getElementById('deleteBtn');
+        let updateBtn = document.getElementById('updateBtn');
+
+        if(writer===user) {
+            deleteBtn.style.display = 'block';
+            updateBtn.style.display = 'block';
+        }
+        else {
+            deleteBtn.style.display = 'none';
+            updateBtn.style.display = 'none';
+        }
+    }
+
     function chkRecmd() {
         let val = document.getElementById('recmdData').value;
         let recmdBtn = document.getElementById('recmdBtn');
         if (val != 0) recmdBtn.style.color = "blue"
+    }
+
+    function deletePost(){
+        let id=document.getElementById('postId').value;
+        let isDelete =confirm("정말 삭제하시겠습니까?");
+        if(isDelete){
+            window.location.href="/post/"+id+"/deletePost";
+        }
+    }
+
+    function updatePost() {
+        let id = document.getElementById('postId').value;
+        let isUpdate = confirm("게시글을 수정하시겠습니까?");
+        if (isUpdate) {
+            window.location.href = "/post/" + id + "/updatePost";
+        }
     }
 
     function recmdPost() {
