@@ -6,13 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글페이지</title>
-    <link rel="stylesheet" href="../static/css/post_view_page.css">
+    <link rel="stylesheet" type="text/css" href="/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="/css/post_view_page.css">
 </head>
 
 <body>
+    <input type=hidden id="postId" th:value="${post.postId}">
+    <input type=hidden id="postWriter" th:value="${post.writerID}">
+    <input type=hidden id="currentUser" th:value="${member.id}">
+    <input type=hidden id="recmdData" th:value="${recmd != null ? recmd.recmdId : ''}">
     <div class="header">
         <div>
-            <a href="main_page.html" class="logo">logo</a>
+            <a href="/" class="logo">logo</a>
             <div class="tagline">Why?py!</div>
             <div class="right-area">
                 <a href="#" class="button my">my</a>
@@ -23,12 +28,21 @@
     <div class="bigbox">
         <div class="up">
             <button class="posting" type="button" onclick="doAction()">게시판 이름 ></button>
-            <div class="title">글 제목</div>
+            <div class="title" th:text="${post.title}"></div>
             <div class="publisher">
-                <div class="photo"></div>
+                <div class="photo">
+                    <span th:unless="${post.isAnonymous}"
+                          th:style="'display: block; width: 100%; height: 100%; cursor: pointer; background-color: #d9d9d9;'"
+                          th:onclick="|location.href='@{/profile/{writerId}(writerId=${post.writerID})}'|">
+                    </span>
+                </div>
                 <div class="information">
-                    <div class="name">익명 혹은 닉네임</div>
-                    <div class="day">2023.08.05 12:00</div>
+                    <div class="name">
+                        <span th:if="${post.isAnonymous}">익명</span>
+                        <span th:unless="${post.isAnonymous}" th:onclick="|location.href='@{/profile/{writerId}(writerId=${post.writerID})}'|"
+                              th:text="${post.writerID}" th:style="'cursor: pointer;'"></span>
+                    </div>
+                    <div class="day" th:text="${post.updateDate}"></div>
                 </div>
             </div>
             <div class="setting">수정 | 삭제</div>
@@ -37,14 +51,15 @@
             </div>
         </div>
         <div class="middle">
-            <div class="content">글 내용</div>
+            <div class="content" th:text="${post.contents}" id="contents"></div>
             <div class="select">
                 <div class="left">
-                    <div class="suggestion">추천 1</div>
-                    <div class="comment">댓글 3</div>
+                    <div class="suggestion" th:text="'추천 '+${post.recmdNum}"></div>
+                    <div class="comment" th:text="'댓글 '+${#lists.size(reply)}"></div>
                 </div>
                 <div class="right">
-                    <div class="share">공유하기</div>
+                    <div class="share" onclick="sharePost()" style="cursor:pointer">공유하기</div>
+                    <div class="recmd" id="recmdBtn" onclick="recmdPost()" style="cursor:pointer">추천하기</div>
                 </div>
             </div>
             <div class="line">
@@ -67,28 +82,101 @@
         </div>
     </div>
     <div class="button">
-        <button class="list" type="button" onclick="doAction()">글 목록</button>
+        <button class="list" type="button" onclick="location.href='/postList'">글 목록</button>
     </div>
-    <script>
-        function addComment(event) {
-            event.preventDefault();
-            var commentInput = event.target.querySelector("input");
-            var commentText = commentInput.value;
-            var date = new Date().toLocaleString();
+    <script type="text/javascript" src="/js/prism.js"></script>
+</body>
+</html>
 
-            var commentDiv = document.createElement("div");
-            commentDiv.className = "card";
-            commentDiv.innerHTML = `<div class="card-body">
+<script>
+    function addComment(event) {
+        event.preventDefault();
+        var commentInput = event.target.querySelector("input");
+        var commentText = commentInput.value;
+        var date = new Date().toLocaleString();
+
+        var commentDiv = document.createElement("div");
+        commentDiv.className = "card";
+        commentDiv.innerHTML = `<div class="card-body">
     <p class="card-text">${commentText}</p>
     <p class="card-text"><small class="text-muted">${date}</small></p>
     </div>`;
 
-            var commentsDiv = event.target.parentNode.querySelector(".comments");
-            commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
+        var commentsDiv = event.target.parentNode.querySelector(".comments");
+        commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
 
-            commentInput.value = "";
+        commentInput.value = "";
+    }
+
+    function makeContents() {
+        let contentsElement = document.getElementById("contents");
+        let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+        let trimText = boldText.replace(/\n/g, "<br>");
+        //let codeText = trimText.replace(/\'\'\'(.*?)\'\'\'/g, "<pre><code class=\"language-css\">$1</code></pre>");
+        let codeText = trimText.replace(/('''(.*?)''')/g, function(match, p1) {
+            p1 = match.replace(/'''<br>/g, "");
+            p1 = p1.replace(/'''/g, "");
+            p1 = p1.replace(/<br\s*>/g, "\n");
+            return "<pre><code class=\"language-css\">" + p1 + "</code></pre>";
+        });
+
+        console.log(codeText);
+        contentsElement.innerHTML = codeText;
+        Prism.highlightAll();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        chkRecmd();
+        makeContents();
+    });
+
+    function sharePost() {
+        const currentUrl = window.location.href;
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(currentUrl)
+                .then(() => {
+                    alert("URL이 클립보드에 복사되었습니다!");
+                })
+                .catch((error) => {
+                    console.error("클립보드 복사 실패:", error);
+                });
+        } else {
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = currentUrl;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextArea);
+            alert("URL이 클립보드에 복사되었습니다!");
         }
-    </script>
-</body>
+    }
 
-</html>
+    function chkRecmd() {
+        let val = document.getElementById('recmdData').value;
+        let recmdBtn = document.getElementById('recmdBtn');
+        if(val != 0) recmdBtn.style.color = "blue"
+    }
+
+    function recmdPost(){
+        let writer=document.getElementById('postWriter').value;
+        let user=document.getElementById('currentUser').value;
+        let recmdBtn = document.getElementById('recmdBtn');
+        if(writer === user) alert('작성자는 추천을 누를 수 없습니다!');
+        else if(recmdBtn.style.color == "blue") alert('이미 추천한 게시물입니다!')
+        else {
+            let id = document.getElementById('postId').value;
+            let Url = '/post/' + id + '/recmdPost';
+            let otherPram = {
+                method: 'POST',
+            };
+            fetch(Url, otherPram)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                })
+                .catch();
+            recmdBtn.style.color = "blue";
+        }
+    }
+
+</script>

@@ -200,7 +200,7 @@
     }
   }
 
-  function makeContents() {
+  function makeContents() { //MOVE FINISH
     let contentsElement = document.getElementById("contents");
     let boldText = contentsElement.textContent.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
     let trimText = boldText.replace(/\n/g, "<br>");

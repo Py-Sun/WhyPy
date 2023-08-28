@@ -107,7 +107,7 @@ public class PostController {
         if(recmdDto != null) model.addAttribute("recmd", recmdDto.get());
         else model.addAttribute("recmd", new RecmdDto());
         model.addAttribute("reply", replyList);
-        return "post-details-page";
+        return "post_view_page";
     }
 
     @GetMapping("/createPost")
