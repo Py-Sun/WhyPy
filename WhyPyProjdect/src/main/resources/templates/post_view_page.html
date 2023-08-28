@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글페이지</title>
+    <link rel="stylesheet" href="../static/css/post_view_page.css">
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <a href="main_page.html" class="logo">logo</a>
+            <div class="tagline">Why?py!</div>
+            <div class="right-area">
+                <a href="#" class="button my">my</a>
+                <a href="#" class="button list">목록</a>
+            </div>
+        </div>
+    </div>
+    <div class="bigbox">
+        <div class="up">
+            <button class="posting" type="button" onclick="doAction()">게시판 이름 ></button>
+            <div class="title">글 제목</div>
+            <div class="publisher">
+                <div class="photo"></div>
+                <div class="information">
+                    <div class="name">익명 혹은 닉네임</div>
+                    <div class="day">2023.08.05 12:00</div>
+                </div>
+            </div>
+            <div class="setting">수정 | 삭제</div>
+            <div class="line">
+                <hr>
+            </div>
+        </div>
+        <div class="middle">
+            <div class="content">글 내용</div>
+            <div class="select">
+                <div class="left">
+                    <div class="suggestion">추천 1</div>
+                    <div class="comment">댓글 3</div>
+                </div>
+                <div class="right">
+                    <div class="share">공유하기</div>
+                </div>
+            </div>
+            <div class="line">
+                <hr>
+            </div>
+        </div>
+        <div class="down">
+            <form onsubmit="addComment(event)">
+                <div class="group">
+                    <div class="group1">
+                        <div class="writename">닉네임</div>
+                        <input class="lan" type="checkbox"> 익명
+                    </div>
+                    <input type="text" class="write" placeholder="댓글을 남겨보세요" required>
+                    <button type="submit" class="write_button">등록하기</button>
+                </div>
+            </form>
+            <div class="comments my-3">
+            </div>
+        </div>
+    </div>
+    <div class="button">
+        <button class="list" type="button" onclick="doAction()">글 목록</button>
+    </div>
+    <script>
+        function addComment(event) {
+            event.preventDefault();
+            var commentInput = event.target.querySelector("input");
+            var commentText = commentInput.value;
+            var date = new Date().toLocaleString();
+
+            var commentDiv = document.createElement("div");
+            commentDiv.className = "card";
+            commentDiv.innerHTML = `<div class="card-body">
+    <p class="card-text">${commentText}</p>
+    <p class="card-text"><small class="text-muted">${date}</small></p>
+    </div>`;
+
+            var commentsDiv = event.target.parentNode.querySelector(".comments");
+            commentsDiv.insertBefore(commentDiv, commentsDiv.firstChild);
+
+            commentInput.value = "";
+        }
+    </script>
+</body>
+
+</html>
