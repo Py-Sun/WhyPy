@@ -172,4 +172,12 @@ public class PostController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/searchPost")
+    public String searchPosts(@RequestParam String keyword, Model model) {
+        List<Post> searchResults = postService.searchPost(keyword);
+        if(searchResults != null && !searchResults.isEmpty())
+            model.addAttribute("postList", searchResults);
+        return "Search/search_post_page";
+    }
 }
