@@ -193,8 +193,13 @@ a {
 .set b,
 .set i,
 .set u {
-    margin-right: 10px;
+    margin-right: 8px;
 }
+
+.set button {
+    border: 1px solid #E6E6E6;
+}
+
 
 /* 작성하기 버튼 스타일 */
 .write-button {
