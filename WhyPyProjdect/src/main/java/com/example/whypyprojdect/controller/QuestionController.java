@@ -119,7 +119,7 @@ public class QuestionController {
             model.addAttribute("member", memberDto);
 
             Optional<QuestionSolve> questionSolveOpt = questionSolveService.getQuestionSolveBySolveIdAndMemberId(questionId, memberDto.getId());
-            if(questionSolveOpt.isPresent()){
+            if(questionSolveOpt != null && questionSolveOpt.isPresent() ){
                 String answer = questionSolveOpt.get().getAnswer();
                 System.out.println("userAnswer : "  + answer);
                 model.addAttribute("useranswer", answer);
