@@ -33,7 +33,7 @@ public class MemberController {
 
     private final RecmdRepository recmdRepository;
 
-    private final RecmdDto recmdDto;
+   // private final RecmdDto recmdDto;
 
     //회원가입 페이지 출력 요청. 화면을 요청하는 방식으로 컨트롤러 작성
     //회원가입 페이지만 띄워주는 거. 회원가입 정보 입력받은 주소를 받는 것은 다른 코드

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>like</title>
+</head>
+<body>
+<h2>좋아요한 게시글</h2>
+<table>
+    <tr>
+        <th>글제목</th>
+        <th>작성자</th>
+        <th>등록일</th>
+        <th>상세조회</th>s
+    </tr>
+    <tr th:each="recmd: ${recmdList}">
+        <td th:text="${recmd.recmdId}"></td>
+        <td th:text="${recmd.postId}"></td>
+        <td th:text="${recmd.memberId}"></td>
+<!--        <td th:text="${recmd.}"></td>-->
+        <td>
+            <!--query string /member?id=1
+                rest api /member/1-->
+            <a th:href="@{|/recmd/${recmd.recmdId}|}">조회</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
