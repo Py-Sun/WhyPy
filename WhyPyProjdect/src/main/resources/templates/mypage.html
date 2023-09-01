@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>mypage</title>
 </head>
     <p th:text="${session.loginName}"><h2>님 안녕하세요</h2></p>
 <body>
+        <td>
+        <img th:src="@{${member.imagePath}}" width="200" height="200" alt="Image">
+    </td>
+</tr>
 <a href="/member/editInform">회원정보수정</a>
 <a href="/member/logout">로그아웃</a>
 <br><br>
@@ -22,6 +26,7 @@
 <button id="showFriendsRequest">친구신청보기</button>
 <br>
 <button id="showFriendsList">친구목록보기</button>
+<a href="/member/like">좋아요한 게시글</a>
 </body>
 </html>
 

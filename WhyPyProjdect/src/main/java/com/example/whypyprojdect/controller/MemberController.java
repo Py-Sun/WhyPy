@@ -1,7 +1,11 @@
 package com.example.whypyprojdect.controller;
 
 import com.example.whypyprojdect.dto.MemberDto;
+import com.example.whypyprojdect.dto.RecmdDto;
+import com.example.whypyprojdect.entity.Recmd;
+import com.example.whypyprojdect.repository.RecmdRepository;
 import com.example.whypyprojdect.service.MemberService;
+import com.example.whypyprojdect.service.RecmdService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -20,6 +28,12 @@ public class MemberController {
     //MemberController클래스에 대한 객체를 스프링 빈에 등록할 때 자동적으로 서비스 클래스의 객체를 주입을 받는다.
     //주입 받는다=컨트롤러가 서비스 클래스의 자원(메소드, 필드 등)을 사용할 수 있게 됨
     private final MemberService memberService;
+
+    private final RecmdService recmdService;
+
+    private final RecmdRepository recmdRepository;
+
+    private final RecmdDto recmdDto;
 
     //회원가입 페이지 출력 요청. 화면을 요청하는 방식으로 컨트롤러 작성
     //회원가입 페이지만 띄워주는 거. 회원가입 정보 입력받은 주소를 받는 것은 다른 코드
@@ -51,6 +65,19 @@ public class MemberController {
     //그게 리턴 값
     // MemberEntity memberEntity = MemberDto.toMemberDto();
 
+
+
+//    @GetMapping("/member/like")
+//    public String goMyLikeList(Model model, Integer postId, Long id) {
+//        //    Optional<Recmd> recmdDtoList = recmdService.getRecmdByPostIdAndMemberId(postId, memberId);
+////    // RecmdDto타입인 List를 생성. 리스트 이름은 recomDtoList이다
+////    // recmdservise의 메소드를 호출하여 값을 얻은 것들을 recmdDtolist에 저장한다
+////    model.addAttribute("recmdList", recmdDtoList);
+////
+//        memberService.showProfile(postId, id);
+//    //recmdDtoList를 recmdList라는 이름을 가진 모델 객체로? like.html로 보낸다.
+//    return "like";
+//    }
 
 
     @GetMapping("/member/login")
@@ -126,18 +153,4 @@ public class MemberController {
     }
 
 
-//
-//    @GetMapping("/follow")
-//    public String goFollowForm() {
-//        return "follow";
-//    }
-//
-//    @PostMapping("/follow")
-//    public String follow(FollowDto followDto, HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        String fromId = (String) session.getAttribute("loginName");
-//        followService.follow(fromId, String.valueOf(followDto.getFollowing()));
-//        return "redirect:/";
-//
-//    }
 }
