@@ -80,6 +80,23 @@ public class PostController {
         return "full-article-page-board";
     }
 
+
+    @GetMapping("/searchPost")
+    public String searchPosts(@RequestParam String keyword, Model model) {
+        List<Post> searchResults = postService.searchPost(keyword);
+        List<String> memberName = new ArrayList<>();
+        for(Post post : searchResults) {
+            Optional<MemberEntity> memberEntity = memberRepository.findById(post.getWriterID());
+            MemberDto memberDto = new MemberDto();
+            if(memberEntity.isPresent()) memberDto = MemberDto.toMemberDto((memberEntity.get()));
+            memberName.add(memberDto.getNickName());
+        }
+
+        model.addAttribute("posts", searchResults);
+        model.addAttribute("nicknames", memberName);
+        return "full-article-page-board";
+    }
+
     @GetMapping("/post/{postId}")
     public String getPostById(@PathVariable int postId, Model model, HttpSession session) {
         Post postDto = postService.getPostById(postId);
@@ -188,13 +205,5 @@ public class PostController {
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @GetMapping("/searchPost")
-    public String searchPosts(@RequestParam String keyword, Model model) {
-        List<Post> searchResults = postService.searchPost(keyword);
-        if(searchResults != null && !searchResults.isEmpty())
-            model.addAttribute("postList", searchResults);
-        return "Search/search_post_page";
     }
 }
