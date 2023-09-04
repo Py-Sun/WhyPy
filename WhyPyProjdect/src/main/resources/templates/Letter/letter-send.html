@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        /* 자동 완성 목록을 숨기기 위한 CSS */
+        #autocomplete-list {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-<form action="/sendLetter" method="post">
-    <label for="receiverName">받는 사람 ID:</label>
-    <input type="text" id="receiverName" name="receiverName"><br>
+<form action="/sendLetterAction" method="post">
+    <!-- 친구 닉네임 입력 필드 -->
+    <label for="receiverNickname">받는 사람 닉네임:</label>
+    <input type="text" id="receiverNickname" name="receiverNickname">
+    <label for="receiverName">받는 사람 이름:</label>
+    <!-- 친구 목록 표시 -->
+    <select id="receiverName" name="receiverName">
+        <!-- 친구 이름 목록 동적 렌더링 -->
+        <option th:each="friendName : ${friendsNameList}" th:value="${friendName}" th:text="${friendName}"></option>
+    </select>
+    <br>
+
+    <!-- 자동 완성 목록 표시 -->
+    <div id="autocomplete-list"></div>
+    <br>
+
     <label for="title">제목:</label>
     <input type="text" id="title" name="title"><br>
 
@@ -17,6 +39,33 @@
     <input type="submit" value="편지 보내기">
 </form>
 
-</body>
+<script th:inline="javascript">
+    const friendsNameList = /*[[${friendsNameList}]]*/ [];
 
+    const receiverNameInput = document.getElementById("receiverName");
+    const receiverNicknameInput = document.getElementById("receiverNickname");
+    const autocompleteList = document.getElementById("autocomplete-list");
+
+    // 입력 필드 입력 이벤트 리스너 추가
+    receiverNicknameInput.addEventListener("input", function() {
+        const inputText = this.value;
+        autocompleteList.innerHTML = "";
+
+        if (inputText) {
+            // 입력된 닉네임과 일치 항목 필터링 -> 자동 완성 목록에 추가
+            const matchingFriends = friendsNameList.filter(friendName => friendName.includes(inputText));
+            matchingFriends.forEach(friendName => {
+                const listItem = document.createElement("div");
+                listItem.textContent = friendName;
+                listItem.addEventListener("click", function() {
+                    receiverNameInput.value = friendName;
+                    receiverNicknameInput.value = friendName; // 선택된 이름에 대응하는 닉네임 입력
+                    autocompleteList.innerHTML = ""; // 항목 선택 후 목록 숨김
+                });
+                autocompleteList.appendChild(listItem);
+            });
+        }
+    });
+</script>
+</body>
 </html>
