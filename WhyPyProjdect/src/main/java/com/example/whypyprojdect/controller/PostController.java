@@ -202,17 +202,19 @@ public class PostController {
         if(session.getAttribute("loginName") == null) {
             return "/login";
         }
-        //return "writing_page";
-        return "temp/create-post";
+        return "writing_page";
+        //return "temp/create-post";
     }
 
     @PostMapping("/createPost")
-    public String createPostData(PostDto postDto, MultipartFile image, HttpSession session) throws Exception {
+    public String createPostData(PostDto postDto, HttpSession session) throws Exception {
         Post post = postDto.toEntity();
+        System.out.println(post.getTitle());
+        System.out.println(post.getBoard());
         Object writer = session.getAttribute("loginName");
         postService.setWriterID(post, writer);
-        if(!image.isEmpty()) postService.createPostData(post, image);
-        else postService.savePostData(post);
+        //if(image != null || !image.isEmpty()) postService.createPostData(post, image);
+        postService.savePostData(post);
         System.setProperty("server.servlet.context-path", "/postList");
         return "redirect:/postList";
     }

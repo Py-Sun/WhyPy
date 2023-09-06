@@ -5,59 +5,85 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/css/writing_page.css">
+    <link rel="stylesheet" type="text/css" href="css/writing_page.css">
     <title>writing page</title>
 </head>
 
 <body>
-    <div class="header">
-        <div>
-            <a href="main_page.html" class="logo">logo</a>
-            <div class="tagline">Why?py!</div>
-            <div class="right-area">
-                <a href="#" class="button my">my</a>
-                <a href="#" class="button list">목록</a>
-            </div>
+<div class="header">
+    <div>
+        <a href="main_page.html" class="logo">logo</a>
+        <div class="tagline">Why?py!</div>
+        <div class="right-area">
+            <a href="#" class="button my">my</a>
+            <a href="#" class="button list">목록</a>
         </div>
     </div>
-    <div class="main">
-        <div class="text">게시물 작성하기</div>
-        <div class="b">
-            <div class="select">게시판을 선택해주세요</div>
-            <div class="anonym">
-                <input type="checkbox" class="checkbox">&nbsp;&nbsp;익명
-            </div>
+</div>
+<form input type="submit" method="POST" enctype="multipart/form-data">
+<div class="main">
+    <div class="text">게시물 작성하기</div>
+    <div class="b">
+        <div class="all">
+            <div class="select" id="board" onclick="opensetting()">게시판을 선택해주세요</div>
+            <input type="hidden" id="boardValue" name="board" value="">
+            <nav id="se_nav" style="display: none;">
+                <ul>
+                    <li><button type="button" class="id" onclick="selectBoard('언어1')">언어1</button></li>
+                    <li><button type="button" class="id" onclick="selectBoard('언어2')">언어2</button></li>
+                    <li><button type="button" class="id" onclick="selectBoard('언어3')">언어3</button></li>
+                    <li><button type="button" class="id" onclick="selectBoard('직종1')">직종1</button></li>
+                    <li><button type="button" class="id" onclick="selectBoard('직종2')">직종2</button></li>
+                    <li><button type="button" class="id" onclick="selectBoard('직종3')">직종3</button></li>
+                </ul>
+            </nav>
         </div>
-        <div class="title-box">
-            <input type="text" id="post-title" class="post-title-input" placeholder="제목을 입력해주세요">
-        </div>
-        <div class="setting">
-            <div class="picture">사진</div>
-            <div class="video">동영상</div>
-            <div class="code">소스코드</div>
-            <div class="type">서체</div>
-            <div class="num">15</div>
-            <div class="set">
-                <button class="set1"><b>B</b></button>
-                <button class="set1"><i>I</i></button>
-                <button class="set1"><u>U</u> </button>
-                <button class="set1"><del>T</del></button>
-            </div>
-            <div class="sort">정렬</div>
-            <div class="line">줄간격</div>
-        </div>
-        <div class="content-box">
-            <textarea type="text" id="post-content" class="post-content-input" placeholder="내용을 입력해주세요"></textarea>
-        </div>
-        <div class="button">
-            <button class="write-button" type="button" onclick="doAction()">등록하기</button>
+        <div class="anonym">
+            <input type="checkbox" class="checkbox" name="isAnonymous">&nbsp;&nbsp;익명
         </div>
     </div>
-    <script>
-        function doAction() {
-            alert("등록되었습니다!");
-        }  
-    </script>
-</body>
+    <div class="title-box">
+        <input type="text" name="title" id="post-title" class="post-title-input" placeholder="제목을 입력해주세요">
+    </div>
+    <div class="setting">
+        <button type="button" class="picture">사진</button>
+        <button type="button" class="video">동영상</button>
+        <button type="button" class="code">소스코드</button>
+        <div class="type">서체</div>
+        <div class="num">15</div>
+        <div class="set">
+            <button type="button" class="set1"><b>B</b></button>
+            <button type="button" class="set1"><i>I</i></button>
+            <button type="button" class="set1"><u>U</u> </button>
+            <button type="button" class="set1"><del>T</del></button>
+        </div>
+        <button type="button" class="sort">정렬</button>
+        <button type="button" class="line">줄간격</button>
+    </div>
+    <div class="content-box">
+        <textarea type="text" id="post-content" class="post-content-input" name = "contents" placeholder="내용을 입력해주세요"></textarea>
+    </div>
+    <div class="button">
+        <button class="write-button" type="submit">등록하기</button>
+    </div>
+</div>
+</form>
+<script>
+    function opensetting() {
+        if (document.getElementById('se_nav').style.display === 'block') {
+            document.getElementById('se_nav').style.display = 'none';
+        } else {
+            document.getElementById('se_nav').style.display = 'block';
+        }
+    }
 
+    function selectBoard(boardName) {
+        const boardElement = document.getElementById('board');
+        const boardValue = document.getElementById('boardValue');
+        boardElement.textContent = boardName;
+        boardValue.value = boardName;
+        opensetting();
+    }
+</script>
+</body>
 </html>
