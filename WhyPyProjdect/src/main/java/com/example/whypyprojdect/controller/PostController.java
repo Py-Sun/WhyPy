@@ -21,10 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -39,6 +36,7 @@ public class PostController {
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
+        CosineSimilarity();
         List<Post> postDtos = postService.getAllPosts();
         List<String> memberName = new ArrayList<>();
         for(Post post : postDtos) {
@@ -61,6 +59,55 @@ public class PostController {
         model.addAttribute("nicknames", memberName);
         model.addAttribute("topPosts", topPosts);
         return "full-article-page";
+    }
+
+    public void CosineSimilarity() {
+        String data[] = {"시끄러운 음악말고, 적당히 둠칫한 음악", "파이썬 기초 강의", "혼자 있는 시간을 빛내줄 잔잔한 팝송", "파이썬 코딩 무료 강의", "스폰지밥", "스폰지밥"};
+
+        for(int i=0; i<data.length; i++) {
+            for(int j=i+1; j<data.length; j++) {
+                System.out.println("[" + i + ", " + j + "] " + similarity(data[i], data[j]));
+            }
+        }
+    }
+
+    private double similarity(String s1, String s2) {
+        String longer = s1, shorter = s2;
+        if (s1.length() < s2.length()) {
+            longer = s2;
+            shorter = s1;
+        }
+
+        int longerLength = longer.length();
+        if (longerLength == 0) return 1.0;
+        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+    }
+
+    private int editDistance(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+        int[] costs = new int[s2.length() + 1];
+
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0) {
+                    costs[j] = j;
+                } else {
+                    if (j > 0) {
+                        int newValue = costs[j - 1];
+
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0) costs[s2.length()] = lastValue;
+        }
+        return costs[s2.length()];
     }
 
     @GetMapping("/postList/{board}")
