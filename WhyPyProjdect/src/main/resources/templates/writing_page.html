@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/writing_page.css">
+    <script src="/js/create-post.js"></script>
     <title>writing page</title>
 </head>
 
@@ -52,8 +53,8 @@
         <div class="type">서체</div>
         <div class="num">15</div>
         <div class="set">
-            <button type="button" class="set1"><b>B</b></button>
-            <button type="button" class="set1"><i>I</i></button>
+            <button type="button" onclick="bold()" id="boldBtn" class="set1"><b>B</b></button>
+            <button type="button" onclick="code()" id="codeBtn" class="set1"><i>I</i></button>
             <button type="button" class="set1"><u>U</u> </button>
             <button type="button" class="set1"><del>T</del></button>
         </div>
@@ -61,7 +62,7 @@
         <button type="button" class="line">줄간격</button>
     </div>
     <div class="content-box">
-        <textarea type="text" id="post-content" class="post-content-input" name = "contents" placeholder="내용을 입력해주세요"></textarea>
+        <textarea type="text" id="contents" class="post-content-input" name="contents" placeholder="내용을 입력해주세요"></textarea>
     </div>
     <div class="button">
         <button class="write-button" type="submit">등록하기</button>
