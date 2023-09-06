@@ -47,7 +47,8 @@
         <input type="text" name="title" id="post-title" class="post-title-input" placeholder="제목을 입력해주세요">
     </div>
     <div class="setting">
-        <button type="button" class="picture">사진</button>
+        <input type="file" id="fileInput" name="image" style="display: none;">
+        <button type="button" class="picture" onclick="openPictureInput()">사진</button>
         <button type="button" class="video">동영상</button>
         <button type="button" class="code">소스코드</button>
         <div class="type">서체</div>
@@ -84,6 +85,11 @@
         boardElement.textContent = boardName;
         boardValue.value = boardName;
         opensetting();
+    }
+
+    function openPictureInput() {
+        const fileInput = document.getElementById('fileInput');
+        fileInput.click();
     }
 </script>
 </body>
