@@ -8,6 +8,7 @@
     <script src="/js/home.js" defer></script>
     <meta charset="UTF-8">
     <title>Main Website</title>
+
 </head>
 <body>
 <input type=hidden id="memberId" th:value="${unsolvedQuestions}">
@@ -87,6 +88,31 @@
 <!--<a href="/questionList">문제 목록 페이지</a>--->
 <a href="/lectures">Go to Lecture List!</a>
 <a href = "/sendLetter"> 쪽지 전송 </a>
+
+<h1>Python Code Editor</h1>
+<form action="/api" method="GET">
+    <label for="code">Python Code:</label><br>
+    <textarea id="code" name="code" rows="10" cols="50"></textarea><br>
+    <input type="submit" value="Run Python Code">
+</form>
+<div id="output">
+    <!-- Python 실행 결과가 여기에 나타날 것입니다. -->
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const code = document.querySelector('#code').value;
+        fetch(`/api?code=${encodeURIComponent(code)}`)
+            .then(response => response.text())
+            .then(data => {
+                document.querySelector('#output').textContent = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
 
 </body>
 </html>
