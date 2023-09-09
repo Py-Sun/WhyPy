@@ -53,9 +53,23 @@
                     <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
                 </div>
                 <div class="category" th:text="${lecture.category}"></div>
+            </div>
         </div>
-        <!--
-        <div class="lien1">
+
+        <b>추천 동영상</b>
+        <div th:each="lecture : ${recmdLecture}">
+            <div class="lien2">
+                <div class="video1">
+                    <img th:src="${lecture.thumbnail}" alt="Thumbnail">
+                </div>
+                <div class="title1">
+                    <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+                </div>
+                <div class="category" th:text="${lecture.category}"></div>
+            </div>
+        </div>
+
+        <!--div class="lien1">
             <div class="video1">영상1</div>
             <div class="title1">동영상제목</div>
         </div>
@@ -74,9 +88,8 @@
         <div class="lien5">
             <div class="video1">영상5</div>
             <div class="title1">동영상제목</div>
-        </div>
-        -->
-    </div>
+        </div-->
+
     </div>
 </div>
 </body>
