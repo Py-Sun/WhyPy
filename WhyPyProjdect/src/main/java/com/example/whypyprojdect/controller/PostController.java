@@ -36,7 +36,6 @@ public class PostController {
 
     @GetMapping("/postList")
     public String getAllPosts(Model model) {
-        CosineSimilarity();
         List<Post> postDtos = postService.getAllPosts();
         List<String> memberName = new ArrayList<>();
         for(Post post : postDtos) {
@@ -59,55 +58,6 @@ public class PostController {
         model.addAttribute("nicknames", memberName);
         model.addAttribute("topPosts", topPosts);
         return "full-article-page";
-    }
-
-    public void CosineSimilarity() {
-        String data[] = {"시끄러운 음악말고, 적당히 둠칫한 음악", "파이썬 기초 강의", "혼자 있는 시간을 빛내줄 잔잔한 팝송", "파이썬 코딩 무료 강의", "스폰지밥", "스폰지밥"};
-
-        for(int i=0; i<data.length; i++) {
-            for(int j=i+1; j<data.length; j++) {
-                System.out.println("[" + i + ", " + j + "] " + similarity(data[i], data[j]));
-            }
-        }
-    }
-
-    private double similarity(String s1, String s2) {
-        String longer = s1, shorter = s2;
-        if (s1.length() < s2.length()) {
-            longer = s2;
-            shorter = s1;
-        }
-
-        int longerLength = longer.length();
-        if (longerLength == 0) return 1.0;
-        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
-    }
-
-    private int editDistance(String s1, String s2) {
-        s1 = s1.toLowerCase();
-        s2 = s2.toLowerCase();
-        int[] costs = new int[s2.length() + 1];
-
-        for (int i = 0; i <= s1.length(); i++) {
-            int lastValue = i;
-            for (int j = 0; j <= s2.length(); j++) {
-                if (i == 0) {
-                    costs[j] = j;
-                } else {
-                    if (j > 0) {
-                        int newValue = costs[j - 1];
-
-                        if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
-                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
-                        }
-                        costs[j - 1] = lastValue;
-                        lastValue = newValue;
-                    }
-                }
-            }
-            if (i > 0) costs[s2.length()] = lastValue;
-        }
-        return costs[s2.length()];
     }
 
     @GetMapping("/postList/{board}")
@@ -187,6 +137,12 @@ public class PostController {
         if(writerEntity.isPresent()) writerDto = MemberDto.toMemberDto((writerEntity.get()));
         String writerName = writerDto.getNickName();
 
+        List<Post> postDtos = postService.getAllPosts();
+        List<Post> recmdPostDto = CosineSimilarity(postDto.getTitle(), postDtos);
+        for(Post post : recmdPostDto) {
+            System.out.println(post.getTitle());
+        }
+
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
         model.addAttribute("rereply",rereplyList);
@@ -194,7 +150,70 @@ public class PostController {
         else model.addAttribute("recmd", new RecmdDto());
         model.addAttribute("reply", replyList);
         model.addAttribute("writer", writerName);
+        model.addAttribute("recmdPostDto", recmdPostDto);
         return "post_view_page";
+    }
+
+    public List<Post> CosineSimilarity(String title, List<Post> posts) {
+        Map<Integer, Double> similarityMap = new HashMap<>();
+        for (Post post : posts) {
+            double sim = similarity(title, post.getTitle());
+            if(sim != 1.0) similarityMap.put(post.getPostId(), sim);
+        }
+
+        List<Map.Entry<Integer, Double>> sortedList = new ArrayList<>(similarityMap.entrySet());
+        Collections.sort(sortedList, (entry1, entry2) -> Double.compare(entry2.getValue(), entry1.getValue()));
+
+        List<Post> recmdPostDto = new ArrayList<>();
+        int count = 0;
+        for (Map.Entry<Integer, Double> entry : sortedList) {
+            Post post = postService.getPostById(entry.getKey());
+            recmdPostDto.add(post);
+            count++;
+            if (count >= 3) {
+                break;
+            }
+        }
+        return recmdPostDto;
+    }
+
+    private double similarity(String s1, String s2) {
+        String longer = s1, shorter = s2;
+        if (s1.length() < s2.length()) {
+            longer = s2;
+            shorter = s1;
+        }
+
+        int longerLength = longer.length();
+        if (longerLength == 0) return 1.0;
+        return (longerLength - editDistance(longer, shorter)) / (double) longerLength;
+    }
+
+    private int editDistance(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+        int[] costs = new int[s2.length() + 1];
+
+        for (int i = 0; i <= s1.length(); i++) {
+            int lastValue = i;
+            for (int j = 0; j <= s2.length(); j++) {
+                if (i == 0) {
+                    costs[j] = j;
+                } else {
+                    if (j > 0) {
+                        int newValue = costs[j - 1];
+
+                        if (s1.charAt(i - 1) != s2.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+            }
+            if (i > 0) costs[s2.length()] = lastValue;
+        }
+        return costs[s2.length()];
     }
 
     @GetMapping("/createPost")
