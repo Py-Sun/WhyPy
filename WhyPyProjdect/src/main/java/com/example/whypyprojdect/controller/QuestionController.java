@@ -198,26 +198,4 @@ public class QuestionController {
     }
 
 
-/*``````
-    @GetMapping("/questionList/filtered")
-    public String getFilteredQuestions(
-            @RequestParam(defaultValue = "false") boolean isSolved,
-            @RequestParam(required = false) Integer category,
-            @RequestParam(required = false) Integer level,
-            Model model) {
-
-        // level이 null인 경우에 대한 처리
-        Integer levelValue = (level != null) ? level : -1;
-        Integer categoryValue = (category!=null)? category : -1;
-
-        List<QuestionDto> filteredQuestions = questionService.getFilteredQuestionDtos(isSolved, categoryValue, levelValue);
-        long solvedCount = filteredQuestions.stream().filter(QuestionDto::getSolved).count();
-
-        model.addAttribute("questions", filteredQuestions);
-        model.addAttribute("solvedCount", solvedCount);
-
-        return "problem_list";
-    }
-*/
-
 }
