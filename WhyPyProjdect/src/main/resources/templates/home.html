@@ -8,6 +8,7 @@
     <script src="/js/home.js" defer></script>
     <meta charset="UTF-8">
     <title>Main Website</title>
+
 </head>
 <body>
 <input type=hidden id="memberId" th:value="${unsolvedQuestions}">
@@ -59,7 +60,7 @@
     </form>
 
     <div class="main">
-        <div class="left">
+        <div class="left-area">
             <!--<div class="box" onclick="redirectToLectures()">-->
             <div class="box">
                 <th:block th:if="${#lists.isEmpty(notwatchLectures)}">

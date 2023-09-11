@@ -10,6 +10,7 @@ body {
     background-color: #E6E6E6;
     font-family: 'NanumSquareRound';
 }
+
 a {
     text-decoration-line: none;
 }
@@ -76,8 +77,6 @@ button {
     z-index: 1;
     transition: all .35s;
 }
-
-
 
 #menuicon:checked+label+div {
     right: 0;
@@ -167,7 +166,6 @@ button {
 
 
 
-
 /* 검색창 스타일 */
 .search-container {
     text-align: center;
@@ -203,6 +201,7 @@ button {
     margin: 20px;
     box-sizing: border-box;
 }
+
 .main {
     height: 800px;
     width: 100%;
