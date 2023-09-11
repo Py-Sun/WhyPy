@@ -37,11 +37,17 @@ public class EditorService {
         try {
             python.execfile("run.py");
             String result = out.toString();
-            log.debug(result);
+
+            // 결과값에서 마지막 줄의 줄바꿈 제거
+            if (result.endsWith("\n")) {
+                result = result.substring(0, result.length() - 1);
+            }
+
+            System.out.println("result " + result);
             return result;
         }catch (Exception error){
             log.debug(error.getMessage());
-            return "your code is fault! try again see your code. :-(";
+            return "ERROR";
         }
     }
 }

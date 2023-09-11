@@ -35,9 +35,9 @@
     <div class="rigth">
       <div class="answer">답안</div>
       <div class="box">
-        <textarea id = "code" oninput="updateCodeMirror(this.value)"
-                  th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
+        <textarea id = "code" oninput="updateCodeMirror(this.value)" th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
         </textarea>
+        <br>
       </div>
     </div>
   </div>
