@@ -1,7 +1,13 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+}
+
 * {
     margin: 0px;
     padding: 0px;
     background-color: #E6E6E6;
+    font-family: 'NanumSquareRound';
 }
 
 a {
@@ -78,8 +84,16 @@ a {
     text-align: right;
 }
 
+.problem {
+    display: flex;
+    flex-direction: column;
+    flex: 7;
+    margin-left: 5%;
+}
+
 h2 {
     margin-bottom: 20px;
+    font-weight: bolder;
 }
 
 table {
@@ -94,8 +108,7 @@ th,
 td {
     background-color: #ebebeb;
     padding: 10px;
-    text-align: left;
-
+    text-align: center;
 }
 
 .checkbox {
@@ -129,21 +142,22 @@ td {
     height: 100%;
     text-align: center;
 }
+
 .bigbox {
-     display: flex;
-     flex-direction: column;
-     flex: 3;
-     margin-right: 5%;
-     margin-top: 50px;
-     margin-left: 6%
- }
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+    margin-right: 5%;
+    margin-top: 50px;
+    margin-left: 6%
+}
+
 .box {
     padding: 5px;
     background-color: #ebebeb;
     border: 1px solid #ccc;
     width: 60%;
 }
-
 
 .id {
     color: #a41df1;
@@ -174,6 +188,7 @@ td {
 .fil h3 {
     margin-bottom: 10px;
     background-color: #ebebeb;
+
 }
 
 /* 토글버튼 */
@@ -247,6 +262,10 @@ td {
 #level-list label {
     background-color: rgb(255, 255, 255);
 }
+
+
+
+
 
 /* 검색창 스타일 */
 .search-container {

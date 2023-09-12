@@ -40,9 +40,9 @@ public class QuestionController {
 
     @GetMapping("/questions")
     public String getAllQuestions(
-            @RequestParam(name = "level", required = false) List<Integer> levels,
-            @RequestParam(name = "solvedList", required = false) List<Boolean> solvedList,
-            @RequestParam(name = "category", required = false) List<Integer> categories,
+            @RequestParam(name = "level1", required = false) List<Integer> levels,
+            @RequestParam(name = "status1", required = false) List<Boolean> solvedList,
+            @RequestParam(name = "type1", required = false) List<Integer> categories,
             Model model, HttpSession session) {
         Specification<Question> spec = Specification.where(null);
 
