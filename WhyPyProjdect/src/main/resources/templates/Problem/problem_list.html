@@ -11,6 +11,9 @@
 </head>
 
 <body>
+
+<input type=hidden id="member" th:value="${member}">
+
 <div class="header">
     <div>
         <a href="/" class="logo">logo</a>
@@ -47,110 +50,115 @@
             </table>
         </div>
     </div>
-    <!-- 로그인 되어있으면 -->
-    <div th:if="${member != null}">
-        <div class="box">
-            <div class="id" >아이디</div>
-            <div class="id-text" th:text="${member.memberName}"></div>
-            <br>
-            <br>
-            <div class="pro">해결한 문제</div>
-            <div class="num" th:text="${SolveCount}"></div>
-        </div>
-    </div>
-
-    <!-- 로그인 상태가 아니면 -->
-    <div th:unless="${member != null}">
-        <div class="box">
-            <a href="/member/login">로그인</a>
-        </div>
-    </div>
-
-    <div class="fil">
-        <h3>필터</h3>
-        <hr>
-        <form th:action="@{/questions}" method="get">
-            <div class="type">문제 종류</div>
-            <input type="checkbox" name="category" value="1"> 연습문제
-            <input type="checkbox" name="category" value="2"> 직무문제
-
-            <div th:if="${member != null}" class="status">상태 </div>
-            <div th:if="${member != null}" id="statusChecklist">
-                <input type="checkbox" name="solvedList" value="true"> 푼 문제
-                <input type="checkbox" name="solvedList" value="false"> 안 푼 문제
+    <div class="bigbox">
+        <!-- 로그인 되어있으면 -->
+        <div th:if="${member != null}">
+            <div class="box">
+                <div class="id" >아이디</div>
+                <div class="id-text" th:text="${member.memberName}"></div>
+                <br>
+                <br>
+                <div class="pro">해결한 문제</div>
+                <div class="num" th:text="${SolveCount}"></div>
             </div>
+        </div>
 
-            <div class="level">레벨</div>
-            <input type="checkbox" name="level" value="1"> LV.1
-            <input type="checkbox" name="level" value="2"> LV.2
+        <!-- 로그인 상태가 아니면 -->
+        <div th:unless="${member != null}">
+            <div class="box">
+                <a href="/member/login">로그인</a>
+            </div>
+        </div>
 
-            <button type="submit">필터 적용</button>
-        </form>
+        <div class="fil">
+            <h3>필터</h3>
+            <hr>
+            <div class="select">
+
+                    <button onclick="opensetting1()" class="type">문제종류
+                        <img class="togglebutton" src="/icon/toggle-button1.svg">
+                    </button>
+                    <nav id="check-list" style="display: none;">
+                        <ul>
+                            <li><label class="check">
+                                <input name="type1" type="checkbox" value="1">
+                                연습문제
+                            </label></li>
+                            <li><label class="check">
+                                <input name="type1" type="checkbox" value="2">
+                                직무문제
+                            </label></li>
+                            <li><label class="check">
+                                <input name="type1" type="checkbox" value="3">
+                                언어문제
+                            </label></li>
+                        </ul>
+                    </nav>
+
+                    <button th:if="${member != null}" onclick="opensetting2()" class="status">상태
+                        <img class="togglebutton" src="/icon/toggle-button1.svg">
+                    </button>
+                    <div th:if="${member != null}" id="statusChecklist">
+                        <nav id="status-list" style="display: none;">
+                            <ul>
+                                <li><label class="status">
+                                    <input name="status1" type="checkbox" value = "true">
+                                    푼문제
+                                </label></li>
+                                <li><label class="status">
+                                    <input name="status1" type="checkbox" value = "false">
+                                    안푼문제
+                                </label></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <button onclick="opensetting3()" class="level">레벨
+                        <img class="togglebutton" src="/icon/toggle-button1.svg">
+                    </button>
+                    <nav id="level-list" style="display: none;">
+                        <ul>
+                            <li><label class="level">
+                                <input name="level1" type="checkbox" value="1">
+                                LV.1
+                            </label></li>
+                            <li><label class="level">
+                                <input name="level1" type="checkbox" value="2">
+                                LV.2
+                            </label></li>
+                            <li><label class="level">
+                                <input name="level1" type="checkbox" value="3">
+                                LV.3
+                            </label></li>
+                        </ul>
+                    </nav>
+
+    <!--
+                    <div class="type">문제 종류</div>
+                    <input type="checkbox" name="category" value="1"> 연습문제
+                    <input type="checkbox" name="category" value="2"> 직무문제
+
+                    <div th:if="${member != null}" class="status">상태 </div>
+                    <div th:if="${member != null}" id="statusChecklist">
+                        <input type="checkbox" name="solvedList" value="true"> 푼 문제
+                        <input type="checkbox" name="solvedList" value="false"> 안 푼 문제
+                    </div>
+
+                    <div class="level">레벨</div>
+                    <input type="checkbox" name="level" value="1"> LV.1
+                    <input type="checkbox" name="level" value="2"> LV.2
+    -->
+                    <button onclick="applyFilters()">필터 적용</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-
-</div>
 <div class="search-container">
     <input type="text" id="search-input">
     <button type="submit" id="search-button">?</button>
 </div>
 
-
 </body>
-
-
-<script>
-
-    // 맨 처음에는 모든 체크박스 선택 해제
-    document.addEventListener('DOMContentLoaded', function() {
-        var statusCheckboxes = document.querySelectorAll('#statusChecklist input[type="checkbox"]');
-        var allUnchecked = true;
-
-        statusCheckboxes.forEach(function(checkbox) {
-            if (checkbox.checked) {
-                allUnchecked = false;
-            }
-        });
-
-        if (allUnchecked) {
-            statusCheckboxes.forEach(function(checkbox) {
-                checkbox.checked = true;
-            });
-        }
-
-        // 이전 선택한 필터 체크 유지
-        var urlParams = new URLSearchParams(window.location.search);
-        urlParams.forEach(function(value, key) {
-            var inputElement = document.querySelector(`[name="${key}"][value="${value}"]`);
-            if (inputElement) {
-                inputElement.checked = true;
-            }
-        });
-    });
-
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // 이전 선택한 필터를 복원하기 위한 URL의 쿼리 매개변수
-        var urlParams = new URLSearchParams(window.location.search);
-
-        // 초기에는 상태 체크박스 선택 해제
-        var solvedCheckboxes = document.querySelectorAll('input[name="solvedList"]');
-        solvedCheckboxes.forEach(function(checkbox) {
-            checkbox.checked = false;
-        });
-
-        // 체크박스 상태 복원
-        urlParams.forEach(function(value, key) {
-            if (key === "solvedList") {
-                solvedCheckboxes.forEach(function(checkbox) {
-                    if (checkbox.value === value) {
-                        checkbox.checked = true;
-                    }
-                });
-            }
-        });
-    });
-
-</script>
 
 </html>
