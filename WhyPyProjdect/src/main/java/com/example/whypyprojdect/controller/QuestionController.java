@@ -6,17 +6,21 @@ import com.example.whypyprojdect.dto.QuestionDto;
 import com.example.whypyprojdect.dto.QuestionSolveDto;
 import com.example.whypyprojdect.entity.*;
 import com.example.whypyprojdect.repository.MemberRepository;
+import com.example.whypyprojdect.service.EditorService;
 import com.example.whypyprojdect.service.MemberService;
 import com.example.whypyprojdect.service.QuestionService;
 import com.example.whypyprojdect.service.QuestionSolveService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +33,17 @@ public class QuestionController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final QuestionSolveService questionSolveService;
+    final EditorService editorService;
 
     @Autowired
-    public QuestionController(QuestionService questionService, MemberRepository memberRepository, MemberService memberService, QuestionSolveService questionSolveService) {
+    public QuestionController(QuestionService questionService, MemberRepository memberRepository,
+                              MemberService memberService, QuestionSolveService questionSolveService,
+                              EditorService editorService) {
         this.questionService = questionService;
         this.memberService = memberService;
         this.memberRepository = memberRepository;
         this.questionSolveService = questionSolveService;
+        this.editorService = editorService;
     }
 
     @GetMapping("/questions")
@@ -132,16 +140,34 @@ public class QuestionController {
     }
 
     @PostMapping("/questions/{questionId}")
-    public ResponseEntity<String> saveUserAnswer(@PathVariable int questionId, @RequestParam String userAnswer, HttpSession session) {
+    public ResponseEntity saveUserAnswer  (@PathVariable int questionId, @RequestParam String userAnswer, HttpSession session) throws UnsupportedEncodingException {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
+        boolean qSolved = false;
+        System.out.println(userAnswer);
 
-        if (questionDto != null) {
-            QuestionSolve questionSolve = new QuestionSolve();
-            Object member = session.getAttribute("loginName");
-            //System.out.println("questionId" + questionId);
-            questionSolveService.setQuestionID(questionSolve, questionId);
-            questionSolveService.setMemberID(questionSolve, member);
-            questionSolveService.getQuestionUserAnswerByMemberId(questionSolve, userAnswer);
+        if(editorService.stringToText(URLDecoder.decode(userAnswer,"UTF-8"))) {
+            String ret = editorService.callPython();
+
+            if (questionDto != null) {
+                String questionOutput = questionDto.getExample();
+                if(questionOutput.equals(ret)) qSolved = true;
+                else qSolved = false;
+
+                System.out.println("qSolved " + qSolved);
+                System.out.println("ret " + ret);
+                System.out.println("questionOutput " + questionOutput);
+                QuestionSolve questionSolve = new QuestionSolve();
+                Object member = session.getAttribute("loginName");
+
+                //System.out.println("questionId" + questionId);
+                questionSolveService.setQuestionID(questionSolve, questionId);
+                questionSolveService.setMemberID(questionSolve, member);
+                questionSolveService.getQuestionUserAnswerByMemberId(questionSolve, userAnswer);
+                questionSolveService.saveOrUpdateSolveData(questionSolve, qSolved);
+            }
+            else {
+                return ResponseEntity.notFound().build();
+            }
         }
 
         String url = "/questions/" + questionId + "/answer";
@@ -180,14 +206,16 @@ public class QuestionController {
         }
         return "Problem/problem_answer";
     }
-
+/*
     @PostMapping("/questions/{questionId}/answer")
-    public ResponseEntity<?> saveQuestion(@PathVariable int questionId, @RequestParam boolean qSolved, HttpSession session) {
+    public ResponseEntity<?> saveQuestion(@PathVariable int questionId, @RequestParam String userOutput, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
+
         if (questionDto != null) {
             QuestionSolve questionSolve = new QuestionSolve();
             Object member = session.getAttribute("loginName");
             //System.out.println("questionId" + questionId);
+
             questionSolveService.setQuestionID(questionSolve, questionId);
             questionSolveService.setMemberID(questionSolve, member);
             questionSolveService.saveOrUpdateSolveData(questionSolve, qSolved);
@@ -196,28 +224,6 @@ public class QuestionController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
-/*``````
-    @GetMapping("/questionList/filtered")
-    public String getFilteredQuestions(
-            @RequestParam(defaultValue = "false") boolean isSolved,
-            @RequestParam(required = false) Integer category,
-            @RequestParam(required = false) Integer level,
-            Model model) {
-
-        // level이 null인 경우에 대한 처리
-        Integer levelValue = (level != null) ? level : -1;
-        Integer categoryValue = (category!=null)? category : -1;
-
-        List<QuestionDto> filteredQuestions = questionService.getFilteredQuestionDtos(isSolved, categoryValue, levelValue);
-        long solvedCount = filteredQuestions.stream().filter(QuestionDto::getSolved).count();
-
-        model.addAttribute("questions", filteredQuestions);
-        model.addAttribute("solvedCount", solvedCount);
-
-        return "problem_list";
-    }
-*/
+    */
 
 }

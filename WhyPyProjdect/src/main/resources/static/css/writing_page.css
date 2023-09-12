@@ -32,7 +32,7 @@ a {
 }
 
 /* 버튼 스타일 */
-.button {
+.right-area .button {
     padding: 10px;
     margin: 10px;
     margin-top: 15px;
@@ -59,6 +59,7 @@ a {
     box-sizing: border-box;
 }
 
+
 /* 오른쪽 영역 스타일 */
 .right-area {
     float: right;
@@ -83,16 +84,42 @@ a {
     margin-left: 100px;
     margin-right: 100px;
     font-size: 20px;
-
+    width: 85%;
 }
 
-.select {
+.all {
     border: 1px solid#9c9c9c;
     border-radius: 10px;
     flex: 9.5;
     color: #9c9c9c;
     padding: 10px;
 }
+
+.main #se_nav {
+    position: absolute;
+    width: 10%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #E6E6E6;
+    border: 0.0625rem solid #E6E6E6;
+    padding: 5px;
+    overflow: auto;
+    list-style: none;
+    border: 1px solid #9c9c9c;
+    margin-left: -0.5%;
+    margin-top: 0.6%;
+    border-radius: 10px;
+}
+
+#se_nav li {
+    background-color: #E6E6E6;
+}
+
+#se_nav button {
+    border: none;
+    cursor: pointer;
+}
+
 
 .anonym {
     border: 1px solid#9c9c9c;
@@ -112,12 +139,12 @@ a {
 }
 
 .post-title-input {
-    width: 87%;
+    width: 84%;
     padding: 15px;
     font-size: 20px;
     border: 1px solid#9c9c9c;
     border-radius: 10px;
-    margin-left: 90px;
+    margin-left: 85px;
 
 }
 
@@ -129,28 +156,28 @@ a {
     margin-right: 100px;
     background-color: #9c9c9c;
     font-size: 10px;
+    width: 84%;
 }
 
-.contents {
-    border: 1px solid #9c9c9c;
+.content-box {
     border-radius: 10px;
-    margin-top: 10px;
-    margin-left: 100px;
-    margin-right: 100px;
-    padding: 220px;
+    display: flex;
     color: #9c9c9c;
-    position: relative;
-    font-size: 20px;
+    padding: 10px;
 }
 
-.contents::before {
-    content: "내용을 입력해주세요";
-    position: absolute;
-    top: 10px;
-    left: 5px;
-    padding: 10px;
-    color: #9c9c9c;
+
+.post-content-input {
+    width: 84%;
+    height: 400px;
+    padding: 15px;
+    font-size: 20px;
+    border: 1px solid#9c9c9c;
+    border-radius: 10px;
+    margin-left: 90px;
+    resize: none;
 }
+
 
 .picture,
 .video,
@@ -162,6 +189,11 @@ a {
     margin: 10px;
     padding: 10px;
     background-color: white;
+    cursor: pointer;
+}
+
+.button {
+    cursor: pointer;
 }
 
 .type {
@@ -198,20 +230,25 @@ a {
 
 .set button {
     border: 1px solid #E6E6E6;
+    cursor: pointer;
 }
 
 
+
 /* 작성하기 버튼 스타일 */
-.write-button {
+.button {
     text-align: center;
     margin-top: 25px;
 }
 
-.write-button a {
+.write-button {
     background-color: #9b47a5;
+    border-color: #9b47a5;
     color: #fff;
     padding: 15px 25px;
     border-radius: 20px;
     text-decoration: none;
     font-size: 15px;
+    border: 1px solid#9b47a5;
+    cursor: pointer;
 }
