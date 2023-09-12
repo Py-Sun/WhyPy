@@ -1,7 +1,13 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+}
+
 * {
     margin: 0px;
     padding: 0px;
     background-color: #E6E6E6;
+        font-family: 'NanumSquareRound';
 }
 
 a {
@@ -160,6 +166,15 @@ a {
     width: 95%;
 }
 
+.share{
+    margin-right: 20px;
+    display: flex;
+}
+
+.share img{
+    margin-right: 10px;
+}
+
 .group {
     border: 1px solid #757575;
     border-radius: 20px;
@@ -202,7 +217,13 @@ a {
     border-radius: 20px;
     width: 100px;
     height: 40px;
+    margin: 10px;
 }
+
+.comments h3{
+    margin: 20px;
+}
+
 
 .w_button {
     text-align: center;
@@ -217,8 +238,10 @@ a {
     text-align: center;
 }
 
-.list {
+
+.button .list {
     background-color: #9b47a5;
+    border: 1px solid #9b47a5;
     border-color: #9b47a5;
     color: #fff;
     padding: 15px 25px;
@@ -226,6 +249,7 @@ a {
     text-decoration: none;
     font-size: 15px;
 }
+
 
 .card-text {
     margin: 10px;
@@ -241,8 +265,12 @@ a {
     width: 105%;
 }
 
-.comment-list {
+.comments{
     margin-bottom: 20px;
+}
+
+.comment-list {
+    margin: 0px 0px 10px 20px;
     border: 1px solid #E6E6E6;
     padding: 10px;
     background-color: #E6E6E6;
@@ -272,6 +300,7 @@ a {
 .comment-actions {
     display: flex;
     gap: 10px;
+    margin: 10px 0px 0px 0px;
 }
 
 .comment-action-button {
@@ -285,6 +314,94 @@ a {
 
 .rereply {
     margin-left: 30px;
-    border-left: 2px solid #f9f9f9;
     padding-left: 20px;
+}
+
+.all{
+    display: flex;
+}
+
+.rereply-info{
+    margin-left: 10px;
+}
+.rereply-actions{
+    display: flex;
+}
+.rereply-action-button{
+    background-color: #E6E6E6;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;}
+
+#showRereplyForm{
+    background-color: #E6E6E6;
+    color: #757575;
+    border: 1px solid #757575;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 12px;
+}
+
+.recommendlist {
+    margin: 30px;
+}
+
+.listtitle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.listtitle h4 {
+    font-size: x-large;
+}
+
+.titlebutton {
+    border: none;
+    cursor: pointer;
+    font-size: medium;
+}
+
+.recommendlist hr {
+    margin: 10px 0px 10px 0px;
+    height: 2px;
+    background-color: #757575;
+    border: none;
+}
+
+.alllist {
+    height: auto;
+    width: 100%;
+    border: 1px;
+}
+
+.table1 {
+    border: 1px solid;
+
+}
+
+
+table {
+    width: 100%;
+}
+
+.table1 {
+    width: 100%;
+}
+
+.td1 {
+    width: 60%;
+}
+
+.td2 {
+    width: 20%;
+    text-align: end;
+}
+
+.td3 {
+    width: 20%;
+    text-align: end;
 }

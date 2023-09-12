@@ -50,9 +50,9 @@
             </div>
         </div>
         <div class="setting">
-            <span onclick="updatePost()" style="cursor:pointer">수정&nbsp;</span>
+            <span id="updateBtn" onclick="updatePost()" style="cursor:pointer">수정&nbsp;</span>
             <span> | </span>
-            <span onclick="deletePost()" style="cursor: pointer">&nbsp;삭제</span>
+            <span id="deleteBtn" onclick="deletePost()" style="cursor: pointer">&nbsp;삭제</span>
         </div>
         <div class="line">
             <hr>
@@ -60,13 +60,18 @@
     </div>
     <div class="middle">
         <div class="content" th:text="${post.contents}" id="contents"></div>
+        <img th:if="${post.imagePath != null}" th:src="@{${post.imagePath}}" width="200" height="200" alt="Image">
         <div class="select">
             <div class="left">
                 <div class="suggestion" id="recmdText" th:text="'추천 '+${post.recmdNum}"></div>
                 <div class="comment" th:text="'댓글 '+${#lists.size(reply)}"></div>
             </div>
             <div class="right">
-                <div class="share" onclick="sharePost()" style="cursor:pointer">공유하기</div>
+
+                <div class="share" onclick="sharePost()" style="cursor:pointer">
+                    <img class="shareicon" src="/static/icon/share.svg" />
+                    <p>공유하기</p>
+                </div>
                 <div class="recmd" id="recmdBtn" onclick="recmdPost()" style="cursor:pointer">추천하기</div>
             </div>
         </div>
@@ -133,6 +138,9 @@
                             <div th:each="rereplies : ${rereply[__${index.index}__]}" class="rereply">
                                 <!-- 답글 내용 -->
                                 <blockquote class="rereply-blockquote">
+                                    <div class="all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/></svg>
                                     <p class="rereply-content" th:text="${rereplies.comment}"></p>
                                     <p class="rereply-info">
                                 <span th:if="${rereplies.writerId == post.writerID}">
@@ -145,6 +153,8 @@
                                 </span>
                                     </p>
                                     <p class="rereply-date" th:text="${rereplies.createDate}"></p>
+                                    </div>
+
                                     <!-- 답글 수정 및 삭제 버튼 -->
                                     <div class="rereply-actions" th:if="${rereplies.writerId == member.id}">
                                         <button class="rereply-action-button" onclick="window.location.href='/updateReply'">답글 수정</button>
@@ -184,6 +194,34 @@
         </div>
     </div>
 </div>
+    <div class="recommendlist">
+        <div class="listtitle">
+            <h4>추천게시글</h4>
+            <button class="titlebutton">전체글</button>
+        </div>
+        <hr>
+        <div class="alllist">
+            <table>
+                <tbody>
+                    <tr class="table1">
+                        <td class="td1">게시글 제목 ~~</td>
+                        <td class="td2"> 아이디</td>
+                        <td class="td3">날짜</td>
+                    </tr>
+                    <tr class="table1">
+                        <td class="td1">게시글 제목 ~~</td>
+                        <td class="td2">아이디</td>
+                        <td class="td3">날짜</td>
+                    </tr>
+                    <tr class="table1">
+                        <td class="td1">게시글 제목 ~~</td>
+                        <td class="td2">아이디</td>
+                        <td class="td3">날짜</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 <div class="button">
     <button class="list" type="button" onclick="location.href='/postList'">글 목록</button>
 </div>
