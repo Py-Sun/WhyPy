@@ -35,9 +35,16 @@
     <div class="rigth">
       <div class="answer">답안</div>
       <div class="box">
-        <textarea id = "code" oninput="updateCodeMirror(this.value)" th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
-        </textarea>
-        <br>
+        <form action="/api" method="GET">
+          <textarea id = "code" name = "code" oninput="updateCodeMirror(this.value)" th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
+          </textarea>
+          <br>
+          <input type="submit" value="Run Python Code">
+        </form>
+
+        <div id="output">
+          <!-- Python 실행 결과 -->
+        </div>
       </div>
     </div>
   </div>

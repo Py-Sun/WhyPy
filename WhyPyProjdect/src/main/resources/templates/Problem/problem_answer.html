@@ -32,10 +32,9 @@
   <div class="up">
     <div class="left">
       <div class="text">답안</div>
-      <!--
         <div th:if="${member != null}">
             <input type="checkbox" id="solveCheckbox" th:checked="${qsolve}"/>
-        </div> -->
+        </div>
       <div class="explanation">
         <textarea class="code-editor" name="useranswer" th:text="${useranswer}">  </textarea>
       </div>
@@ -75,7 +74,7 @@
     cursorBlinkRate: -1,
   });
 
-/*
+
   $(document).ready(function() {
     $("#solveCheckbox").on("change", function() {
 
@@ -90,7 +89,7 @@
       });
     });
   });
- */
+
 
 </script>
 </body>

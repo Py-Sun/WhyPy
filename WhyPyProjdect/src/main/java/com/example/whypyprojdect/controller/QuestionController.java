@@ -140,22 +140,22 @@ public class QuestionController {
     }
 
     @PostMapping("/questions/{questionId}")
-    public ResponseEntity saveUserAnswer  (@PathVariable int questionId, @RequestParam String userAnswer, HttpSession session) throws UnsupportedEncodingException {
+    public ResponseEntity<String> saveUserAnswer(@PathVariable int questionId, @RequestParam String userAnswer, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
-        boolean qSolved = false;
+        //boolean qSolved = false;
         System.out.println(userAnswer);
 
-        if(editorService.stringToText(URLDecoder.decode(userAnswer,"UTF-8"))) {
-            String ret = editorService.callPython();
+        //if(editorService.stringToText(URLDecoder.decode(userAnswer,"UTF-8"))) {
+            //String ret = editorService.callPython();
 
             if (questionDto != null) {
                 String questionOutput = questionDto.getExample();
-                if(questionOutput.equals(ret)) qSolved = true;
-                else qSolved = false;
+                //if(questionOutput.equals(ret)) qSolved = true;
+                //else qSolved = false;
 
-                System.out.println("qSolved " + qSolved);
-                System.out.println("ret " + ret);
-                System.out.println("questionOutput " + questionOutput);
+                //System.out.println("qSolved " + qSolved);
+                //System.out.println("ret " + ret);
+                //System.out.println("questionOutput " + questionOutput);
                 QuestionSolve questionSolve = new QuestionSolve();
                 Object member = session.getAttribute("loginName");
 
@@ -163,12 +163,12 @@ public class QuestionController {
                 questionSolveService.setQuestionID(questionSolve, questionId);
                 questionSolveService.setMemberID(questionSolve, member);
                 questionSolveService.getQuestionUserAnswerByMemberId(questionSolve, userAnswer);
-                questionSolveService.saveOrUpdateSolveData(questionSolve, qSolved);
+                //questionSolveService.saveOrUpdateSolveData(questionSolve, qSolved);
             }
             else {
                 return ResponseEntity.notFound().build();
             }
-        }
+        //}
 
         String url = "/questions/" + questionId + "/answer";
         System.out.println("URL" + url);
@@ -206,9 +206,9 @@ public class QuestionController {
         }
         return "Problem/problem_answer";
     }
-/*
+
     @PostMapping("/questions/{questionId}/answer")
-    public ResponseEntity<?> saveQuestion(@PathVariable int questionId, @RequestParam String userOutput, HttpSession session) {
+    public ResponseEntity<?> saveQuestion(@PathVariable int questionId, @RequestParam boolean qSolved, HttpSession session) {
         QuestionDto questionDto = questionService.getQuestionById(questionId);
 
         if (questionDto != null) {
@@ -224,6 +224,7 @@ public class QuestionController {
             return ResponseEntity.notFound().build();
         }
     }
-    */
+
+
 
 }
