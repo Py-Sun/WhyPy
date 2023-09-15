@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -58,11 +60,14 @@ public class MemberEntity implements Serializable {
     @Column
     private String ImagePath;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", timezone = "Asia/Seoul")
-    @Temporal(value = TemporalType.TIMESTAMP)
-    @Column(insertable = false, updatable = false, columnDefinition = "datetime default CURRENT_TIMESTAMP")
-    private Date createdAt;
+    @Column
+    private String createdAt;
 
+    public void setcreatedAt(String createdAt) {this.createdAt = createdAt;}
+    @PrePersist
+    public void createDate(){
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 
     //엔티티 객체를 객체로 만들어서 호출하는 게 아닌 그냥 클래스 메소드로 정의
     public static MemberEntity toMemberEntity(MemberDto memberDto) {

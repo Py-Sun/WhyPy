@@ -34,7 +34,7 @@ public class MemberService {
         //2. repository의 save 메서드 호출
 
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
-
+        memberEntity.createDate();
         //memberEntity의 toMemberEntity메소드를 매개변수 memberDto 이용해서 호출
         //그리고 변환된 entity를 가져와야 하므로 Member Entity memberEntity= ~~
 
@@ -54,6 +54,7 @@ public class MemberService {
 
     public void saveWithNoImage(MemberDto memberDto) {
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDto);
+        memberEntity.createDate();
         memberRepository.save(memberEntity);
     }
 

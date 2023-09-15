@@ -1,0 +1,128 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #E6E6E6;
+    font-family: 'NanumSquareRound';
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    align-items: center;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.box {
+    border: none;
+    border-bottom: 1px solid #a7a7a7;
+    margin-bottom: 30px;
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+    padding-right: 0px;
+    font-size: large;
+}
+
+.title {
+    color: #4a88e5;
+    font-weight: bolder;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.email,
+.name,
+.password,
+.password1,
+.nic,
+.profile {
+    color: #a7a7a7;
+}
+
+.image {
+    border: none;
+    color: #a7a7a7;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.submit {
+    text-align: center;
+}
+
+.sub {
+    border: 1px solid #4a88e5;
+    color: #4a88e5;
+    padding: 30%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px #447ed5;
+    transition-duration: 0.2s;
+}
+
+.sub:active {
+    margin-left: 5px;
+    box-shadow: none;
+}
+
+.container {
+    margin-bottom: 30px;
+}
+
+.container label:active {
+    background-color: #294a7c;
+    transition-duration: 0.3s;
+}
+
+.upload-name {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #a7a7a7;
+    width: 60%;
+    color: #999999;
+    border-radius: 5px;
+}
+
+.container label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #4a88e5;
+    cursor: pointer;
+    height: 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.container input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}

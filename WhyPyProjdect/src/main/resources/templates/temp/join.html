@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/join.css">
+  <title>join</title>
+</head>
+
+<body>
+  <div class="main">
+    <form action="/member/save" method="post"  enctype = "multipart/form-data">
+      <div class="title">회원가입</div>
+      <div class="email">*이메일</div>
+      <input type="text" class="box" name="memberEmail">
+      <div class="name">*아이디</div>
+      <input type="text" class="box" name="memberName">
+      <div class="password">*비밀번호</div>
+      <input type="text" class="box" name="memberPassword">
+      <div class="password1">*비밀번호 확인</div>
+      <input type="text" class="box">
+      <div class="nic">*닉네임</div>
+      <input type="text" class="box" name="nickName">
+      <div class="profile">*프로필 이미지</div>
+      <br>
+      <div class="container">
+        <input type="text" class="upload-name" value="이미지를 업로드 하세요" placeholder="이미지를 업로드 하세요" disabled>
+        <label for="upload-file">파일선택</label>
+        <input type="file" id="upload-file" name="image">
+      </div>
+      <div class="submit">
+        <input type="submit" class="sub" value="가입하기">
+      </div>
+    </form>
+  </div>
+</body>
+
+<script>
+  window.addEventListener('load', function () {
+    const upload_file = document.querySelector("#upload-file");
+    const upload_name = document.querySelector(".upload-name");
+
+    upload_file.addEventListener('input', () => {
+      if (isImage(upload_file.files[0])) {
+        changeVal(upload_name, (upload_file.files[0].name));
+      }
+    });
+
+    function isImage(file) {
+      return file.type.indexOf('image') >= 0;
+    }
+    function changeVal(class_name, change_name) {
+      class_name.value = change_name;
+    }
+  });
+</script>
+
+
+</html>

@@ -40,7 +40,7 @@ public class MemberController {
     //받아주는 주소 자체가 없으면 404에러가 뜸
     @GetMapping("/member/save")
     public String saveForm() {
-        return "save";  // /member/save/ 주소가 요청되면 save.html로 보내주겠다
+        return "temp/join";  // /member/save/ 주소가 요청되면 save.html로 보내주겠다
     }
 
     //cf. @RequestParam("memberEmail") String memberEmail) >a에 입력받은 값을 a에 저장해달라
