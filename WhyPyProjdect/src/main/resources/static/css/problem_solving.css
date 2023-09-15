@@ -1,7 +1,13 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+}
+
 * {
     padding: 0px;
     margin: 0px;
     background-color: #E6E6E6;
+        font-family: 'NanumSquareRound';
 }
 
 a {
