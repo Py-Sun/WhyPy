@@ -33,6 +33,21 @@ function initCodeMirror() {
             }
         });
     });
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const code = editor.getValue();
+
+        fetch(`/api?code=${encodeURIComponent(code)}`)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+                document.querySelector('#output').textContent = result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
 }
 
 // 페이지 로드 시 CodeMirror 초기화 함수 호출

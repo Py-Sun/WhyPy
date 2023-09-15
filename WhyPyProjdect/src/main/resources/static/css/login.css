@@ -1,0 +1,97 @@
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    background-color: #E6E6E6;
+    font-family: 'NanumSquareRound';
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main {
+    align-items: center;
+    text-align: left;
+    padding: 10px;
+    border-radius: 10px;
+    width: 25%;
+}
+
+.box {
+    border: none;
+    border-bottom: 1px solid #a7a7a7;
+    margin-bottom: 30px;
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+    padding-right: 0px;
+    font-size: large;
+}
+
+.title {
+    color: #4a88e5;
+    font-weight: bolder;
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+.name,
+.password {
+    color: #a7a7a7;
+}
+
+.image {
+    border: none;
+    color: #a7a7a7;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}
+
+.submit {
+    text-align: center;
+}
+
+.all {
+    text-align: center;
+}
+
+.sub {
+    border: 1px solid #4a88e5;
+    color: #4a88e5;
+    padding: 30%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px #447ed5;
+    transition-duration: 0.2s;
+}
+
+.sub:active {
+    margin-left: 5px;
+    box-shadow: none;
+}
+
+.join {
+    cursor: pointer;
+    border: none;
+    margin-top: 20px;
+    margin-right: 50%;
+    font-size: medium;
+    color: #a7a7a7;
+    font-weight: bolder;
+}

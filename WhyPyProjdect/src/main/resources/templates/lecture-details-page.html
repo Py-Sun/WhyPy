@@ -43,6 +43,7 @@
     </div>
 
     <div class="right">
+        <!--
         <div class='v-line'></div>
         <div th:each="lecture, stat : ${lectures}" th:limit="5">
             <div class="lien1" th:if="${stat.index &lt; 5}">
@@ -55,7 +56,7 @@
                 <div class="category" th:text="${lecture.category}"></div>
             </div>
         </div>
-
+-->
         <b>추천 동영상</b>
         <div th:each="lecture : ${recmdLecture}">
             <div class="lien2">

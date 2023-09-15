@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
     <title>login</title>
 </head>
+
 <body>
-<form action="/member/login" method="post">
-    아이디: <input type="text" name="memberName"> <br>
-    비밀번호: <input type="password" name="memberPassword"> <br>
-    <input type="submit" value="로그인">
-</form>
-<a href="/member/save">회원가입</a>
+<div class="main">
+    <form action="/member/login" method="post">
+        <div class="title">Login</div>
+        <div class="name">*아이디</div>
+        <input type="text" class="box" name="memberName">
+        <div class="password">*비밀번호</div>
+        <input type="password" class="box" name="memberPassword">
+        <div class="all">
+            <div class="submit">
+                <input type="submit" class="sub" value="로그인">
+            </div>
+            <button type = "button" class="join" onclick="location.href='/member/save'">회원가입</button>
+        </div>
+    </form>
+</div>
 </body>
-</html>

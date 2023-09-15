@@ -197,26 +197,16 @@
     <div class="recommendlist">
         <div class="listtitle">
             <h4>추천게시글</h4>
-            <button class="titlebutton">전체글</button>
+            <button class="titlebutton" onclick="location.href='/postList'">전체글</button>
         </div>
         <hr>
         <div class="alllist">
             <table>
                 <tbody>
-                    <tr class="table1">
-                        <td class="td1">게시글 제목 ~~</td>
-                        <td class="td2"> 아이디</td>
-                        <td class="td3">날짜</td>
-                    </tr>
-                    <tr class="table1">
-                        <td class="td1">게시글 제목 ~~</td>
-                        <td class="td2">아이디</td>
-                        <td class="td3">날짜</td>
-                    </tr>
-                    <tr class="table1">
-                        <td class="td1">게시글 제목 ~~</td>
-                        <td class="td2">아이디</td>
-                        <td class="td3">날짜</td>
+                    <tr class="table1" th:each="recmdPost : ${recmdPostDto}">
+                        <td class="td1" th:style="'cursor: pointer;'" th:onclick="|location.href='@{/post/{postId}(postId=${recmdPost.postId})}'|" th:text="${recmdPost.title}"></td>
+                        <td class="td2" th:text="${recmdPost.board}"></td>
+                        <td class="td3" th:text="${recmdPost.updateDate}"></td>
                     </tr>
                 </tbody>
             </table>
