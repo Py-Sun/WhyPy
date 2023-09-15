@@ -139,9 +139,6 @@ public class PostController {
 
         List<Post> postDtos = postService.getAllPosts();
         List<Post> recmdPostDto = CosineSimilarity(postDto.getTitle(), postDtos);
-        for(Post post : recmdPostDto) {
-            System.out.println(post.getTitle());
-        }
 
         model.addAttribute("post", postDto);
         model.addAttribute("member", memberDto);
