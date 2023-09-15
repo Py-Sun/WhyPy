@@ -215,7 +215,10 @@ td {
 }
 
 
-
+.togglebutton {
+    width: 20px;
+    height: 20px;
+}
 
 
 /* 검색창 스타일 */
