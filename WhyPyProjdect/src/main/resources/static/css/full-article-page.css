@@ -6,6 +6,7 @@
 
 a {
     text-decoration-line: none;
+      color: inherit;
 }
 
 /* 로고 스타일 */
@@ -210,6 +211,8 @@ table {
 
 .box-left div{
  background-color: #a8a7a7;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /* 오른쪽 정렬 */
@@ -220,14 +223,13 @@ table {
 
 .box-right div{
  background-color: #a8a7a7;
+        margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 /* 각 아이템 스타일 */
 .box-item {
     background-color: #a8a7a7;
-    padding: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
 }
 
 a .box-item{
