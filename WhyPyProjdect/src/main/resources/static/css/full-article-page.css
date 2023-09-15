@@ -109,6 +109,7 @@ a {
     width: 20px;
     height: 20px;
 }
+
 #job_nav li,
 #lan_nav li {
     padding: 0px;
@@ -192,6 +193,7 @@ table {
 /* Best 게시글 박스 스타일 */
 .best-box {
     width: 90%;
+
 }
 
 /* Best 게시글 제목 스타일 */
@@ -203,16 +205,32 @@ table {
 /* 왼쪽 정렬 */
 .box-left {
     flex: 1;
+    background-color: #a8a7a7;
+}
+
+.box-left div{
+ background-color: #a8a7a7;
 }
 
 /* 오른쪽 정렬 */
 .box-right {
     flex: 1;
+    background-color: #a8a7a7;
+}
+
+.box-right div{
+ background-color: #a8a7a7;
 }
 
 /* 각 아이템 스타일 */
 .box-item {
     background-color: #a8a7a7;
+    padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+a .box-item{
     padding: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
