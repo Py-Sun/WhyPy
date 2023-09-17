@@ -277,6 +277,16 @@ button {
     justify-content: right;
 }
 
+.left-area{
+    position: relative;
+    float: right;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    margin: 20px;
+    box-sizing: border-box;
+}
+
 .right {
     position: relative;
     float: right;
