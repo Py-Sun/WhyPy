@@ -31,21 +31,21 @@
                         <div class="hr1">
                             <hr>
                         </div>
-                        <div class="video">동영상 강의</div>
-                        <div class="post">게시글</div>
-                        <div class="problem">문제목록</div>
-                        <div class="solv">문제풀기</div>
+                        <div class="video"><a href="/lectures">동영상 강의</a></div>
+                        <div class="post"><a href="/postList">게시글</a></div>
+                        <div class="problem"><a href="/questions">문제풀기</a></div>
+                        <!--<div class="solv">문제풀기</div>-->
                         <div class="hr2">
                             <hr>
                         </div>
-                        <div class="writing">쪽지쓰기</div>
-                        <div class="send">보낸 쪽지함</div>
-                        <div class="receive">받은 쪽지함</div>
+                        <div class="writing"><a href = "/sendLetter"> 쪽지쓰기 </a></div>
+                        <div class="send"><a href = "/sentLetters"> 보낸 쪽지함 </a></div>
+                        <div class="receive"><a href = "/receivedLetters"> 받은 쪽지함 </a></div>
                         <div class="hr2">
                             <hr>
                         </div>
-                        <div class="login">로그인</div>
-                        <div class="logout">로그아웃</div>
+                        <div class="login" th:unless="${loginName != null}"><a href="/member/login">로그인</a></div>
+                        <div class="logout" th:if="${loginName != null}"> <a href="/member/logout">로그아웃</a></div>
                     </div>
                 </div>
             </div>
@@ -106,19 +106,19 @@
     </div>
 
 
-
-<h2>Why?PY!</h2>
+<!--
+<h2>Why?PY!</h2>-->
     <!-- 로그인 되어있으면 -->
-<a th:if="${loginName != null}" href="/member/logout">로그아웃</a>
+<!--<a th:if="${loginName != null}" href="/member/logout">로그아웃</a>-->
     <!-- 로그인 상태가 아니면 -->
-    <a th:unless="${loginName != null}" href="/member/login">로그인</a>
-<br>
-<A href="/follow">친구추가</A>
-<a href="/postList">Go to Post List!</a>
+<!--    <a th:unless="${loginName != null}" href="/member/login">로그인</a>-->
+<!--<br>
+<A href="/follow">친구추가</A>-->
+<!--<a href="/postList">Go to Post List!</a>-->
 <!--<a href="/questionList">문제 목록 페이지</a>--->
-<a href="/lectures">Go to Lecture List!</a>
-<a href = "/sendLetter"> 쪽지 전송 </a>
-
+<!--<a href="/lectures">Go to Lecture List!</a>-->
+<!--<a href = "/sendLetter"> 쪽지 전송 </a>-->
+-->
 </body>
 </html>
 
