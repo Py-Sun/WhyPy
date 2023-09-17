@@ -15,6 +15,15 @@ a {
     text-decoration-line: none;
 }
 
+.sidebar a{
+    color: inherit;
+}
+
+.sidebar a:hover{
+    font-weight: bolder;
+    font-size: large;
+}
+
 /* 로고 스타일 */
 .logo {
     display: inline-block;
