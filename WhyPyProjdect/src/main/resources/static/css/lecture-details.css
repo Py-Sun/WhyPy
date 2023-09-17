@@ -160,14 +160,24 @@ a {
     display: inline-block;
     border: 1px solid white;
     background-color: #FFFFFF;
-    border-radius: 30px;
     font-size: large;
     font-weight: bold;
-    padding: 35px;
+    padding: 5px;
     margin-bottom: 40px;
+}
+
+.vid{
+    flex-direction: column;
+}
+
+.right b{
+    margin-bottom: 20px;
 }
 
 .title1 {
     padding: 20px;
     margin-bottom: 40px;
+}
+.category{
+    padding-left: 20px;
 }

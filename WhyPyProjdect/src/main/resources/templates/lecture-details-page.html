@@ -63,10 +63,12 @@
                 <div class="video1">
                     <img th:src="${lecture.thumbnail}" alt="Thumbnail">
                 </div>
-                <div class="title1">
-                    <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+                <div class="vid">
+                    <div class="category" th:text="${lecture.category}"></div>
+                    <div class="title1">
+                        <a th:href="@{/lectures/{lectureId}(lectureId=${lecture.lectureId})}" th:text="${lecture.title}"></a>
+                    </div>
                 </div>
-                <div class="category" th:text="${lecture.category}"></div>
             </div>
         </div>
 
