@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/writing_page.css">
+    <link rel="stylesheet" type="text/css" href="/css/writing_page.css">
     <script src="/js/create-post.js"></script>
     <title>writing page</title>
 </head>
@@ -43,9 +43,31 @@
             <input type="checkbox" class="checkbox" name="isAnonymous">&nbsp;&nbsp;익명
         </div>
     </div>
-    <div class="title-box">
-        <input type="text" name="title" id="post-title" class="post-title-input" placeholder="제목을 입력해주세요">
+    <div class="t">
+        <div class="title-box">
+            <input type="text" name="title" id="post-title" class="post-title-input" placeholder="제목을 입력해주세요">
+        </div>
+        <div class="range">
+            <button type="button" onclick="opensetting1()" class="type2">공개범위</button>
+            <nav id="check-list" style="display: none;" >
+                <ul>
+                    <li><label class="check">
+                        <input class="type1" type="checkbox">
+                        전체공개
+                    </label></li>
+                    <li><label class="check">
+                        <input class="type1" type="checkbox">
+                        친구공개
+                    </label></li>
+                    <li><label class="check">
+                        <input class="type1" type="checkbox">
+                        나만보기
+                    </label></li>
+                </ul>
+            </nav>
+        </div>
     </div>
+
     <div class="setting">
         <input type="file" id="fileInput" name="image" style="display: none;">
         <button type="button" class="picture" onclick="openPictureInput()">사진</button>
@@ -65,7 +87,7 @@
     <div class="content-box">
         <textarea type="text" id="contents" class="post-content-input" name="contents" placeholder="내용을 입력해주세요"></textarea>
     </div>
-    <div class="button">
+    <div class="button1">
         <button class="write-button" type="submit">등록하기</button>
     </div>
 </div>
@@ -78,13 +100,21 @@
             document.getElementById('se_nav').style.display = 'block';
         }
     }
-
     function selectBoard(boardName) {
         const boardElement = document.getElementById('board');
         const boardValue = document.getElementById('boardValue');
         boardElement.textContent = boardName;
         boardValue.value = boardName;
         opensetting();
+    }
+
+        function opensetting1() {
+        if (document.getElementById('check-list').style.display === 'block') {
+            document.getElementById('check-list').style.display = 'none';
+        } else {
+            document.getElementById('check-list').style.display = 'block';
+            console.log("bye")
+        }
     }
 
     function openPictureInput() {

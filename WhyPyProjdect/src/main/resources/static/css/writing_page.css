@@ -137,23 +137,84 @@ a {
 }
 
 /* 제목 입력칸 */
+.t {
+    display: flex;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    width: 85%;
+}
 
 .title-box {
     border-radius: 10px;
-    display: flex;
     color: #9c9c9c;
-    padding: 10px;
+    flex: 9.5;
 }
 
 .post-title-input {
-    width: 84%;
     padding: 15px;
     font-size: 20px;
     border: 1px solid#9c9c9c;
     border-radius: 10px;
-    margin-left: 85px;
-
+    width: 95%;
 }
+.range {
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+}
+
+.range button {
+    border: 1px solid#9c9c9c;
+    border-radius: 10px;
+    padding: 10px 20px 10px 20px;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 15px;
+}
+
+.checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ebebeb;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.range #check-list{
+    position: absolute;
+    width: 7%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid #9c9c9c;
+    padding: 5px;
+    overflow: auto;
+    list-style: none;
+    margin-top: 60px;
+}
+.range.check{
+    border: 1px solid #9c9c9c;
+    font-size: 14px;
+}
+
+.check{
+    font-size: 14px;
+}
+
+
+
+
+
+
 
 .setting {
     border: 1px solid#9c9c9c;
@@ -243,7 +304,7 @@ a {
 
 
 /* 작성하기 버튼 스타일 */
-.button {
+.button1 {
     text-align: center;
     margin-top: 25px;
 }
