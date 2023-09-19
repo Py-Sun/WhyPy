@@ -1,5 +1,5 @@
-N = 4  # Number of elements
-lists = [10, 10, 10, 10]  # List of elements
+N = 3  # Number of elements
+lists = [5, 7, 7]  # List of elements
 cnt = 0
 
 while max(lists) != lists[0]:

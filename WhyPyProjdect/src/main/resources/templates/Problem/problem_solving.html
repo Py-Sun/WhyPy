@@ -30,7 +30,7 @@
   <div class="up">
     <div class="left">
       <div class="text" th:text="${question.title}"></div>
-      <div class="explanation" th:text="${question.contents}"></div>
+      <div class="explanation"  th:utext="${#strings.replace(question.contents, '\n', '<br>')}"></div>
           <div class="under">
       <div class="ex">결과 예시</div>
       <div class="example" th:text="${question.example}"></div>
@@ -44,11 +44,13 @@
           </textarea>
           <br>
           <input type="submit" class="run" value="Run Python Code">
+
+          <div id="output">
+            <!-- Python 실행 결과 -->
+          </div>
         </form>
 
-        <div id="output">
-          <!-- Python 실행 결과 -->
-        </div>
+
       </div>
     </div>
   </div>

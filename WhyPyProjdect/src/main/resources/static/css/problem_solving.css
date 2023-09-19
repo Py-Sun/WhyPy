@@ -60,7 +60,7 @@ a {
 .explanation {
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 250px;
+    padding-bottom: 20px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
 }
@@ -118,10 +118,10 @@ margin-top: 20px;
 
 .example {
     margin-top: 10px;
-    padding: 70px;
+    padding: 10px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
-    width: 620px;
+    /*width: 620px;*/
 }
 
 /* 정답 버튼 스타일 */
