@@ -46,7 +46,7 @@ public class EditorService {
             System.out.println("result " + result);
             return result;
         }catch (Exception error){
-            log.debug(error.getMessage());
+            System.out.println(error.getMessage());
             return "ERROR";
         }
     }
