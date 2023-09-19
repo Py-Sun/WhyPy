@@ -31,10 +31,12 @@
 <div class="main">
   <div class="up">
     <div class="left">
-      <div class="text">답안</div>
-        <div th:if="${member != null}">
+      <div class="le">
+          <div class="text">답안</div>
+          <div th:if="${member != null}">
             <input type="checkbox" id="solveCheckbox" th:checked="${qsolve}"/>
-        </div>
+          </div>
+      </div>
       <div class="explanation">
         <textarea class="code-editor" name="useranswer" th:text="${useranswer}">  </textarea>
       </div>

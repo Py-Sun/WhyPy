@@ -6,7 +6,7 @@
     padding: 0px;
     margin: 0px;
     background-color: #E6E6E6;
-        font-family: 'NanumSquareRound';
+    font-family: 'NanumSquareRound';
 }
 
 a {
@@ -52,14 +52,19 @@ a {
     flex: 5;
 }
 
+.le {
+    display: flex;
+    align-items: center;
+}
+
 .text {
     font-size: 23px;
+    margin-right: 5px;
 }
 
 .explanation {
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 300px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
 }
@@ -76,7 +81,6 @@ a {
 .box {
     margin-top: 20px;
     padding: 10px;
-    padding-bottom: 300px;
     border: 1px solid #c2c2c2;
     background-color: #c2c2c2;
     text-align: start;
@@ -95,21 +99,12 @@ a {
     font-size: 23px;
 }
 
-.example {
-    margin-top: 10px;
-    padding: 70px;
-    border: 1px solid #c2c2c2;
-    background-color: #c2c2c2;
-    width: 620px;
-}
-
 /* 문제 버튼 스타일 */
 
 .write-button {
     padding: 10px;
     margin-left: auto;
     margin-right: 30px;
-    margin-top: 200px;
 }
 
 .write-button a {

@@ -43,7 +43,7 @@
           <textarea id = "code" name = "code" oninput="updateCodeMirror(this.value)" th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
           </textarea>
           <br>
-          <input type="submit" value="Run Python Code">
+          <input type="submit" class="run" value="Run Python Code">
         </form>
 
         <div id="output">
