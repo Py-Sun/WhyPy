@@ -254,7 +254,7 @@ td {
 .apply button{
     border: 1px solid #ccc;
     margin-top: 10px;
-    align-items: ;
+    align-items: center;
     display: block;
     width: 50%;
 }
