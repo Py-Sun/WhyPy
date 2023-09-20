@@ -132,6 +132,6 @@ public class HomeController {
         List<LectureDto> randomNotWatchLectures = lectureDtos.stream()
                 .limit(5)
                 .collect(Collectors.toList());
-        model.addAttribute("notwatchLectures", notwatchLectures);
+        model.addAttribute("notwatchLectures", randomNotWatchLectures);
     }
 }
