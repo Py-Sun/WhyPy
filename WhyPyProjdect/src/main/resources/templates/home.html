@@ -14,38 +14,44 @@
 <input type=hidden id="memberId" th:value="${unsolvedQuestions}">
     <div class="up">
         <div>
-            <div class="logo">logo</div>
-            <div class="tagline">Why? py!</div>
-            <div class="right-area">
-                <button class="plus-one">+1</button>
-                <button class="my">my</button>
-                <input type="checkbox" id="menuicon">
-                <label for="menuicon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-                <div class="sidebar">
-                    <div class="sidebox">
-                        <div class="title">Menu</div>
-                        <div class="hr1">
-                            <hr>
+            <div class="menu">
+                <div class="le">
+                    <div class="logo">
+                    <img class="logoimg" src="/icon/logo2.png">
+                    </div>
+                    <a href="/" class="tagline">Why? py!</a>
+                </div>
+                <div class="right-area">
+                    <button class="plus-one">+1</button>
+                    <button class="my">my</button>
+                    <input type="checkbox" id="menuicon">
+                    <label for="menuicon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div class="sidebar">
+                        <div class="sidebox">
+                            <div class="title">Menu</div>
+                            <div class="hr1">
+                                <hr>
+                            </div>
+                            <div class="video"><a href="/lectures">동영상 강의</a></div>
+                            <div class="post"><a href="/postList">게시글</a></div>
+                            <div class="problem"><a href="/questions">문제풀기</a></div>
+                            <!--<div class="solv">문제풀기</div>-->
+                            <div class="hr2">
+                                <hr>
+                            </div>
+                            <div class="writing"><a href = "/sendLetter"> 쪽지쓰기 </a></div>
+                            <div class="send"><a href = "/sentLetters"> 보낸 쪽지함 </a></div>
+                            <div class="receive"><a href = "/receivedLetters"> 받은 쪽지함 </a></div>
+                            <div class="hr2">
+                                <hr>
+                            </div>
+                            <div class="login" th:unless="${loginName != null}"><a href="/member/login">로그인</a></div>
+                            <div class="logout" th:if="${loginName != null}"> <a href="/member/logout">로그아웃</a></div>
                         </div>
-                        <div class="video"><a href="/lectures">동영상 강의</a></div>
-                        <div class="post"><a href="/postList">게시글</a></div>
-                        <div class="problem"><a href="/questions">문제풀기</a></div>
-                        <!--<div class="solv">문제풀기</div>-->
-                        <div class="hr2">
-                            <hr>
-                        </div>
-                        <div class="writing"><a href = "/sendLetter"> 쪽지쓰기 </a></div>
-                        <div class="send"><a href = "/sentLetters"> 보낸 쪽지함 </a></div>
-                        <div class="receive"><a href = "/receivedLetters"> 받은 쪽지함 </a></div>
-                        <div class="hr2">
-                            <hr>
-                        </div>
-                        <div class="login" th:unless="${loginName != null}"><a href="/member/login">로그인</a></div>
-                        <div class="logout" th:if="${loginName != null}"> <a href="/member/logout">로그아웃</a></div>
                     </div>
                 </div>
             </div>
