@@ -15,16 +15,50 @@
 <input type=hidden id="postWriter" th:value="${post.writerID}">
 <input type=hidden id="currentUser" th:value="${member.id}">
 <input type=hidden id="recmdData" th:value="${recmd != null ? recmd.recmdId : ''}">
-<div class="header">
-    <div>
-        <a href="/" class="logo">logo</a>
-        <div class="tagline">Why?py!</div>
-        <div class="right-area">
-            <a href="#" class="button my">my</a>
-            <a href="#" class="button list">목록</a>
+    <div class="up">
+        <div>
+            <div class="menu">
+                <div class="le">
+                    <div class="logo">
+                    <img class="logoimg" src="/icon/logo2.png">
+                    </div>
+                    <a href="/" class="tagline">Why? py!</a>
+                </div>
+                <div class="right-area">
+                    <button class="my">my</button>
+                    <input type="checkbox" id="menuicon">
+                    <label for="menuicon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
+                    <div class="sidebar">
+                        <div class="sidebox">
+                            <div class="title">Menu</div>
+                            <div class="hr1">
+                                <hr>
+                            </div>
+                            <div class="video"><a href="/lectures">동영상 강의</a></div>
+                            <div class="post"><a href="/postList">게시글</a></div>
+                            <div class="problem"><a href="/questions">문제풀기</a></div>
+                            <!--<div class="solv">문제풀기</div>-->
+                            <div class="hr2">
+                                <hr>
+                            </div>
+                            <div class="writing"><a href = "/sendLetter"> 쪽지쓰기 </a></div>
+                            <div class="send"><a href = "/sentLetters"> 보낸 쪽지함 </a></div>
+                            <div class="receive"><a href = "/receivedLetters"> 받은 쪽지함 </a></div>
+                            <div class="hr2">
+                                <hr>
+                            </div>
+                            <div class="login" th:unless="${loginName != null}"><a href="/member/login">로그인</a></div>
+                            <div class="logout" th:if="${loginName != null}"> <a href="/member/logout">로그아웃</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 <div class="bigbox">
     <div class="up">
         <button class="posting" type="button"
