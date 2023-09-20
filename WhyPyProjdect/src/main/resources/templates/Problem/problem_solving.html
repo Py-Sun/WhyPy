@@ -30,7 +30,7 @@
   <div class="up">
     <div class="left">
       <div class="text" th:text="${question.title}"></div>
-      <div class="explanation" th:text="${question.contents}"></div>
+      <div class="explanation"  th:utext="${#strings.replace(question.contents, '\n', '<br>')}"></div>
           <div class="under">
       <div class="ex">결과 예시</div>
       <div class="example" th:text="${question.example}"></div>
@@ -43,12 +43,14 @@
           <textarea id = "code" name = "code" oninput="updateCodeMirror(this.value)" th:text="${useranswer != '' ? useranswer : '코드를 입력해주세요.'}">
           </textarea>
           <br>
-          <input type="submit" class="run" value="Run Python Code">
+          <input type="submit" class="run" value="코드 실행">
+
+          <div id="output">
+            <!-- Python 실행 결과 -->
+          </div>
         </form>
 
-        <div id="output">
-          <!-- Python 실행 결과 -->
-        </div>
+
       </div>
     </div>
   </div>

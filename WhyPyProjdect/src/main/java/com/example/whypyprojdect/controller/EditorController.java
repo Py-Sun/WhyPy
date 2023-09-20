@@ -20,12 +20,12 @@ public class EditorController {
     }
 
     @GetMapping("/api")
-    public String action(@RequestParam("code") String data) throws UnsupportedEncodingException {
+    public String action(@RequestParam(value = "code") String data) throws UnsupportedEncodingException {
         log.debug(data);
-        if(editorService.stringToText(URLDecoder.decode(data,"UTF-8"))){
+        if (editorService.stringToText(data)) {
             String ret = editorService.callPython();
             return ret;
-        }else {
+        } else {
             return HttpStatus.FAILED_DEPENDENCY.toString();
         }
     }

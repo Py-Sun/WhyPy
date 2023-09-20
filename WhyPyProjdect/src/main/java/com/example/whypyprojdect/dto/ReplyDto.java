@@ -11,6 +11,7 @@ public class ReplyDto {
     private String updateDate;
     private String comment;
     private long writerId;
+    private String writerName;
     private int parentId;
     private boolean isAnonymous;
 
@@ -27,6 +28,8 @@ public class ReplyDto {
     public void setComment(String comment) {this.comment = comment;}
 
     public void setWriterId(long writerId) {this.writerId = writerId;}
+
+    public void setWriterName(String writerName) {this.writerName = writerName;}
 
     public void setParentId(int parentId) {this.parentId = parentId;}
 
@@ -46,6 +49,7 @@ public class ReplyDto {
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .writerId(writerId)
+                .writerName(writerName)
                 .parentId(parentId)
                 .isAnonymous(isAnonymous)
                 .build();

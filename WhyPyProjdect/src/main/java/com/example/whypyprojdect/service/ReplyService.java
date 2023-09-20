@@ -57,6 +57,7 @@ public class ReplyService {
         if(memberEntity.isPresent()) {
             MemberDto member = MemberDto.toMemberDto(memberEntity.get());
             reply.setWriterId(member.getId());
+            reply.setWriterName((String) writerName);
         }
     }
 
