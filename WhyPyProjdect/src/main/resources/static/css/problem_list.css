@@ -15,6 +15,7 @@ a {
 }
 .sidebar a{
     color: inherit;
+    background: #f5f5f5;
 }
 
 .sidebar a:hover{
@@ -100,6 +101,10 @@ button {
 
 #menuicon:checked+label+div {
     right: 0;
+    background: #f5f5f5;
+}
+.sidebar div{
+    background: #f5f5f5;
 }
 
 #menuicon {
@@ -156,6 +161,7 @@ button {
 .sidebox {
     text-align: left;
     margin: 80px 20px 0px 20px;
+    background: #f5f5f5;
 }
 
 .title {
