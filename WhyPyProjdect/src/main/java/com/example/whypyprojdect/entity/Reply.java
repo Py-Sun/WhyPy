@@ -36,6 +36,9 @@ public class Reply {
     @Column(name = "reply_writer_id")
     private long writerId;
 
+    @Column(name = "reply_writer_name")
+    private String writerName;
+
     @Column(name = "reply_parent_id")
     private int parentId;
 

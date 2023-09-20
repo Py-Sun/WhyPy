@@ -114,11 +114,11 @@
                                 <p class="comment-author">
                             <span th:if="${reply.writerId == post.writerID}">
                                 <span th:if="${post.isAnonymous}">익명 (게시글 작성자)</span>
-                                <span th:unless="${post.isAnonymous}" th:text="${reply.writerId + ' (게시글 작성자)'}"></span>
+                                <span th:unless="${post.isAnonymous}" th:text="${reply.writerName + ' (게시글 작성자)'}"></span>
                             </span>
                                     <span th:unless="${reply.writerId == post.writerID}">
                                 <span th:if="${reply.isAnonymous}">익명</span>
-                                <span th:unless="${reply.isAnonymous}" th:text="${reply.writerId}"></span>
+                                <span th:unless="${reply.isAnonymous}" th:text="${reply.writerName}"></span>
                             </span>
                                 </p>
                                 <p class="comment-date" th:text="${reply.createDate}"></p>
@@ -145,11 +145,11 @@
                                     <p class="rereply-info">
                                 <span th:if="${rereplies.writerId == post.writerID}">
                                     <span th:if="${post.isAnonymous}">익명 (게시글 작성자)</span>
-                                    <span th:unless="${post.isAnonymous}" th:text="${rereplies.writerId + ' (게시글 작성자)'}"></span>
+                                    <span th:unless="${post.isAnonymous}" th:text="${rereplies.writerName + ' (게시글 작성자)'}"></span>
                                 </span>
                                         <span th:unless="${rereplies.writerId == post.writerID}">
                                     <span th:if="${rereplies.isAnonymous}">익명</span>
-                                    <span th:unless="${rereplies.isAnonymous}" th:text="${rereplies.writerId}"></span>
+                                    <span th:unless="${rereplies.isAnonymous}" th:text="${rereplies.writerName}"></span>
                                 </span>
                                     </p>
                                     <p class="rereply-date" th:text="${rereplies.createDate}"></p>
