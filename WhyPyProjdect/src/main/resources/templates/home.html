@@ -100,7 +100,7 @@
                 <a class="source-code-title" th:href="@{/post/{postId}(postId=${topPost[0].postId})}" th:text="${topPost[0].title}"></a>
                 <br>
                 <br>
-                <div class="source-code-text" id="contents" th:text="${topPost[0].contents}"></div>
+                <div class="source-code-text" id="contents" th:text="${'게시판 카테고리 : ' + topPost[0].board}"></div>
             </div>
         </div>
     </div>
