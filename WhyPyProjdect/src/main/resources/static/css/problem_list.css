@@ -13,20 +13,40 @@
 a {
     text-decoration-line: none;
 }
+.sidebar a{
+    color: inherit;
+}
+
+.sidebar a:hover{
+    font-weight: bolder;
+    font-size: large;
+}
+
+.menu{
+    display: flex;
+    justify-content: space-between;
+}
+
+.le{
+    float: left;
+    width: 50%;
+    margin: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
 
 /* 로고 스타일 */
 .logo {
     display: inline-block;
-    background-color: #4a88e5;
-    color: #fff;
-    width: 25px;
-    height: 25px;
-    font-size: 15px;
-    text-align: center;
-    line-height: 25px;
-    border-radius: 50%;
-    padding: 20px;
-    margin: 20px;
+    padding: 10px;
+}
+
+.logoimg{
+    width: 80px;
+    height: 80px;
 }
 
 /* 문구 스타일 */
@@ -34,38 +54,136 @@ a {
     display: inline-block;
     color: #000;
     text-align: center;
-    font-size: 17px;
+    font-size: 25px;
+    float: unset;
 }
 
 /* 버튼 스타일 */
 .button {
-    padding: 10px;
-    margin: 10px;
-    margin-top: 15px;
     border-radius: 5px;
     text-decoration: none;
 }
 
-.button.plus-one {
-    padding: 10px;
-    margin: 10px;
-    text-decoration: none;
+button {
+    cursor: pointer;
+}
+
+.plus-one {
+    border-radius: 5px;
     color: #8f53b2;
     font-size: 30px;
+    border: none;
+    background-color: #E6E6E6;
+    margin-right: 20px;
 }
 
-.button.my {
+.my {
     background-color: #757575;
     color: #fff;
+    border: 1px solid #757575;
     border-radius: 15px;
+    padding: 10px;
+    font-size: 18px;
+    margin-right: 20px;
 }
 
-.button.list {
-    padding: 10px;
-    margin: 10px;
-    background-color: #757575;
-    color: #fff;
+.sidebar {
+    width: 300px;
+    height: 100%;
+    background: #f5f5f5;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    z-index: 1;
+    transition: all .35s;
 }
+
+#menuicon:checked+label+div {
+    right: 0;
+}
+
+#menuicon {
+    display: none;
+}
+
+#menuicon+label {
+    display: inline-block;
+    width: 38px;
+    height: 28px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#menuicon+label span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    border-radius: 30px;
+    background: #757575;
+    transition: all .53s;
+    z-index: 2;
+}
+
+#menuicon+label span:nth-child(1) {
+    top: 0;
+}
+
+#menuicon+label span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#menuicon+label span:nth-child(3) {
+    bottom: 0;
+}
+
+#menuicon:checked+label span:nth-child(1) {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+#menuicon:checked+label span:nth-child(2) {
+    opacity: 0;
+}
+
+#menuicon:checked+label span:nth-child(3) {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+}
+
+.sidebox {
+    text-align: left;
+    margin: 80px 20px 0px 20px;
+}
+
+.title {
+    font-size: x-large;
+    font-weight: bolder;
+}
+
+.hr1 hr {
+    height: 3px;
+    background-color: #757575;
+    border: none;
+}
+
+.video {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.post,
+.problem,
+.solv,
+.writing,
+.send,
+.receive,
+.login {
+    margin-bottom: 10px;
+}
+
 
 .left-area {
     position: relative;
@@ -79,9 +197,12 @@ a {
 .right-area {
     float: right;
     width: 50%;
-    padding: 20px;
+    margin: 10px;
     box-sizing: border-box;
     text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: right;
 }
 
 .problem {
@@ -102,6 +223,11 @@ table {
     width: 100%;
     height: 50%;
     border: none;
+}
+
+.id-text{
+    background-color: #ebebeb;
+    padding-left: 9px;
 }
 
 th,
@@ -148,7 +274,7 @@ td {
     flex-direction: column;
     flex: 3;
     margin-right: 5%;
-    margin-top: 50px;
+    margin-top: 70px;
     margin-left: 6%
 }
 

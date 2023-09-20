@@ -17,31 +17,29 @@ a {
 /* 로고 스타일 */
 .logo {
     display: inline-block;
-    background-color: #4a88e5;
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
-    text-align: center;
-    line-height: 60px;
-    border-radius: 50%;
     padding: 10px;
-    margin: 15px;
+}
+
+.logoimg{
+    width: 80px;
+    height: 80px;
 }
 
 /* 문구 스타일 */
 .practice {
-    display: inline-block;
+    display: flex;
     color: #909090;
     text-align: center;
     font-size: 23px;
+    align-items: center;
 }
 
 .title {
-    display: inline-block;
+    display: flex;
     color: #000;
     text-align: center;
     font-size: 23px;
+    align-items: center;
 }
 
 .up {

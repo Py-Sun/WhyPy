@@ -20,8 +20,10 @@
 <input type=hidden id="questionId" th:value="${question.id}">
 <body>
 <div class="header">
-  <div>
-    <a href="/" class="logo">logo</a>
+  <div class="up">
+    <div class="logo">
+    <img class="logoimg" src="/static/icon/logo2.png">
+    </div>
     <a href="/questions" class="practice">연습문제 ></a>
     <div class="title" th:text="${question.title}"> 문제 제목</div>
   </div>
