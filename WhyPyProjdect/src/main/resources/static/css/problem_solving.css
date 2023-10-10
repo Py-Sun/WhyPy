@@ -127,24 +127,24 @@ margin-top: 20px;
 .write-button {
     padding: 10px;
     margin-left: auto;
-    margin-right: 30px;
+    margin-right: 50px;
 }
 
 .write-button a {
-    background-color: #c2c2c2;
-    border: 1px solid #000000;
     color: #000000;
     padding: 10px 20px;
     text-decoration: none;
     font-size: 13px;
     margin-left: 20px;
 }
-.write-button button {
-    background-color: #c2c2c2;
-    border: 1px solid #000000;
-    color: #000000;
-    padding: 10px 20px;
-    text-decoration: none;
-    font-size: 13px;
-    margin-left: 20px;
+.write-button button,
+.write-button a{
+    margin: 10px 0px 10px 15px;
+    border: 1px solid #4a88e5;
+    color: #4a88e5;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px #447ed5;
+    transition-duration: 0.2s;
 }

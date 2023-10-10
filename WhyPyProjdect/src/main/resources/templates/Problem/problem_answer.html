@@ -26,7 +26,7 @@
     <div class="logo">
     <img class="logoimg" src="/icon/logo2.png">
     </div>
-    <a href="/questions" class="practice">연습문제 ></a>
+    <a href="/questions" class="practice">연습문제 >&nbsp;</a>
     <div class="title" th:text="${question.title}"> 문제 제목</div>
   </div>
 </div>
@@ -37,6 +37,7 @@
           <div class="text">답안</div>
           <div th:if="${member != null}">
             <input type="checkbox" id="solveCheckbox" th:checked="${qsolve}"/>
+              <label for="solveCheckbox"></label>
           </div>
       </div>
       <div class="explanation">
@@ -97,5 +98,4 @@
 
 </script>
 </body>
-
 </html>
