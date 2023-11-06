@@ -59,10 +59,23 @@
     </div>
 
     <form action="/search" method="GET">
-    <div class="search-container">
-        <input type="text" id="search-input" name = "keyword" placeholder="검색어를 입력해주세요">
-        <button type="submit" id="search-button">?</button>
-    </div>
+<!--    <div class="search-container">-->
+<!--        <input type="text" id="search-input" name = "keyword" placeholder="검색어를 입력해주세요">-->
+<!--        <button type="submit" id="search-button">?</button>-->
+<!--    </div>-->
+        <div  class="form-style">
+            <div class="search-container">
+              <input
+                onChange={onChange}
+                name = "keyword"
+                class="search-input"
+                type="text"
+                placeholder="검색어를 입력해주세요."/>
+                <button type="submit" id="search-button">
+                    <img class="search-img" src="/icon/search.svg" alt="돋보기"/>
+                </button>
+            </div>
+        </div>
     </form>
 
     <div class="main">
