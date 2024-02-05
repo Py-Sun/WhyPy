@@ -27,30 +27,52 @@
 </a><br>
 위 이미지를 클릭하면 프로젝트 시연 영상으로 이동합니다.
 
-### ScreenShots
-<details>
-    <summary> Why?Py! 화면 보기 </summary>
-    <br>[학습 동영상 페이지]<br>
+<br>
+<details> 
+<summary>
+    
+### Why?Py! 화면 보기
+</summary>
+
+* `학습 동영상 페이지`
+
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/e63b549b-68f9-4b3f-acc2-95ec5a26d8d7"/><br>
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/f3de53f5-43a2-46c3-b0f3-b8a8b3ac6e34"/><br>
-    <br>[소스코드 게시판 페이지]<br>
+    
+* `소스코드 게시판 페이지`
+  
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/8e8ac58d-4bc4-48a0-97d5-a3b69f80aa03" width="684"/><br>
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/2d30e6ec-e404-4d0c-b8ed-b8a590425dbe"/><br>
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/d357b72e-7122-4cd6-9a33-8d52747d19fd"/><br>
-    <br>[문제 풀기 페이지]<br>
+    
+* `문제 풀기 페이지`
+  
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/931293bf-0de1-4486-a863-77b41f910eaa"/><br>
     <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/3624cfec-23e6-44ff-94cc-e3046c48b604"/><br>
 </details>
 
 ## 🛠 핵심 기능
-### 파이썬 학습 동영상
-- 
+### 학습 동영상
+- **파이썬 동영상 제공**<br>
+  유튜브 동영상을 활용하여 기초 파이썬 영상을 게시판 형식으로 제공
+- **파이썬 학습 동영상 자동 추천**<br>
+  사용자가 기존에 학습했던 동영상 기록을 바탕으로 다음에 학습하면 좋은 동영상을 추천하여 제공
 
 ### 소스코드 게시판
-- 
+- **소스 코드 등록 / 공유**<br>
+  업종/업무 영역별로 파이썬 업무 자동화 소스 코드를 업로드 및 공유하는 기능<br>
+  공개 범위(전체 공개, 친구 공개, 나만 보기)를 설정 가능
+- **소스 코드 추천**<br>
+  다른 사용자의 코드를 추천할 수 있는 기능<br>
+  추천이 많은 게시물은 상단에 고정(매일 갱신)
+- **게시글 자동 추천**<br>
+  사용자가 선택한 게시글과 관련된 게시글을 자동으로 추천하여 제공
 
-### 랜덤 문제 풀기
-- 
+### 문제 풀기
+- **랜덤 문제 풀기**<br>
+  학습한 내용을 바탕으로 랜덤 문제 풀이 가능
+- **문제 채점**<br>
+  사용자가 작성한 코드를 사이트 내에서 실행 가능
 
 ## 💡 서비스 구성도
 <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/e0efa44b-f0b0-495f-8a29-5e82c1ab12c0" height="400"/>
