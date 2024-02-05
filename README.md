@@ -73,7 +73,7 @@
   학습한 내용을 바탕으로 랜덤 문제 풀이 가능
 - **문제 채점**<br>
   사용자가 작성한 코드를 사이트 내에서 실행 가능
-
+<br><br>
 ## 💡 서비스 구성도
 <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/e0efa44b-f0b0-495f-8a29-5e82c1ab12c0" height="400"/>
 
