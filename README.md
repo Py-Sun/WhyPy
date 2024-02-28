@@ -21,17 +21,14 @@
     - 댓글 기능을 통해 조언이나 가이드 가능
     - 쪽지, 친구 기능을 통해 사용자 간의 소통 가능
 
-### 시연 영상
-<a href="https://www.youtube.com/watch?v=dlUr9hN-1a8">
- <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/4621f646-a0c5-4fdd-93ff-6c12e5115df3" height="300"/>
-</a><br>
-위 이미지를 클릭하면 프로젝트 시연 영상으로 이동합니다.
-
-<br>
+### ➕ 시연 영상 및 프로젝트 화면
+<a href="https://www.youtube.com/watch?v=dlUr9hN-1a8"> <img src="https://github.com/Py-Sun/WhyPy_BackEnd/assets/86918962/4621f646-a0c5-4fdd-93ff-6c12e5115df3" height="300"/> </a> <br>
+🔺 위 이미지를 클릭하면 프로젝트 시연 영상으로 이동합니다.
+<br><br>
 <details> 
-<summary>
+<summary> 하단을 클릭하면 프로젝트 화면 캡쳐 이미지를 확인할 수 있습니다.
     
-### Why?Py! 화면 보기
+　**Why?Py! 화면 보기**
 </summary>
 
 * `학습 동영상 페이지`
